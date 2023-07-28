@@ -1,4 +1,4 @@
 function Second() {
-  return <div>im Second</div>;
+  return <div>Im Second</div>;
 }
 export default Second;
