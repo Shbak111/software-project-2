@@ -1,5 +1,5 @@
-function Second() {
+function Restaurant_recommendation() {
     return <div>Restaurant_recommendation</div>;
   }
-  export default Second;
+  export default Restaurant_recommendation;
   
