@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./routes/Home";
-import Second from "./routes/Second";
+import Detail from "./routes/Detail";
+import Show from "./routes/Show";
 import Map from "./routes/Map";
 import Restaurant_recommendation from "./routes/Restaurant_recommendation";
 
@@ -14,8 +15,11 @@ function App() {
         <Route path="/map">
           <Map />
         </Route>
-        <Route path="/2">
-          <Second />
+        <Route path="/Detail">
+          <Detail />
+        </Route>
+        <Route path="/Show">
+          <Show />
         </Route>
         <Route path="/">
           <Home />
