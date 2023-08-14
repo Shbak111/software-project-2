@@ -4,11 +4,14 @@ import Detail from "./routes/Detail";
 import Show from "./routes/Show";
 import Map from "./routes/Map";
 import Restaurant_recommendation from "./routes/Restaurant_recommendation";
-
+import DataTest from "./routes/DataTest";
 function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/data">
+          <DataTest />
+        </Route>
         <Route path="/restaurant_recommendation">
           <Restaurant_recommendation />
         </Route>
