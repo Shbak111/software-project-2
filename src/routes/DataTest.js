@@ -20,6 +20,10 @@ function DataTest() {
       data = JSON.parse(data);
       setResponseData(data.elements[0].elements[1]);
       console.log(responseData);
+      // 데이터에서 title 데이터만 추출한 예시임.
+      // console.log(
+      //   data.elements[0].elements[1].elements[3].elements[1].elements[0].text
+      // );
     });
   }
   useEffect(() => {
