@@ -16,7 +16,7 @@ export default function Header (){
                             </Link>
                         </li>
                         <li>
-                            <Link className="header-banner" to="/DataTest">
+                            <Link className="header-banner" to="/Data">
                                 <p>DataTest이동</p>
                             </Link>
                         </li>
