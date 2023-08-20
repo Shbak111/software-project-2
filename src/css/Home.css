@@ -1,0 +1,23 @@
+.banner {
+    text-align: center;
+    margin-right: 20px;
+  }
+  .empty-box {
+    width: 1000px; /* 원하는 너비로 조정하세요 */
+    height: 600px; /* 원하는 높이로 조정하세요 */
+    background-color: lightgray; /* 박스 색상 설정 */
+    margin: 20px auto; /* 여백과 중앙 정렬 설정 */
+    flex:1;
+  }
+  .side-box {
+    width: 300px; /* 박스의 너비 */
+    height: 200px; /* 박스의 높이 */
+    background-color: lightgray; 
+    margin-left: 20px;
+    margin-right: 100px; 
+    margin-top: 100px;
+    
+  }
+  .container{
+    overflow-y:scroll;
+  }
