@@ -1,0 +1,40 @@
+.inputContainer{
+    justify-content: center;
+    align-items: center;
+}
+.inputField { 
+    background-color: transparent;
+    height: 40px;
+    width: 400px;
+    border: 2px solid rgba(0, 0, 0, 0.23);
+    border-radius: 30px;
+    padding-left: 10px;
+}
+.inputField:focus-visible  {
+    outline: none!important;
+    border: 2px solid #1976d2;
+}
+.swiper-area{
+    justify-content: center;
+    display: flex;
+    padding: 5px;
+}
+.btn  {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #999, #777);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 3px 6px black;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+.btn:hover{
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #666;
+}
+
+  

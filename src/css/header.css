@@ -1,0 +1,20 @@
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000; 
+}
+.banner-text{
+    animation: slide-right 10s linear infinite; /* Animation name, duration, timing function, and infinite loop */
+}   
+h2{
+    color: aliceblue;
+}
+@keyframes slide-right {
+    0% {
+        transform: translateX(-100%); /* Start from the left side of the screen */
+    }
+    100% {
+        transform: translateX(100%); /* Move to the right side of the screen */
+    }
+}
