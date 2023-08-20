@@ -12,10 +12,11 @@ const Home = () => {
    
 
   const images = [
-    './image/image1.jpg',
-    './image/image2.jpg',
-    './image/image3.jpg',
-    
+    'https://via.placeholder.com/1000x600',
+    'https://via.placeholder.com/1000x600',
+    'https://via.placeholder.com/1000x600',
+    'https://via.placeholder.com/1000x600',
+    'https://via.placeholder.com/1000x600',
   ];
 
   const settings = {
