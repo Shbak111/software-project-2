@@ -12,6 +12,7 @@ function Map() {
   const onClick = () => {
     setKeyword(val);
   };
+
   return (
     <div className={styles.container}>
       <ScrollDetail />
