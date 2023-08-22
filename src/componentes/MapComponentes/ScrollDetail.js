@@ -13,7 +13,7 @@ function ScrollDetail() {
       newitems.push(i);
     }
 
-    if (items.length >= 30) {
+    if (items.length >= 20) {
       sethasMore(false);
     }
     setItems([...items, ...newitems]);
