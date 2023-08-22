@@ -5,7 +5,7 @@ import Detail from "./routes/Detail";
 import Show from "./routes/Show";
 import Map from "./routes/Map";
 import RestaurantRecommendation from "./routes/Restaurant_recommendation";
-import Header from "./componentes/Header";
+import HHeader from "./componentes/HHeader";
 import './css/HHeader.css';
 import DataTest from "./routes/DataTest";
 
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="root-wrap">
       <Router>
-        <Header />
+        <HHeader />
         <Switch>
           <Route exact path="/">
             <Home />
