@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "buffer": "^6.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "prop-type": "^0.0.1",
     "react": "^18.2.0",
@@ -19,6 +21,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.4",
     "react-slick": "^0.29.0",
+    "request": "^2.88.2",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4",
     "xml-js": "^1.6.11"
