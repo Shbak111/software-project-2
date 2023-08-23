@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## 서버 테스트 하는법
+1. npm run build
+2. nodemon server/server.js
+3. 웹이 자동으로 안열리니까 새창 열고 localhost:5000 으로 접속.
+(저 같은 경우는 기존 npm start 했을 때 포트가 3000번 이었어서 5000으로 임의로 해뒀습니다 안되시면 sever.js에서 포트 바꾸시면 되요)
+4. 확인
+
 ## Available Scripts
 
 In the project directory, you can run:
