@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import "../TourComponent/SearchBar.css"
 
-const SearchBar = ({ data, onSearch  }) => {
+const SearchBar = ({ data  }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [zoneTitle, setZoneTitle] = useState('관광지 추천코스'); // Default title
 
   const handleSearch = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
-    onSearch(value);
   };
 
   return (

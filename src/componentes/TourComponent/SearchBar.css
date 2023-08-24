@@ -1,16 +1,17 @@
 .inputContainer{
-    margin-left: 10px;
-    margin-right: 10px;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 1em;
 }
 .inputField { 
-    background-color: transparent;
-    height: 40px;
-    width: 400px;
+    background-color: white;
+    height: 3rem;
+    width: 15rem;
     border: 2px solid white;
     border-radius: 30px;
-    padding-left: 10px;
+    font-size: 1rem;
+    color: #07003B;
+    padding-left: 1em;
 }
 .inputField:focus-visible  {
     outline: none!important;
