@@ -8,7 +8,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. 웹이 자동으로 안열리니까 새창 열고 localhost:5000 으로 접속.
 (저 같은 경우는 기존 npm start 했을 때 포트가 3000번 이었어서 5000으로 임의로 해뒀습니다 안되시면 sever.js에서 포트 바꾸시면 되요)
 4. 확인
-
+## 서버 실행 후 수정사항이 생기면 npm run build 다시하기
+nodemon으로 실행 후에 리액트 js파일을 수정하면, 파일들을 수정해도 npm start로 실행했을 때 처럼 바로 반영이 안됩니다.
+리액트 파일 수정시에는 번거롭지만 npm run build를 다시 해줘야 수정사항이 반영됩니다. 반면에 server.js 파일의 수정사항은 바로 반영됩니다.
+그래서 지금 서버로 실행시켜서 테스트할 땐 번거로운 절차가 많아서 좀 방법을 찾는 중입니다.
 ## Available Scripts
 
 In the project directory, you can run:
