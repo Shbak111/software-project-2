@@ -35,7 +35,7 @@ request(
 
     dataStorage = converter.xml2json(body, { compact: false, spaces: 4 });
 
-    console.log(dataStorage);
+    //console.log(dataStorage);
   }
 );
 

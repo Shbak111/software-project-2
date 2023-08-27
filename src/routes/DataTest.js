@@ -19,7 +19,11 @@ function DataTest() {
     fetchTitleData();
   }, []);
   useEffect(() => {
-    console.log(JSON.stringify(responseData));
+    //console.log(JSON.stringify(responseData));
+    var data = responseData;
+    if (data != null) {
+      console.log(data.elements[0].elements[1]);
+    }
   }, [responseData]);
 
   return (
