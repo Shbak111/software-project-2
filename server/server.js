@@ -22,6 +22,10 @@ var queryParams =
   "?" +
   encodeURIComponent("serviceKey") +
   "=ciUYkNV0jGj1CGMl%2BVgNPpY%2FajlvgVaU9KMrduD800M7%2FCm461cqCDSchDZ36p4La52yMteTMyvmetcDTK8fAg%3D%3D"; /* Service Key*/
+queryParams +=
+  "&" + encodeURIComponent("from") + "=" + encodeURIComponent("20230101"); /* */
+queryParams +=
+  "&" + encodeURIComponent("to") + "=" + encodeURIComponent("20231230"); /* */
 
 request(
   {

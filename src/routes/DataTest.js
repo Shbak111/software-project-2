@@ -4,8 +4,8 @@ import axios from "axios";
 function DataTest() {
   const [responseData, setResponseData] = useState(null);
 
-  function fetchTitleData() {
-    axios({
+  async function fetchTitleData() {
+    await axios({
       url: "/api/data",
       method: "GET",
       withCredentials: true,
@@ -20,9 +20,13 @@ function DataTest() {
   }, []);
   useEffect(() => {
     //console.log(JSON.stringify(responseData));
-    var data = responseData;
+    var data = [];
+    data = responseData;
     if (data != null) {
+      const detaildata =
+        data.elements[0].elements[1].elements[{ name: "perforList" }];
       console.log(data.elements[0].elements[1]);
+      console.log(detaildata);
     }
   }, [responseData]);
 
