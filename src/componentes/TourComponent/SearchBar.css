@@ -1,0 +1,19 @@
+.inputContainer{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 1em;
+}
+.inputField { 
+    background-color: white;
+    height: 3rem;
+    width: 15rem;
+    border: 2px solid white;
+    border-radius: 30px;
+    font-size: 1rem;
+    color: #07003B;
+    padding-left: 1em;
+}
+.inputField:focus-visible  {
+    outline: none!important;
+    border: 2px solid whitesmoke;
+}
