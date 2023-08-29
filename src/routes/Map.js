@@ -3,6 +3,7 @@ import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import FetchMyData from "../componentes/FetchMyData";
 import styles from "../css/Map.module.css";
+import FetchLocalData from "../componentes/FetchLocalData";
 
 function Map() {
   const [val, setVal] = useState("");
@@ -23,17 +24,19 @@ function Map() {
   useEffect(() => {
     async function fetchData() {
       let fetchedData = await FetchMyData();
+      //let fetchedLocalData = await FetchLocalData({ local: "대구" });
       console.log("fetchedData: ", fetchedData);
+      //console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedData);
-      console.log("Data fetch success!");
     }
 
     fetchData();
   }, []);
 
   useEffect(() => {
-    console.log("Map.js data: ", data);
-    console.log(data != null);
+    if (data != null) {
+      console.log("Data fetch success!");
+    }
   }, [data]);
 
   return (

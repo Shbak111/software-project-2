@@ -1,13 +1,15 @@
 import axios from "axios";
 
-/** server.js 에서 받은 데이터를 클라이언트사이드에서 불러오는 함수임. 이거 쓰면 데이터 서버로부터 받아와짐
- * + 이거는 Date 기준으로 받아온 데이터임 startDate, endDate 기준 현재는 startDate 이거는 server.js 수정으로 원하는 데이터
+/** server.js 에서 받은 데이터를 클라이언트사이드에서 불러오는 함수임.
+ * + 이거 쓰면 서버로 부터 지역을 기준으로 데이터를 받아올 수 있음.
+ * 현재는 sido 기준임. 이거는 server.js 수정으로 원하는 데이터
  * 받아오는걸로 변경가능 queryParams에 추가하면 됨.
  */
-async function FetchMyData() {
+async function FetchLocalData({ local }) {
+  console.log(local);
   try {
     const response = await axios({
-      url: "/api/fromdata",
+      url: `/api/localdata/${local}`,
       method: "GET",
       withCredentials: true,
     });
@@ -24,7 +26,7 @@ async function FetchMyData() {
       }
     });
     finaldata.map((item, index) => {
-      //console.log(item);
+      console.log(item);
     });
 
     return finaldata;
@@ -34,4 +36,4 @@ async function FetchMyData() {
   }
 }
 
-export default FetchMyData;
+export default FetchLocalData;
