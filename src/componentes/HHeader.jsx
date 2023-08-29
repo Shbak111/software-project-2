@@ -79,8 +79,9 @@ export default function Header (){
                             <img src={tour} className="header-icon" alt="Tour" />
                         </Link>
                     </div>
+                    <SearchBar  />
                 </div>
-                <SearchBar  />
+                
             </div>
     )
 }

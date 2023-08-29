@@ -1,23 +1,107 @@
 .banner {
-    text-align: center;
-    margin-right: 20px;
-  }
-  .empty-box {
-    width: 1000px; /* 원하는 너비로 조정하세요 */
-    height: 600px; /* 원하는 높이로 조정하세요 */
-    background-color: lightgray; /* 박스 색상 설정 */
-    margin: 20px auto; /* 여백과 중앙 정렬 설정 */
-    flex:1;
-  }
-  .side-box {
-    width: 300px; /* 박스의 너비 */
-    height: 200px; /* 박스의 높이 */
-    background-color: lightgray; 
-    margin-left: 20px;
-    margin-right: 100px; 
-    margin-top: 100px;
-    
-  }
-  .container{
-    overflow-y:scroll;
-  }
+  text-align: center;
+  margin-right: 20px;
+}
+.slide-box {
+  width: 100%;
+  max-width: 2300px; 
+  height: auto;
+  background-color: lightgray; 
+  
+}
+.image{
+  
+  width: 2300px;
+  height: auto;
+}
+/* 이 스타일들을 기존의 CSS에 추가해주세요 */
+.side-box {
+  width: 300px;
+  height: auto;
+  margin-left: 40px;
+  margin-right: 100px;
+  margin-top: 100px;
+  position: sticky;
+  top: 100px;
+  background-color: #07003B;
+  border-radius: 10px; 
+  padding: 20px; 
+  
+}
+
+.side-box p {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px; /* 텍스트 아래 여백을 추가합니다 */
+}
+
+/* 선택 드롭다운 */
+.side-box .select-container {
+  margin-bottom: 10px;
+  display: flex;
+  
+}
+
+/* 검색 버튼*/
+.side-box button {
+  background-color: #29214E;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.side-box button:hover {
+  background-color: #1A1032;
+}
+
+
+.top-left {
+  width: 14%; /* Adjust the width as needed */
+  padding: 20px;
+  float:left;
+  box-sizing: border-box;
+  height: 200vh;
+  /* background-color: yellow; */
+}
+
+.top-right {
+  display: flex;
+  align-items: flex-start;
+  width: 83%; 
+  padding: 20px;
+  float:right;
+  /* box-sizing: border-box; */
+  /* background-color: red; */
+  margin-bottom: 50px;
+}
+
+.bottom-left{
+  width: 12%; 
+  padding: 20px;
+  float:left;
+  box-sizing: border-box;
+  /* background-color: gray; */
+  height: 100vh;
+}
+.bottom-right{
+  width: 83%; 
+  padding: 20px;
+  box-sizing: border-box;
+  /* background-color:green; */
+  float:left;
+  text-align:start;
+  font-weight:bold;
+  font-size: 25px;
+}
+
+
+.centered-line{
+  width:60%;
+  margin:0 auto;
+  border: 1px solid #ccc;
+}
