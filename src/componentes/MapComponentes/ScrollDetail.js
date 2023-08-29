@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 function ScrollDetail() {
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);
-  const [show, setShow] = useState(true);
+  const [data, setData] = useState(null);
 
   const fetchData = () => {
     const newitems = [];
@@ -13,18 +13,17 @@ function ScrollDetail() {
       newitems.push(i);
     }
 
-    if (items.length >= 20) {
+    const updatedItems = [...items, ...newitems];
+    if (updatedItems.length >= 20) {
       sethasMore(false);
     }
-    setItems([...items, ...newitems]);
+    setItems(updatedItems);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  const onClick = () => {
-    setShow(false);
-  };
   return (
     <div
       id="scrollableDiv"

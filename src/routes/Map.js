@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
+import FetchMyData from "../componentes/FetchMyData";
 import styles from "../css/Map.module.css";
 
 function Map() {
   const [val, setVal] = useState("");
   const [keyword, setKeyword] = useState("");
   const [btnState, setBtnState] = useState(true);
+  const [data, setData] = useState(null);
+
   const onChange = (event) => {
     setVal(event.target.value);
   };
@@ -16,6 +19,19 @@ function Map() {
   const onBtnClick = () => {
     setBtnState(!btnState);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      let fetchedData = await FetchMyData();
+      setData(fetchedData);
+      console.log("Data fetch success!");
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className={styles.container}>
