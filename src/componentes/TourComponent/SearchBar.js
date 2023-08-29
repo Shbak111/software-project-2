@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../TourComponent/SearchBar.css"
+import "./SearchBar.css"
 
 const SearchBar = ({ data  }) => {
   const [searchTerm, setSearchTerm] = useState('');

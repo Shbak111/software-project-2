@@ -28,7 +28,6 @@ function ZoneBox() {
 
   return (
     <div>
-      <h1>!!!!!!!  css 수정하기  !!!!!!!</h1>
       {selectedZone !== null ? (
         // If a zone is selected, show ZoneDetail
         <ZoneDetail zoneIndex={selectedZone} />

@@ -1,0 +1,30 @@
+.image-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 16px;
+    padding: 36px;
+  }
+  
+  .left-column,
+  .right-column {
+    display: flex;
+    flex-direction: column;
+  }
+  .image-item {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .image-item img {
+    width: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+  }
+  
+  .image-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
