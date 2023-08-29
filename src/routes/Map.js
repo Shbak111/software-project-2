@@ -23,20 +23,23 @@ function Map() {
   useEffect(() => {
     async function fetchData() {
       let fetchedData = await FetchMyData();
+      console.log("fetchedData: ", fetchedData);
       setData(fetchedData);
       console.log("Data fetch success!");
     }
+
     fetchData();
   }, []);
 
   useEffect(() => {
-    console.log(data);
+    console.log("Map.js data: ", data);
+    console.log(data != null);
   }, [data]);
 
   return (
     <div className={styles.container}>
       <button onClick={onBtnClick}>{btnState ? "숨기기" : "보이기"}</button>
-      {btnState ? <ScrollDetail /> : null}
+      {btnState && data != null ? <ScrollDetail data={data} /> : null}
 
       <div style={{ flex: 1 }}>
         <input onChange={onChange} value={val} placeholder="검색" />
