@@ -8,11 +8,11 @@ function MapDetail({ data, index }) {
   const [thumbnail, setThumbnail] = useState("");
 
   useEffect(() => {
+    //데이터 받아온거 적용.
+    //썸네일, 타이틀 현재 받아옴.
     setNow(data);
     setTitle(data.elements[1].elements[0].text);
-    console.log(data.elements[1].elements[0].text);
     setThumbnail(data.elements[7].elements[0].text);
-    console.log(data.elements[7].elements[0].text);
   }, [now]);
 
   return (
