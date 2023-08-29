@@ -1,14 +1,43 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 
 function MapDetail({ data, index }) {
+  const [now, setNow] = useState(null);
+  const [title, setTitle] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
+  useEffect(() => {
+    //데이터 받아온거 적용.
+    //썸네일, 타이틀 현재 받아옴.
+    setNow(data);
+    setTitle(data.elements[1].elements[0].text);
+    setThumbnail(data.elements[7].elements[0].text);
+  }, [now]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", padding: 30 }}>
       <Link to="/detail">
-        <img src="https://via.placeholder.com/200" alt="placeholder"></img>
+        {now !== null ? (
+          <img
+            src={thumbnail}
+            alt="placeholder"
+            style={{ width: 200, height: 200 }}
+          ></img>
+        ) : (
+          <img
+            src="https://via.placeholder.com/320x480"
+            alt="placeholder"
+          ></img>
+        )}
       </Link>
 
       <Link to="/detail">
-        <h1 style={{ padding: 10 }}>맵 요소 디테일 표시 {index}</h1>
+        {now !== null ? (
+          <h1 style={{ padding: 10 }}>{title}</h1>
+        ) : (
+          <h1 style={{ padding: 10 }}>세부사항 표시 {index}</h1>
+        )}
       </Link>
     </div>
   );

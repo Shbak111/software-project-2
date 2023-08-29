@@ -4,7 +4,7 @@ import axios from "axios";
 function DataTest() {
   const [responseData, setResponseData] = useState(null);
 
-  async function fetchTitleData() {
+  async function fetchData() {
     await axios({
       url: "/api/data",
       method: "GET",
@@ -15,9 +15,11 @@ function DataTest() {
       console.log(JSON.stringify(responseData));
     });
   }
+
   useEffect(() => {
-    fetchTitleData();
+    fetchData();
   }, []);
+
   useEffect(() => {
     //console.log(JSON.stringify(responseData));
     var data = [];

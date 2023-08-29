@@ -2,29 +2,35 @@ import { useEffect, useState } from "react";
 import MapDetail from "./MapDetail";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-function ScrollDetail() {
+function ScrollDetail({ data }) {
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);
-  const [show, setShow] = useState(true);
+  const [detailData, setData] = useState(null);
 
-  const fetchData = () => {
-    const newitems = [];
-    for (var i = 0; i < 10; i++) {
-      newitems.push(i);
-    }
+  useEffect(() => {
+    setData(data);
+    console.log("detailData : ", detailData);
+  }, [detailData]);
 
-    if (items.length >= 20) {
-      sethasMore(false);
+  function fetchData() {
+    if (detailData != null) {
+      const startIndex = items.length;
+      const endIndex = startIndex + 5;
+      const newItems = detailData.slice(startIndex, endIndex);
+
+      const updatedItems = [...items, ...newItems];
+
+      if (updatedItems.length >= detailData.length) {
+        sethasMore(false);
+      }
+      setItems(updatedItems);
     }
-    setItems([...items, ...newitems]);
-  };
+  }
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [detailData]);
 
-  const onClick = () => {
-    setShow(false);
-  };
   return (
     <div
       id="scrollableDiv"
