@@ -10,13 +10,6 @@ function Restaurant_recommendation() {
     <Layout>
     <div className={styles["tour-container"]}>
       <SearchBar  />
-      <div className={styles["centered-container"]}>
-        {/* <ul className={styles["horizontal-list"]} >
-          {filteredData.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul> */}
-      </div>
       <ZoneBox ></ZoneBox>
     </div>
     </Layout>

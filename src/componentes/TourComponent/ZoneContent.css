@@ -5,13 +5,14 @@
     align-items: center; 
     padding: 30px;
   }
+.clickable-area {
+    cursor: pointer;
+  }
 .zone-content {
     display: flex;
     padding: 30px;
-    /* width: fit-content;
-    border: 2px solid rgba(0, 0, 0, 0.23);
-    border-radius: 30px; */
     align-items: center; 
+    cursor: pointer;
   }
 .img-middle{
     border: 2px solid rgba(0, 0, 0, 0);

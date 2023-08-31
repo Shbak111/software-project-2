@@ -1,3 +1,4 @@
+// ZoneBox.js
 import React, { useState } from "react";
 import ZoneContent from "./ZoneContent";
 import ZoneDetail from "./ZoneDetail";
@@ -36,8 +37,13 @@ function ZoneBox() {
         <div>
           {items.length !== 0 ? (
             items.map((item, index) => (
-              <div key={index} onClick={() => handleZoneClick(index)}>
-                <ZoneContent index={index} data={item} selectedZone={selectedZone} />
+              <div key={index}>
+                <ZoneContent
+                  index={index}
+                  data={item}
+                  selectedZone={selectedZone}
+                  onClick={() => handleZoneClick(index)}
+                />
               </div>
             ))
           ) : (
