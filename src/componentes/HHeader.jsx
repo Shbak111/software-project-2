@@ -15,6 +15,9 @@ export default function Header() {
   const onMapClick = () => {
     setTmp(false);
   };
+  const onOtherClick = () => {
+    setTmp(true);
+  };
 
   return (
     <div className="header-container">
@@ -119,10 +122,20 @@ export default function Header() {
             />
           </Link>
           <Link to="/data">
-            <img src={test} className="header-icon" alt="Test" />
+            <img
+              src={test}
+              className="header-icon"
+              alt="Test"
+              onClick={onOtherClick}
+            />
           </Link>
           <Link to="/Restaurant_recommendation">
-            <img src={tour} className="header-icon" alt="Tour" />
+            <img
+              src={tour}
+              className="header-icon"
+              alt="Tour"
+              onClick={onOtherClick}
+            />
           </Link>
         </div>
         {tmp ? <SearchBar /> : <MapSearch />}
