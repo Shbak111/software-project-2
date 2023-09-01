@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import FetchDetailData from "../FetchDetailData";
 
 function MapDetail({ data, index }) {
   const [now, setNow] = useState(null);
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  //const [seq, setSeq] = useState("");
 
   useEffect(() => {
     //데이터 받아온거 적용.
@@ -13,7 +15,15 @@ function MapDetail({ data, index }) {
     setNow(data);
     setTitle(data.elements[1].elements[0].text);
     setThumbnail(data.elements[7].elements[0].text);
+    fetchData(data.elements[0].elements[0].text);
   }, [now]);
+
+  /** FetchDetailData로 상세설명 데이터 불러오는 곳 */
+  async function fetchData(seq) {
+    let fetchedData = await FetchDetailData({ seq: seq }); // 이용할 때 ({ seq: seq }) 이 형태 꼭 기억하기
+    console.log("seq:", seq);
+    console.log(fetchedData);
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", padding: 30 }}>

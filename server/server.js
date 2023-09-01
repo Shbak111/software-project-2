@@ -7,6 +7,7 @@ const converter = require("xml-js");
 
 let fromDataStorage = null;
 let localDataStorage = null;
+let detailDataStorage = null;
 
 app.listen(5000, function () {
   console.log(`listening on ${PORT}`);
@@ -25,6 +26,12 @@ var dateQueryParams =
 
 /** 지역 기반 데이터 콜 할때 쓰는 queryparams */
 var localQueryParams =
+  "?" +
+  encodeURIComponent("serviceKey") +
+  "=ciUYkNV0jGj1CGMl%2BVgNPpY%2FajlvgVaU9KMrduD800M7%2FCm461cqCDSchDZ36p4La52yMteTMyvmetcDTK8fAg%3D%3D";
+
+/** 전시/공연데이터 상세정보조회용 queryparams */
+var seqQueryParams =
   "?" +
   encodeURIComponent("serviceKey") +
   "=ciUYkNV0jGj1CGMl%2BVgNPpY%2FajlvgVaU9KMrduD800M7%2FCm461cqCDSchDZ36p4La52yMteTMyvmetcDTK8fAg%3D%3D";
@@ -79,6 +86,49 @@ app.get("/api/localdata/:local", function (req, res) {
 
       if (localDataStorage !== null) {
         res.json(JSON.parse(localDataStorage));
+      } else {
+        res.json({ massage: "API call error" });
+      }
+    }
+  );
+});
+
+/** 공연/전시 상세정보 조회 (seq 기반) */
+app.get("/api/detailData/:seq", function (req, res) {
+  let seq = req.params.seq;
+  console.log(seq);
+  var url =
+    "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/d/";
+
+  let seqQuery =
+    "&" +
+    encodeURIComponent("ComMsgHeader") +
+    "=" +
+    encodeURIComponent(""); /* */
+  seqQuery +=
+    "&" +
+    encodeURIComponent("CallBackURI") +
+    "=" +
+    encodeURIComponent(""); /* */
+  // seqQuery +=
+  //   "&" + encodeURIComponent("MsgBody") + "=" + encodeURIComponent(""); /* */
+  seqQuery += "&" + encodeURIComponent("seq") + "=" + encodeURIComponent(seq);
+
+  request(
+    {
+      url: url + seqQueryParams + seqQuery,
+      method: "GET",
+    },
+    function (error, response, body) {
+      detailDataStorage = converter.xml2json(body, {
+        compact: false,
+        spaces: 4,
+      });
+
+      //console.log(localDataStorage);
+
+      if (detailDataStorage !== null) {
+        res.json(JSON.parse(detailDataStorage));
       } else {
         res.json({ massage: "API call error" });
       }

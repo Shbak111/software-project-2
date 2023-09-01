@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FetchLocalData from "../componentes/FetchLocalData";
+import FetchDetailData from "../componentes/FetchDetailData";
 
 function DataTest() {
   const [data, setData] = useState(null);
@@ -25,7 +26,14 @@ function DataTest() {
 
   useState(() => {
     if (data != null) console.log(data);
+    fetchData("245067");
   }, [data]);
+
+  async function fetchData(seq) {
+    let fetchedData = await FetchDetailData({ seq: seq });
+    console.log("seq:", seq);
+    console.log(fetchedData);
+  }
 
   return (
     <div>
