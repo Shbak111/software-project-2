@@ -4,19 +4,18 @@ import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import FetchMyData from "../componentes/FetchMyData";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
+import { useSelector, useDispatch } from "react-redux";
 
 function Map() {
-  const [val, setVal] = useState("");
-  const [keyword, setKeyword] = useState("");
   const [btnState, setBtnState] = useState(true);
   const [data, setData] = useState(null);
 
-  const onChange = (event) => {
-    setVal(event.target.value);
-  };
-  const onClick = () => {
-    setKeyword(val);
-  };
+  const word = useSelector((state) => state.send.value);
+
+  useEffect(() => {
+    console.log("redux word 값: ", word);
+  }, [word]);
+
   const onBtnClick = () => {
     setBtnState(!btnState);
   };
@@ -45,9 +44,7 @@ function Map() {
       {btnState && data != null ? <ScrollDetail data={data} /> : null}
 
       <div style={{ flex: 1 }}>
-        <input onChange={onChange} value={val} placeholder="검색" />
-        <button onClick={onClick}>검색</button>
-        <MapContainer keyword={keyword} />
+        <MapContainer keyword={word} />
       </div>
     </div>
   );

@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import GetGeolocation from "./GetGeolocation";
 import PlaceSearch from "./PlaceSearch";
+import { useSelector, useDispatch } from "react-redux";
 const { kakao } = window;
 
 function MapContainer({ keyword }) {
-  console.log(keyword);
+  console.log("MapContainer keyword", keyword);
 
   useEffect(() => {
-    PlaceSearch("myMap", keyword);
+    if (keyword !== "") {
+      PlaceSearch("myMap", keyword);
+      console.log("PlaceSearch 실행");
+    }
   }, [keyword]);
 
   useEffect(() => {
