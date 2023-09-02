@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## 서버 실행 후 수정사항이 생기면 npm run build 다시하기
 nodemon으로 실행 후에 리액트 js파일을 수정하면, 파일들을 수정해도 npm start로 실행했을 때 처럼 바로 반영이 안됩니다.
 리액트 파일 수정시에는 번거롭지만 npm run build를 다시 해줘야 수정사항이 반영됩니다. 반면에 server.js 파일의 수정사항은 바로 반영됩니다.
-그래서 지금 서버로 실행시켜서 테스트할 땐 번거로운 절차가 많아서 좀 방법을 찾는 중입니다.
+
 ## Available Scripts
 
 In the project directory, you can run:
