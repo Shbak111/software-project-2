@@ -6,29 +6,29 @@
   .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4개의 열로 그리드 설정 */
-    gap: 10px; /* 이미지 사이의 간격을 조절합니다 */
+    gap: 5px; 
   }
   
   .grid-item {
     padding: 10px;
     box-sizing: border-box;
-    position: relative; /* 포지션을 상대적으로 설정하여 이미지 위에 내용 배치 */
-    overflow: hidden; /* 내용이 넘치는 부분을 숨김 */
+    position: relative; 
+    overflow: hidden; 
   }
   
   .grid-item img {
     max-width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s, filter 0.3s; /* 호버 효과를 위한 트랜지션 설정 */
+    transition: transform 0.3s, filter 0.3s; 
   }
   
   .grid-item:hover img {
-    transform: scale(1.05); /* 호버시 이미지 확대 효과 */
-    filter: brightness(70%); /* 호버시 이미지 흐림 효과 */
+    transform: scale(1.05); /* 이미지 확대 효과 */
+    filter: brightness(70%); /* 이미지 흐림 효과 */
   }
   
-  /* 이미지 위에 배치할 내용의 스타일 */
+  
   .grid-item .content {
     position: absolute;
     bottom: 10px;
@@ -39,4 +39,14 @@
     padding: 5px 10px;
     border-radius: 5px;
   }
-  
+  .image_container{
+    width: 300px;
+    height: auto;
+    overflow:hidden;
+  }
+  .image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto; 
+  }
