@@ -7,6 +7,7 @@ function MapDetail({ data, index }) {
   const [now, setNow] = useState(null);
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [place, setPlace] = useState("");
   //const [seq, setSeq] = useState("");
 
   useEffect(() => {
@@ -15,6 +16,7 @@ function MapDetail({ data, index }) {
     setNow(data);
     setTitle(data.elements[1].elements[0].text);
     setThumbnail(data.elements[7].elements[0].text);
+    setPlace(data.elements[4].elements[0].text);
     fetchData(data.elements[0].elements[0].text);
   }, [now]);
 
@@ -33,6 +35,7 @@ function MapDetail({ data, index }) {
           state: {
             title: title,
             image: thumbnail,
+            place: place,
             },
           }}
           >

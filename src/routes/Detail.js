@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 function Detail() {
   const location = useLocation();
 
-  const { title, image, area, place } = location.state || {};
+  const { title, area, image, place } = location.state || {};
 
   const images = [
     { url : image },
