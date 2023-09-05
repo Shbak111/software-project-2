@@ -5,9 +5,7 @@ function ImageGrid({ images }) {
   return (
     <div className="image-grid">
       <div className="left-column">
-        <div className="image-item">
-          <img className="first-image" src={images[0].url} alt={`Image 0`} />
-        </div>
+        <img className="first-image" src={images[0].url} alt={`Image 0`} />
       </div>
       <div className="right-column">
         {images.slice(1, 4).map((image, index) => (

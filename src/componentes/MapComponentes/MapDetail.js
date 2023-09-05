@@ -27,7 +27,15 @@ function MapDetail({ data, index }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", padding: 30 }}>
-      <Link to="/detail">
+      <Link
+        to={{
+          pathname: `/detail/${data}`,
+          state: {
+            title: title,
+            image: thumbnail,
+            },
+          }}
+          >
         {now !== null ? (
           <img
             src={thumbnail}

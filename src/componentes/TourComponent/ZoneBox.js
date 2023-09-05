@@ -1,56 +1,55 @@
-// ZoneBox.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ZoneContent from "./ZoneContent";
-import ZoneDetail from "./ZoneDetail";
+import FetchMyData from "../FetchMyData";
+import {Link} from "react-router-dom/cjs/react-router-dom";
 
 function ZoneBox() {
   const [items, setItems] = useState([]);
-  const [selectedZone, setSelectedZone] = useState(null);
-  const [hasMore, setHasMore] = useState(true);
+  const [data, setData] = useState("");
 
-  const fetchData = () => {
-    const newItems = Array.from({ length: 10 }, (_, index) => index + 1);
-
-    if (items.length >= 10) {
-      setHasMore(false);
+  useEffect(() => {
+    async function fetchData() {
+      const newItems = Array.from({ length: 10 }, (_, index) => index + 1);
+      setItems([...items, ...newItems]);
+      let fetchedData = await FetchMyData();
+      setData(fetchedData);
+      console.log("Data fetch success!");
     }
 
-    setItems([...items, ...newItems]);
-  };
-
-  // Load initial data when the component mounts
-  React.useEffect(() => {
     fetchData();
   }, []);
 
-  const handleZoneClick = (index) => {
-    setSelectedZone(index); // Set selected zone index
-  };
-
   return (
     <div>
-      {selectedZone !== null ? (
-        // If a zone is selected, show ZoneDetail
-        <ZoneDetail zoneIndex={selectedZone} />
-      ) : (
-        // Otherwise, show ZoneContent list
         <div>
           {items.length !== 0 ? (
             items.map((item, index) => (
-              <div key={index}>
+              <div key={index} style={{cursor: "pointer"}}>
+                <Link
+                  to={{
+                    pathname: `/detail/${data[index]?.elements[0]?.elements[0]?.text}`,
+                    state: {
+                      title: data[index]?.elements[1]?.elements[0]?.text,
+                      image: data[index]?.elements[7]?.elements[0]?.text,
+                    },
+                  }}
+                >
                 <ZoneContent
                   index={index}
-                  data={item}
-                  selectedZone={selectedZone}
-                  onClick={() => handleZoneClick(index)}
+                  data={data[index]?.elements[0]?.elements[0]?.text}
+                  zoneTitle={data[index]?.elements[1]?.elements[0]?.text} 
+                  imageURL0={data[index]?.elements[7]?.elements[0]?.text} 
+                  imageURL1={data[index]?.elements[7]?.elements[1]?.text} 
+                  // area={data[index]?.elements[6]?.elements[0]?.text || "Default Area"}
+                  // place={data[index]?.elements[4]?.elements[0]?.text}
                 />
+                </Link>
               </div>
             ))
           ) : (
             <div>no data</div>
           )}
         </div>
-      )}
     </div>
   );
 }
