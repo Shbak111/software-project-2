@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./MapSearch.module.css";
+import styles from "./MapSearch.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { sendword } from "../../reducers/sendKeyword";
 
@@ -16,8 +16,13 @@ function MapSearch() {
   };
 
   return (
-    <div className="inputContainer">
-      <input onChange={onChange} value={val} placeholder="검색" />
+    <div className={styles.searchContainer}>
+      <input
+        onChange={onChange}
+        value={val}
+        placeholder="지도 검색"
+        className={styles.searchField}
+      />
       <button onClick={onClick}>지도 검색</button>
     </div>
   );
