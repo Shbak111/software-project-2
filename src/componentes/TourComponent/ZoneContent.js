@@ -3,7 +3,7 @@ import "../TourComponent/ZoneContent.css"
 
 function ZoneContent({ index, data, zoneTitle, imageURL0, imageURL1}) {
     const contentText = zoneTitle
-    ? `Zone Content for ${zoneTitle}`
+    ? `${zoneTitle}`
     : `Zone Content - Index: ${index}, Data: ${data}`;
     return (
         <div className="zone-container">
