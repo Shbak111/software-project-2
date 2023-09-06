@@ -12,9 +12,9 @@ function Detail() {
   
   const images = [
     { url : image },
-    { url : image },
-    { url : image },
-    { url : image }
+    { url : logo },
+    { url : logo },
+    { url : logo }
   ];
   const url = "https://tickets.interpark.com/goods/23008837";
 
