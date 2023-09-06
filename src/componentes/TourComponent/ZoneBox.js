@@ -36,6 +36,7 @@ function ZoneBox() {
                     state: {
                       title: data[index]?.elements[1]?.elements[0]?.text,
                       place : data[index]?.elements[4]?.elements[0]?.text,
+                      realmName: data[index]?.elements[5]?.elements[0]?.text,
                       image: data[index]?.elements[7]?.elements[0]?.text,
                     },
                   }}

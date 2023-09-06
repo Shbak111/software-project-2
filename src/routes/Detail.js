@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 function Detail() {
   const location = useLocation();
 
-  const { title, area, image, place } = location.state || {};
+  const { title, realmName, image, place,  } = location.state || {};
 
   const images = [
     { url : image },
@@ -25,9 +25,9 @@ function Detail() {
         <ImageGrid images={images}/>
         <div className="detail-info">
           <h1>상세정보</h1>
-          <p className="area">{area}</p>
+          <p className="area">!!!!!!area 연결하면 계속 에러남!!!!!!!!!</p>
           <p className="place">{place}</p>
-          <p className="realmName">연극</p>
+          <p className="realmName">{realmName}</p>
           <a href={url} target="_blank" rel="noopener noreferrer">
           <button className="book-button"> 사이트 이동 </button>
           </a>
