@@ -2,22 +2,36 @@ import React, { useState, useEffect } from "react";
 import ZoneContent from "./ZoneContent";
 import FetchLocalData from "../FetchLocalData";
 import {Link} from "react-router-dom/cjs/react-router-dom";
+import { useSelector } from "react-redux";
 
 function ZoneBox() {
   const [items, setItems] = useState([]);
   const [data, setData] = useState("");
-
+  const location = useSelector((state)=>state.send.value);
+  console.log(`ZonBox :${location}`);
   useEffect(() => {
     async function fetchData() {
       const newItems = Array.from({ length: 10 }, (_, index) => index + 1);
       setItems([...items, ...newItems]);
-      let localData = await FetchLocalData({ local: "부산" }); 
+      let localData = await FetchLocalData({ local: location });
+
+      if (!localData || localData.length === 0) {
+          // If no data is found for the selected location, default to "부산"
+          localData = await FetchLocalData({ local: "부산" });
+        }
+      // let localData;
+      // try{
+      //   localData = await FetchLocalData({local:location});
+      // }catch(error){
+      //   console.error("Error fetching data: ", error);
+      //   localData = await FetchLocalData({local:"부산"}); // default to "부산"
+      // }
       setData(localData);
       console.log("Data fetch success!");
     }
 
     fetchData();
-  }, []);
+}, [location]);
 
   return (
     <div>
