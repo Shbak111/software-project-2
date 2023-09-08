@@ -8,7 +8,7 @@ function MapDetail({ data, index }) {
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [place, setPlace] = useState("");
-  const [realmName,setRealmName]=useState("");
+  const [realmName, setRealmName] = useState("");
   //const [seq, setSeq] = useState("");
 
   useEffect(() => {
@@ -25,8 +25,8 @@ function MapDetail({ data, index }) {
   /** FetchDetailData로 상세설명 데이터 불러오는 곳 */
   async function fetchData(seq) {
     let fetchedData = await FetchDetailData({ seq: seq }); // 이용할 때 ({ seq: seq }) 이 형태 꼭 기억하기
-    console.log("seq:", seq);
-    console.log(fetchedData);
+    //console.log("seq:", seq);
+    //console.log(fetchedData);
   }
 
   return (
@@ -39,9 +39,9 @@ function MapDetail({ data, index }) {
             image: thumbnail,
             place: place,
             realmName: realmName,
-            },
-          }}
-          >
+          },
+        }}
+      >
         {now !== null ? (
           <img
             src={thumbnail}

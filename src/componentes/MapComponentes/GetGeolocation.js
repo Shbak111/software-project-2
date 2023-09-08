@@ -8,6 +8,7 @@ function GetGeolocation(id) {
     };
 
   var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  var geocoder = new kakao.maps.services.Geocoder();
 
   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
   if (navigator.geolocation) {
@@ -18,6 +19,18 @@ function GetGeolocation(id) {
 
       var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
         message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+
+      // 좌표 값에 해당하는 행정동, 법정동 정보를 얻는다.
+      var callback = function (result, status) {
+        console.log("지역 명칭 : " + result[0].address_name);
+        console.log("행정구역 코드 : " + result[0].code);
+        console.log(result);
+      };
+      geocoder.coord2RegionCode(
+        locPosition.getLng(),
+        locPosition.getLat(),
+        callback
+      );
 
       // 마커와 인포윈도우를 표시합니다
       displayMarker(locPosition, message);

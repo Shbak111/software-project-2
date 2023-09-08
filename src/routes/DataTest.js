@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import FetchLocalData from "../componentes/FetchLocalData";
 import FetchDetailData from "../componentes/FetchDetailData";
+import FetchGenreData from "../componentes/FetchGenreData";
 
 function DataTest() {
   const [data, setData] = useState(null);
@@ -27,6 +28,7 @@ function DataTest() {
   useState(() => {
     if (data != null) console.log(data);
     fetchData("245067");
+    //fetchDataGenre("A000");
   }, [data]);
 
   async function fetchData(seq) {
@@ -35,11 +37,61 @@ function DataTest() {
     console.log(fetchedData);
   }
 
+  async function fetchDataGenre(code) {
+    let fetchedData = await FetchGenreData({ code: code });
+    console.log("realmCode:", code);
+    console.log("realmCode ##########################################");
+    console.log(fetchedData);
+  }
+
   return (
     <div>
       <button onClick={onSeoulClick}>서울</button>
       <button onClick={onBusanClick}>부산</button>
       <button onClick={onDaeguClick}>대구</button>
+      <p></p>
+      <button
+        onClick={() => {
+          fetchDataGenre("A000");
+        }}
+      >
+        A000 연극
+      </button>
+      <button
+        onClick={() => {
+          fetchDataGenre("B000");
+        }}
+      >
+        B000 음악(콘서드, 뮤직컬 등)
+      </button>
+      <button
+        onClick={() => {
+          fetchDataGenre("C000");
+        }}
+      >
+        C000 무용
+      </button>
+      <button
+        onClick={() => {
+          fetchDataGenre("D000");
+        }}
+      >
+        D000 미술
+      </button>
+      <button
+        onClick={() => {
+          fetchDataGenre("E000");
+        }}
+      >
+        E000 건축
+      </button>
+      <button
+        onClick={() => {
+          fetchDataGenre("G000");
+        }}
+      >
+        G000 영상
+      </button>
     </div>
   );
 }

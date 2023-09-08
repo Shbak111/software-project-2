@@ -2,14 +2,14 @@ import axios from "axios";
 
 /** server.js 에서 받은 데이터를 클라이언트사이드에서 불러오는 함수임.
  * + 이거 쓰면 서버로 부터 지역을 기준으로 데이터를 받아올 수 있음.
- * 현재는 sido 기준임. 이거는 server.js 수정으로 원하는 데이터
+ * 현재는 realmCode 기준임. 이거는 server.js 수정으로 원하는 데이터
  * 받아오는걸로 변경가능 queryParams에 추가하면 됨.
  */
-async function FetchLocalData({ local }) {
-  console.log(local);
+async function FetchGenreData({ code }) {
+  console.log(code);
   try {
     const response = await axios({
-      url: `/api/localdata/${local}`,
+      url: `/api/realmCode/${code}`,
       method: "GET",
       withCredentials: true,
     });
@@ -36,4 +36,4 @@ async function FetchLocalData({ local }) {
   }
 }
 
-export default FetchLocalData;
+export default FetchGenreData;

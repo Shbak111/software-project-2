@@ -13,7 +13,7 @@ function Map() {
   const word = useSelector((state) => state.send.value);
 
   useEffect(() => {
-    console.log("redux word 값: ", word);
+    //console.log("redux word 값: ", word);
   }, [word]);
 
   const onBtnClick = () => {
@@ -24,7 +24,7 @@ function Map() {
     async function fetchData() {
       let fetchedData = await FetchMyData();
       //let fetchedLocalData = await FetchLocalData({ local: "대구" });
-      console.log("fetchedData: ", fetchedData);
+      //console.log("fetchedData: ", fetchedData);
       //console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedData);
     }
