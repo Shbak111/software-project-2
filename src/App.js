@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
-import Show from "./routes/Show";
 import Map from "./routes/Map";
 import RestaurantRecommendation from "./routes/Restaurant_recommendation";
 import HHeader from "./componentes/HHeader";
@@ -26,9 +25,6 @@ function App() {
           </Route>
           <Route path="/detail">
             <Detail />
-          </Route>
-          <Route path="/show">
-            <Show />
           </Route>
           <Route path="/data">
             <DataTest />
