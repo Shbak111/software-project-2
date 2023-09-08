@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ShowRecommend.css';
 import FetchMyData from '../FetchMyData';
+import FetchLocalData from '../FetchLocalData';
+import { useSelector } from "react-redux";
 
 function ShowRecommend() {
   const [data, setData] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
-
+  const location = useSelector((state)=>state.send.value);
   useEffect(() => {
     async function fetchData() {
       try {
-        let fetchedData = await FetchMyData();       
+        let fetchedLocalData = await FetchLocalData({local:location});
+        if(!fetchedLocalData){
+          fetchedLocalData=await FetchLocalData({local:"서울"});
+        }       
         // Slice the first 4 elements from fetchedData
-        const slicedData = fetchedData.slice(0, 4);
+        const slicedData = fetchedLocalData.slice(0, 4);
 
         // Create an array of thumbnail URLs
         const thumbnailArray = slicedData.map((item) => {
@@ -28,7 +33,7 @@ function ShowRecommend() {
     }
 
     fetchData();
-  }, []);
+  }, [location]);
 
   return (
     <div className="item-box">
