@@ -77,10 +77,14 @@ app.get("/api/localdata/:local", function (req, res) {
     "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
   let localQuery =
     "&" + encodeURIComponent("sido") + "=" + encodeURIComponent(local);
-
+  let queryParams =
+    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("10");
+  let queryParams2 =
+   '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('2')
+    
   request(
     {
-      url: url + localQueryParams + localQuery,
+      url: url + localQueryParams + localQuery+queryParams+queryParams2,
       method: "GET",
     },
     function (error, response, body) {
@@ -154,12 +158,10 @@ app.get("/api/realmCode/:code", function (req, res) {
     "&" + encodeURIComponent("realmCode") + "=" + encodeURIComponent(code);
   codeQuery +=
     "&" +
-    encodeURIComponent("from") +
-    "=" +
-    encodeURIComponent("20230101"); /* */
+    encodeURIComponent("from") +"="+encodeURIComponent("20230101"); /* */
   codeQuery +=
     "&" + encodeURIComponent("to") + "=" + encodeURIComponent("20231201"); /* */
-
+  codeQuery += '&' + encodeURIComponent('rows') + '=' + encodeURIComponent('100'); /* */
   request(
     {
       url: url + codeQueryParams + codeQuery,
