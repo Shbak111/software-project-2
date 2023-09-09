@@ -2,42 +2,51 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ShowRecommend.css';
 import FetchMyData from '../FetchMyData';
-import FetchLocalData from '../FetchLocalData';
+import FetchGenreData from '../FetchGenreData';
 import { useSelector } from "react-redux";
-
 function ShowRecommend() {
   const [data, setData] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
-  const location = useSelector((state)=>state.send.value);
+  const initialLocation = '서울'; // 이 값을 원하는 기본값으로 설정하세요.
+  const location = useSelector((state) => state.send.value) || initialLocation;
+  const [NoData,setNoData]=useState(false);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(code) {
       try {
-        let fetchedLocalData = await FetchLocalData({local:location});
-        if(!fetchedLocalData){
-          fetchedLocalData=await FetchLocalData({local:"서울"});
-        }       
-        // Slice the first 4 elements from fetchedData
-        const slicedData = fetchedLocalData.slice(0, 4);
+        let fetchedData = await FetchGenreData({ code: "A000" });
+        const filteredData = fetchedData.filter(item => item.elements[6].elements[0].text === location);
+        if(filteredData.length===0){
+          setNoData(true);
+        }
+        else{
+          setNoData(false);
+          const slicedData = filteredData.slice(0, 4);
+          const thumbnailArray = slicedData.map((item) => {
+            return item.elements[7].elements[0].text;
+          });
+          setData(slicedData);
+          setThumbnails(thumbnailArray);
+          console.log("Show realmCode:", code);
+          console.log("Show filterdata", filteredData);
 
-        // Create an array of thumbnail URLs
-        const thumbnailArray = slicedData.map((item) => {
-          return item.elements[7].elements[0].text;
-        });
-
-        setData(slicedData);
-        setThumbnails(thumbnailArray);
-        console.log('Data fetch success!');
+        }
+        
+        
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Show Error fetching data:', error);
+        setNoData(true);
       }
     }
-
+  
     fetchData();
   }, [location]);
 
   return (
     <div className="item-box">
-      <div className="grid-container">
+      {NoData?(
+        <p>해당 지역에 맞는 연극이 없습니다.</p>
+      ):(
+        <div className="grid-container">
         {thumbnails.map((image, index) => (
           <div key={index} className="grid-item">
             <Link to={`/detail/${index}`} style={{textDecoration:"none"}}>
@@ -48,7 +57,9 @@ function ShowRecommend() {
             </Link>
           </div>
         ))}
-      </div>
+        </div>
+      )}
+      
     </div>
   );
 }
