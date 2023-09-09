@@ -1,38 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './FestivalRecommend.css';
-import FetchMyData from '../FetchMyData';
+import FetchGenreData from '../FetchGenreData';
+import { useSelector } from "react-redux";
 
 function FestivalRecommend() {
   const [data, setData] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
-
+  const initialLocation = '서울';
+  const location = useSelector((state) => state.send.value) || initialLocation;
+  const [NoData,setNoData]=useState(false);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(codes) {
       try {
-        let fetchedData = await FetchMyData();       
-        // Slice the first 4 elements from fetchedData
-        const slicedData = fetchedData.slice(0, 4);
+        // A000 코드와 B000 코드에서 데이터 가져오기
+        const dataA = await FetchGenreData({ code: "B000" });
+        const dataB = await FetchGenreData({ code: "C000" });
 
-        // Create an array of thumbnail URLs
-        const thumbnailArray = slicedData.map((item) => {
-          return item.elements[7].elements[0].text;
+        // 두 데이터 합치기
+        const fetchedData = [...dataA, ...dataB];
+
+        const filteredData = fetchedData.filter(item => {
+          const areaElement = item.elements[6];
+          if (areaElement && areaElement.elements && areaElement.elements[0] && areaElement.elements[0].text) {
+            return areaElement.elements[0].text === location;
+          }
+          return false; // 'area' 요소 또는 'elements[0].text'가 없는 경우 필터링하지 않음
         });
+        if(filteredData.length===0){
+          setNoData(true);
+        }
+        else{
+          setNoData(false);
+          const slicedData = filteredData.slice(0, 4);
+          const thumbnailArray = slicedData.map((item) => {
+            return item.elements[7].elements[0].text;
+          });
 
-        setData(slicedData);
-        setThumbnails(thumbnailArray);
-        console.log('Data fetch success!');
+          setData(slicedData);
+          setThumbnails(thumbnailArray);
+          console.log("Festival filterdata", filteredData);
+        }
+        
+        
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Festival Error fetching data:', error);
+        setNoData(true);
       }
     }
-
-    fetchData();
-  }, []);
+  
+    fetchData(["A000", "B000"]);
+  }, [location]);
 
   return (
     <div className="item-box">
-      <div className="grid-container">
+      {NoData?(
+        <p>해당 지역에 맞는 음악회이 없습니다.</p>
+      ):(
+        <div className="grid-container">
         {thumbnails.map((image, index) => (
           <div key={index} className="grid-item">
             <Link to={`/detail/${index}`} style={{textDecoration:"none"}}>
@@ -43,7 +68,9 @@ function FestivalRecommend() {
             </Link>
           </div>
         ))}
-      </div>
+        </div>
+      )}
+      
     </div>
   );
 }

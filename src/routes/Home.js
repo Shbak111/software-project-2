@@ -6,6 +6,7 @@ import FastSearch from "../componentes/HomeComponent/FastSearch";
 import FestivalRecommend from "../componentes/HomeComponent/FestivalRecommend";
 import ShowRecommend from "../componentes/HomeComponent/ShowRecommend.js";
 import ImageSlide from "../componentes/HomeComponent/ImageSlide";
+import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 import { sendlocation } from "../reducers/sendLocation";
@@ -44,6 +45,8 @@ const Home = () => {
     }
   }, []);
 
+  const initialLocation = '서울'; // 이 값을 원하는 기본값으로 설정하세요.
+  const location = useSelector((state) => state.send.value) || initialLocation;
   return (
     <div className="container">
       {/* 왼쪽구역 */}
@@ -57,7 +60,10 @@ const Home = () => {
       </div>
 
       <div className="bottom-right">
+        <p style={{color:"gray",fontSize:"15px"}}>지역 :{location}</p>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p style={{ fontSize: 30 }}>인기연극</p>
+          <Link to={`/Restaurant_recommendation/`} style={{ textDecoration: "none", marginRight: "10%" }}>
           <p style={{ fontSize: 30 }}>추천공연</p>
           <Link
             to={`/Restaurant_recommendation/`}
