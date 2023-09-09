@@ -6,18 +6,15 @@ import FastSearch from "../componentes/HomeComponent/FastSearch";
 import FestivalRecommend from "../componentes/HomeComponent/FestivalRecommend";
 import ShowRecommend from "../componentes/HomeComponent/ShowRecommend.js";
 import ImageSlide from "../componentes/HomeComponent/ImageSlide";
-import { useSelector } from "react-redux";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sendlocation } from "../reducers/sendLocation";
 const { kakao } = window;
-
-const initialLocation = "서울"; // 이 값을 원하는 기본값으로 설정하세요.
-const location = useSelector((state) => state.send.value) || initialLocation;
 
 const Home = () => {
   var geocoder = new kakao.maps.services.Geocoder();
   const dispatch = useDispatch();
+  const initialLocation = "서울"; // 이 값을 원하는 기본값으로 설정하세요.
+  const location = useSelector((state) => state.send.value) || initialLocation;
 
   useEffect(() => {
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
