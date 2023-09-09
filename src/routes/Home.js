@@ -81,7 +81,7 @@ const Home = () => {
             marginTop: 50,
           }}
         >
-          <p style={{ fontSize: 30 }}>추천행사</p>
+          <p style={{ fontSize: 30 }}>음악,미술</p>
           <Link
             to={`/Restaurant_recommendation//`}
             style={{ textDecoration: "none", marginRight: "10%" }}
