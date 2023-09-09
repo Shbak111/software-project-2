@@ -37,7 +37,7 @@ const Home = () => {
         <ShowRecommend></ShowRecommend>
 
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 50 }}>
-          <p style={{ fontSize: 30 }}>인기음악회</p>
+          <p style={{ fontSize: 30 }}>음악,미술</p>
           <Link to={`/Restaurant_recommendation//`} style={{ textDecoration: "none", marginRight: "10%" }}>
             <p style={{ color: "black" }}>더보기</p>
           </Link>
