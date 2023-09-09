@@ -77,14 +77,12 @@ app.get("/api/localdata/:local", function (req, res) {
     "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
   let localQuery =
     "&" + encodeURIComponent("sido") + "=" + encodeURIComponent(local);
-  let queryParams =
-    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("10");
-  let queryParams2 =
-   '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('2')
+  localQuery += '&' + encodeURIComponent('rows') + '=' + encodeURIComponent('100');
+  
     
   request(
     {
-      url: url + localQueryParams + localQuery+queryParams+queryParams2,
+      url: url + localQueryParams + localQuery,
       method: "GET",
     },
     function (error, response, body) {
