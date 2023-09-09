@@ -60,12 +60,7 @@ const Home = () => {
       <div className="bottom-right">
         <p style={{ color: "gray", fontSize: "15px" }}>지역 :{location}</p>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ fontSize: 30 }}>인기연극</p>
-          <Link
-            to={`/Restaurant_recommendation/`}
-            style={{ textDecoration: "none", marginRight: "10%" }}
-          />
-          <p style={{ fontSize: 30 }}>추천공연</p>
+          <p style={{ fontSize: 30 }}>인기연극</p>         
           <Link
             to={`/Restaurant_recommendation/`}
             style={{ textDecoration: "none", marginRight: "10%" }}
