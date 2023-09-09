@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./MapSearch.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { sendword } from "../../reducers/sendKeyword";
+import { searchword } from "../../reducers/searchWord";
 
 function MapSearch() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ function MapSearch() {
     setVal(event.target.value);
   };
   const onClick = () => {
-    dispatch(sendword(val));
+    dispatch(searchword(val));
   };
 
   return (

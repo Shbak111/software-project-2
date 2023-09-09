@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import FetchDetailData from "../FetchDetailData";
+import styles from "./MapDetail.module.css";
 
 function MapDetail({ data, index }) {
   const [now, setNow] = useState(null);
@@ -58,9 +59,9 @@ function MapDetail({ data, index }) {
 
       <Link to="/detail">
         {now !== null ? (
-          <h1 style={{ padding: 10 }}>{title}</h1>
+          <h1 className={styles.truncate}>{title}</h1>
         ) : (
-          <h1 style={{ padding: 10 }}>세부사항 표시 {index}</h1>
+          <h1 className={styles.truncate}>세부사항 표시 {index}</h1>
         )}
       </Link>
     </div>

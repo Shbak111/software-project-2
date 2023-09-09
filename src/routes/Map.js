@@ -4,17 +4,16 @@ import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import FetchMyData from "../componentes/FetchMyData";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+const { kakao } = window;
 
 function Map() {
   const [btnState, setBtnState] = useState(true);
   const [data, setData] = useState(null);
 
-  const word = useSelector((state) => state.send.value);
-
-  useEffect(() => {
-    //console.log("redux word 값: ", word);
-  }, [word]);
+  const word = useSelector((state) => state.search.value);
+  const location = useSelector((state) => state.location.value);
 
   const onBtnClick = () => {
     setBtnState(!btnState);
@@ -22,14 +21,18 @@ function Map() {
 
   useEffect(() => {
     async function fetchData() {
-      let fetchedData = await FetchMyData();
-      //let fetchedLocalData = await FetchLocalData({ local: "대구" });
+      //let fetchedData = await FetchMyData();
       //console.log("fetchedData: ", fetchedData);
-      //console.log("fetchedlocalData: ", fetchedLocalData);
-      setData(fetchedData);
+      //setData(fetchedData);
+      let fetchedLocalData = await FetchLocalData({
+        local: location,
+      });
+      console.log("fetchedlocalData: ", fetchedLocalData);
+      setData(fetchedLocalData);
     }
 
     fetchData();
+    console.log("내 도시", location);
   }, []);
 
   useEffect(() => {
