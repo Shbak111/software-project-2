@@ -1,53 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./FastSearch.css";
-import FetchLocalData from "../FetchLocalData";
+import { useHistory } from 'react-router-dom';
+
+
+
 
 const FastSearch = () => {
     
+    const history = useHistory();
 
-    const [selectedArea, setSelectedArea] = useState(null);
-    const [selectedField, setSelectedField] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const areaOptions = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", "제주"];
-    const fieldOptions = ["공연", "축제", "뮤지컬"];
-    const [data, setData] = useState([]);
+    const [selectedArea, setselectedArea] = useState(null); // 이름 변경
+    const [selectedField, setselectedField] = useState(null); // 이름 변경
+    const [selectedDate, setselectedDate] = useState(null); // 이름 변경
+    const areaOptions = ["서울", "부산", "대구", "인천", "광주", "대전", "울산","세종","경기","강원","충북","충남","전남","경북","경남","제주"];
+    const fieldOptions = ["연극", "음악", "무용","미술","기타"];
+
     const handleAreaSelect = (area) => {
         if (selectedArea === area) {
-          // 이미 선택된 항목을 누르면 선택 해제
-          setSelectedArea(null);
+          setselectedArea(null); // 이미 선택된 항목을 누르면 선택 해제
         } else {
-          setSelectedArea(area);
+          setselectedArea(area);
         }
     };
     
     const handleFieldSelect = (field) => {
-        if (selectedField === field) {
-          // 이미 선택된 항목을 누르면 선택 해제
-          setSelectedField(null);
+        if (selectedField === field) { // 이미 선택된 항목을 누르면 선택 해제          
+          setselectedField(null);
         } else {
-          setSelectedField(field);
+          setselectedField(field);
         }
     };
 
     const handleSearchClick = async () => {
-        if(!selectedArea){
-            alert("지역을 선택하세요!");
-            return;
+        if((!selectedArea)&&(!selectedField)){
+          alert("지역,분야를 선택하세요!");
+          return;
         }
         try {
-            // 선택한 지역 정보를 사용하여 FetchLocalData 호출
-            const fetchedLocalData = await FetchLocalData({ local: selectedArea });
-    
-            // 가져온 데이터를 상태로 업데이트
-            setData(fetchedLocalData);
-    
-            // 기타 작업 수행
-            console.log("검색 결과 데이터:", fetchedLocalData);
+          const selectedDateStr = selectedDate ? selectedDate.toISOString().slice(0, 10).replace(/-/g, "") : "";
+          history.push({
+            pathname: '/SearchedData',
+            state: {
+              selectedArea,
+              selectedField,
+              selectedDate: selectedDateStr,
+            },
+          });
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);
         }
-      };
+    };
     return(
         <div className="side-box">
           <p style={{ fontSize: 22 }}>빠른검색</p>
@@ -79,17 +83,14 @@ const FastSearch = () => {
             <p>날짜 : </p>
             <DatePicker
               selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={(date) => setselectedDate(date)}
               placeholderText="날짜를 선택하세요"
               dateFormat="yyyy-MM-dd"
             />
           </div>
           <button onClick={handleSearchClick}>검색</button>
         </div>
-
     )
-    
-
 }
 
 export default FastSearch;
