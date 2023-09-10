@@ -7,7 +7,7 @@ import RestaurantRecommendation from "./routes/Restaurant_recommendation";
 import HHeader from "./componentes/HHeader";
 import "./css/HHeader.css";
 import DataTest from "./routes/DataTest";
-
+import SearchedData from "./routes/SearchedData";
 function App() {
   return (
     <div className="root-wrap">
@@ -29,6 +29,15 @@ function App() {
           <Route path="/data">
             <DataTest />
           </Route>
+          <Route
+            path="/SearchedData"
+            render={(routeProps) => (
+              <SearchedData
+                selectedArea={routeProps.location.state.selectedArea}
+                selectedField={routeProps.location.state.selectedField}
+                selectedDate={routeProps.location.state.selectedDate}
+              />)}
+          />
         </Switch>
       </Router>
     </div>
