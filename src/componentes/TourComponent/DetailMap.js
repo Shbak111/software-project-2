@@ -5,7 +5,7 @@ function  DetailMap({ gpsX, gpsY }) {
     const { kakao } = window;
     const mapContainer = document.getElementById("map"); // 지도를 표시할 div
     const mapOption = {
-      center: new kakao.maps.LatLng(gpsY, gpsX),
+      center: new kakao.maps.LatLng(gpsX,gpsY),
       level: 7,
     };
 
@@ -18,7 +18,7 @@ function  DetailMap({ gpsX, gpsY }) {
     marker.setMap(map);
   }, [gpsX, gpsY]);
 
-  return <div id="map" style={{ height: window.innerHeight/2, width: window.innerWidth }}></div>;
+  return <div id="map" style={{ height: window.innerHeight/2, width: "100%" }}></div>;
 }
 
 export default DetailMap;
