@@ -1,0 +1,53 @@
+/* SearchedData.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 30px;
+  }
+  
+  .grid-item {
+    display: flex;
+    padding: 30px;
+    align-items: center; 
+    cursor: pointer;
+  }
+  
+  .image-container {
+    width: 200px; /* 이미지 컨테이너의 고정된 너비 설정 */
+    height: 200px; /* 이미지 컨테이너의 고정된 높이 설정 */
+    
+  }
+  
+  
+.pagination button {
+  background-color: #07003B;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #07003B;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Optional: Style for the "이전 페이지" and "다음 페이지" buttons */
+.pagination button:first-child {
+  margin-left: 0;
+}
+
+.pagination button:last-child {
+  margin-right: 0;
+}
