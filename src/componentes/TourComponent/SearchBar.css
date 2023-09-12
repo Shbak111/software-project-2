@@ -17,3 +17,24 @@
     outline: none!important;
     border: 2px solid whitesmoke;
 }
+
+.search-container {
+    display: flex; 
+    align-items: center; 
+}
+  
+.search-button {
+    margin-left: 8px; 
+    padding: 8px 12px; 
+    background-color: #fff;
+    color: black; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+}
+  
+
+.search-button:hover {
+    background-color: gray; 
+}
+  
