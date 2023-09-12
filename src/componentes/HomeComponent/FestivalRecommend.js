@@ -11,7 +11,7 @@ function FestivalRecommend() {
   const location = useSelector((state) => state.send.value) || initialLocation;
   const [NoData,setNoData]=useState(false);
   useEffect(() => {
-    async function fetchData(codes) {
+    async function fetchData(code) {
       try {
         // A000 코드와 B000 코드에서 데이터 가져오기
         const dataA = await FetchGenreData({ code: "B000" });
@@ -55,7 +55,7 @@ function FestivalRecommend() {
   return (
     <div className="item-box">
       {NoData?(
-        <p>해당 지역에 맞는 음악회이 없습니다.</p>
+        <p>해당 지역에 맞는 음악,미술이 없습니다.</p>
       ):(
         <div className="grid-container">
         {thumbnails.map((image, index) => (
