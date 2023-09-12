@@ -46,7 +46,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div>
       {/* 왼쪽구역 */}
       <div className="top-left">
         <FastSearch />
