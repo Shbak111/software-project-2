@@ -11,9 +11,9 @@ const FastSearch = () => {
     
     const history = useHistory();
 
-    const [selectedArea, setselectedArea] = useState(null); // 이름 변경
-    const [selectedField, setselectedField] = useState(null); // 이름 변경
-    const [selectedDate, setselectedDate] = useState(null); // 이름 변경
+    const [selectedArea, setselectedArea] = useState(null); 
+    const [selectedField, setselectedField] = useState(null);
+    const [selectedDate, setselectedDate] = useState(null);
     const areaOptions = ["서울", "부산", "대구", "인천", "광주", "대전", "울산","세종","경기","강원","충북","충남","전남","경북","경남","제주"];
     const fieldOptions = ["연극", "음악", "무용","미술","기타"];
 
@@ -34,8 +34,8 @@ const FastSearch = () => {
     };
 
     const handleSearchClick = async () => {
-        if((!selectedArea)&&(!selectedField)){
-          alert("지역,분야를 선택하세요!");
+        if(!selectedArea){
+          alert("지역을 선택하세요!");
           return;
         }
         try {
