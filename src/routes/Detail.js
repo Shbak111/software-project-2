@@ -23,10 +23,12 @@ function Detail() {
           <text className="place">,{place}</text>
           <h1 className="title">{title}</h1>
           <p className="realmName">{realmName}</p>
-          
-          <DetailMap gpsX={gpsX} gpsY={gpsY} />
+          <img className="poster" src={image} alt="Loading..."/>
         </div>
-        <img className="poster" src={image} alt="Loading..."/>
+        <div className="detail-info">
+          {/* <DetailMap gpsX={gpsX} gpsY={gpsY} /> */}
+          <DetailMap gpsX={gpsX} gpsY={gpsY}/>
+        </div>
       </div>
       );
   }

@@ -49,7 +49,7 @@ function ZoneBox() {
                       area : data[index]?.elements[6]?.elements[0]?.text,
                       image: data[index]?.elements[7]?.elements[0]?.text,
                       gpsX : data[index]?.elements[8]?.elements[0]?.text,
-                      gpasY : data[index]?.elements[9]?.elements[0]?.text,
+                      gpsY : data[index]?.elements[9]?.elements[0]?.text,
                     },
                   }}
                 >
