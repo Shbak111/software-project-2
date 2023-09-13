@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const PORT = 5000;
 const converter = require("xml-js");
+const mydb = require("./mydb");
 
 let fromDataStorage = null;
 let localDataStorage = null;
@@ -14,6 +15,15 @@ app.listen(5000, function () {
   console.log(`listening on ${PORT}`);
 });
 
+///db//////////////////////////////////////////////////////////////////
+
+mydb.DBconnection();
+// mydb
+//   .DBwrite()
+//   .then(() => console.log("db write success!"))
+//   .catch((err) => console.log(err));
+
+////db/////////////////////////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(cors());
 
@@ -77,9 +87,9 @@ app.get("/api/localdata/:local", function (req, res) {
     "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
   let localQuery =
     "&" + encodeURIComponent("sido") + "=" + encodeURIComponent(local);
-  localQuery += '&' + encodeURIComponent('rows') + '=' + encodeURIComponent('100');
-  
-    
+  localQuery +=
+    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100");
+
   request(
     {
       url: url + localQueryParams + localQuery,
@@ -156,10 +166,13 @@ app.get("/api/realmCode/:code", function (req, res) {
     "&" + encodeURIComponent("realmCode") + "=" + encodeURIComponent(code);
   codeQuery +=
     "&" +
-    encodeURIComponent("from") +"="+encodeURIComponent("20230101"); /* */
+    encodeURIComponent("from") +
+    "=" +
+    encodeURIComponent("20230101"); /* */
   codeQuery +=
     "&" + encodeURIComponent("to") + "=" + encodeURIComponent("20231201"); /* */
-  codeQuery += '&' + encodeURIComponent('rows') + '=' + encodeURIComponent('100'); /* */
+  codeQuery +=
+    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100"); /* */
   request(
     {
       url: url + codeQueryParams + codeQuery,
