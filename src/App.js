@@ -8,6 +8,7 @@ import HHeader from "./componentes/HHeader";
 import "./css/HHeader.css";
 import DataTest from "./routes/DataTest";
 import SearchedData from "./routes/SearchedData";
+import Community from "./routes/Community";
 function App() {
   return (
     <div className="root-wrap">
@@ -38,6 +39,9 @@ function App() {
                 selectedDate={routeProps.location.state.selectedDate}
               />)}
           />
+          <Route path="/Community">
+            <Community />
+          </Route>
         </Switch>
       </Router>
     </div>
