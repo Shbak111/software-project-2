@@ -7,12 +7,13 @@ import tour from "../assets/tour.png";
 import test from "../assets/test.png";
 import SearchBar from "./TourComponent/SearchBar";
 import MapSearch from "./MapComponentes/MapSearch";
+import { btntmp } from "../reducers/buttonState";
 import { sendword } from "../reducers/sendKeyword";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Header() {
-  const [tmp, setTmp] = useState(true);
   const dispatch = useDispatch();
+  const tmp = useSelector((state) => state.btn.value);
 
   const handleButtonClick = (location) => {
     console.log(location);
@@ -22,10 +23,10 @@ export default function Header() {
   };
 
   const onMapClick = () => {
-    setTmp(false);
+    dispatch(btntmp(false));
   };
   const onOtherClick = () => {
-    setTmp(true);
+    dispatch(btntmp(true));
   };
 
   return (

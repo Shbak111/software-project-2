@@ -13,6 +13,7 @@ function MapSearch() {
   };
   const onClick = () => {
     dispatch(searchword(val));
+    setVal("");
   };
 
   return (

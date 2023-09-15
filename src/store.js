@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import sendKeywordReducer from "./reducers/sendKeyword";
 import sendLocationReducer from "./reducers/sendLocation";
 import searchWordReducer from "./reducers/searchWord";
+import btnTmpReducer from "./reducers/buttonState";
 
 // Redux Persist 구성
 const persistConfig = {
@@ -23,11 +24,13 @@ const persistedsearchWordReducer = persistReducer(
   persistConfig,
   searchWordReducer
 );
+const persistedbtnTmpReducer = persistReducer(persistConfig, btnTmpReducer);
 
 const rootReducer = {
   send: persistedSendKeywordReducer,
   location: persistedSendLocationReducer,
   search: persistedsearchWordReducer,
+  btn: persistedbtnTmpReducer,
 };
 
 // Redux Store 생성
