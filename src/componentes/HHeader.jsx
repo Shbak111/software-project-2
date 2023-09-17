@@ -33,7 +33,12 @@ export default function Header() {
     <div className="header-container">
       <div className="header-wrap">
         <Link to="/">
-          <img src={logo} className="logo-image" alt="Logo"></img>
+          <img
+            src={logo}
+            className="logo-image"
+            alt="Logo"
+            onClick={onOtherClick}
+          ></img>
         </Link>
         <div className="swiper-area">
           <div id="zone1" style={{ paddingRight: 15 }}>

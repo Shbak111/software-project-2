@@ -1,16 +1,8 @@
 const { kakao } = window;
 
-function PlaceSearch(id, keyword) {
+function PlaceSearch(map, keyword) {
   // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
   var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-
-  var mapContainer = document.getElementById(id), // 지도를 표시할 div
-    mapOption = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-      level: 3, // 지도의 확대 레벨
-    };
-  // 지도를 생성합니다
-  var map = new kakao.maps.Map(mapContainer, mapOption);
 
   // 장소 검색 객체를 생성합니다
   var ps = new kakao.maps.services.Places();

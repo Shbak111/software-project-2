@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import sendKeywordReducer from "./reducers/sendKeyword";
@@ -11,27 +11,17 @@ const persistConfig = {
   key: "root", // 저장 키를 지정합니다.
   storage, // 로컬 스토리지를 사용하여 저장합니다.
 };
-
-const persistedSendKeywordReducer = persistReducer(
-  persistConfig,
-  sendKeywordReducer
-);
-const persistedSendLocationReducer = persistReducer(
-  persistConfig,
-  sendLocationReducer
-);
-const persistedsearchWordReducer = persistReducer(
-  persistConfig,
-  searchWordReducer
-);
-const persistedbtnTmpReducer = persistReducer(persistConfig, btnTmpReducer);
-
-const rootReducer = {
-  send: persistedSendKeywordReducer,
-  location: persistedSendLocationReducer,
-  search: persistedsearchWordReducer,
-  btn: persistedbtnTmpReducer,
+const persistbtnConfig = {
+  key: "btnkey",
+  storage,
 };
+
+const rootReducer = combineReducers({
+  send: sendKeywordReducer,
+  location: persistReducer(persistConfig, sendLocationReducer),
+  search: searchWordReducer,
+  btn: persistReducer(persistbtnConfig, btnTmpReducer),
+});
 
 // Redux Store 생성
 const store = configureStore({

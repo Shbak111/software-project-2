@@ -6,7 +6,7 @@ import axios from "axios";
  * 받아오는걸로 변경가능 queryParams에 추가하면 됨.
  */
 async function FetchDetailData({ seq }) {
-  console.log(seq);
+  //console.log(seq);
   try {
     const response = await axios({
       url: `/api/detailData/${seq}`,

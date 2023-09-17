@@ -3,7 +3,6 @@ import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
-import { sendlocation } from "../reducers/sendLocation";
 import { useSelector, useDispatch } from "react-redux";
 
 const { kakao } = window;
@@ -11,12 +10,10 @@ const { kakao } = window;
 function Map() {
   const [btnState, setBtnState] = useState(true);
   const [data, setData] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [mylocation, setLocation] = useState(null);
 
   const word = useSelector((state) => state.search.value);
-  //const mylocation = useSelector((state) => state.location.value);
 
-  const dispatch = useDispatch();
   var geocoder = new kakao.maps.services.Geocoder();
 
   const onBtnClick = () => {
@@ -49,25 +46,25 @@ function Map() {
         );
       });
     }
-  }, [location]);
+  }, [mylocation]);
 
   useEffect(() => {
     async function fetchData() {
       let fetchedLocalData = await FetchLocalData({
-        local: location,
+        local: mylocation,
       });
       console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedLocalData);
     }
 
-    if (location != null) {
+    if (mylocation != null) {
       fetchData();
     }
-    console.log("내 도시", location);
-  }, [location]);
+    console.log("내 도시", mylocation);
+  }, [mylocation]);
 
   useEffect(() => {
-    if (data != null) {
+    if (data !== null) {
       console.log("Data fetch success!");
     }
   }, [data]);
@@ -75,10 +72,10 @@ function Map() {
   return (
     <div className={styles.container}>
       <button onClick={onBtnClick}>{btnState ? "숨기기" : "보이기"}</button>
-      {btnState ? data != null ? <ScrollDetail data={data} /> : null : null}
+      {btnState ? data !== null ? <ScrollDetail data={data} /> : null : null}
 
       <div style={{ flex: 1 }}>
-        <MapContainer keyword={word} />
+        {data !== null ? <MapContainer keyword={word} data={data} /> : null}
       </div>
     </div>
   );
