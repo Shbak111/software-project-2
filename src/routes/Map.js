@@ -10,6 +10,7 @@ const { kakao } = window;
 function Map() {
   const [btnState, setBtnState] = useState(true);
   const [data, setData] = useState(null);
+  const [datas, setDatas] = useState(null);
   const [mylocation, setLocation] = useState(null);
 
   const word = useSelector((state) => state.search.value);
@@ -19,6 +20,43 @@ function Map() {
   const onBtnClick = () => {
     setBtnState(!btnState);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      const localities = [
+        "부산",
+        "서울",
+        "대전",
+        "대구",
+        "인천",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "경기",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+      ];
+
+      const dataPromises = localities.map((locality) =>
+        FetchLocalData({ local: locality })
+      );
+
+      try {
+        const datas = await Promise.all(dataPromises);
+        console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
+        setDatas(datas);
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
@@ -64,10 +102,10 @@ function Map() {
   }, [mylocation]);
 
   useEffect(() => {
-    if (data !== null) {
+    if (data !== null && datas !== null) {
       console.log("Data fetch success!");
     }
-  }, [data]);
+  }, [data, datas]);
 
   return (
     <div className={styles.container}>
@@ -75,7 +113,7 @@ function Map() {
       {btnState ? data !== null ? <ScrollDetail data={data} /> : null : null}
 
       <div style={{ flex: 1 }}>
-        {data !== null ? <MapContainer keyword={word} data={data} /> : null}
+        {datas !== null ? <MapContainer keyword={word} datas={datas} /> : null}
       </div>
     </div>
   );
