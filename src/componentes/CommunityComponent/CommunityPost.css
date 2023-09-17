@@ -1,0 +1,20 @@
+.post_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 30px;
+}
+
+.post_title{
+    width: 50%;
+    height: 30px;
+}
+.post_content{
+    width: 50%;
+    height : 500px;
+}
+.post_button{
+    display: flex;
+    justify-content: space-between;
+}

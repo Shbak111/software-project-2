@@ -1,0 +1,20 @@
+.PostFrame{
+    margin-top: 5%;
+    width: 50%;
+    height: 800px;
+    border-color:lightgray;
+    
+}
+.line{
+    border-color: lightgray;
+    background-color: lightgray;
+    height: 1.5px;
+}
+.post{
+    margin-bottom: 10px;
+}
+.postitem{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+}

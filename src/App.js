@@ -9,6 +9,7 @@ import "./css/HHeader.css";
 import DataTest from "./routes/DataTest";
 import SearchedData from "./routes/SearchedData";
 import Community from "./routes/Community";
+import CommunityPost from "./componentes/CommunityComponent/CommunityPost";
 function App() {
   return (
     <div className="root-wrap">
@@ -41,6 +42,9 @@ function App() {
           />
           <Route path="/Community">
             <Community />
+          </Route>
+          <Route path="/CommunityPost">
+            <CommunityPost />
           </Route>
         </Switch>
       </Router>
