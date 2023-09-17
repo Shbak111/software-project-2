@@ -200,7 +200,7 @@ export default function Header() {
               onClick={onMapClick}
             />
           </Link>
-          <Link to="/data">
+          <Link to="/Community">
             <img
               src={test}
               className="header-icon"
