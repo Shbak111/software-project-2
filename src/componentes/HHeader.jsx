@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import map from "../assets/map.png";
 import tour from "../assets/tour.png";
 import test from "../assets/test.png";
+import login from "../assets/login.png";
 import SearchBar from "./TourComponent/SearchBar";
 import MapSearch from "./MapComponentes/MapSearch";
 import { btntmp } from "../reducers/buttonState";
@@ -213,6 +214,13 @@ export default function Header() {
               src={tour}
               className="header-icon"
               alt="Tour"
+              onClick={onOtherClick}
+            />
+          </Link><Link to="/Login">
+            <img
+              src={login}
+              className="header-icon"
+              alt="Login"
               onClick={onOtherClick}
             />
           </Link>
