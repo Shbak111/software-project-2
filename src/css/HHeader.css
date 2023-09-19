@@ -54,4 +54,5 @@
 .header-icon {
     width: 3em; 
     height: auto;
+    border-radius: 100%;
 }

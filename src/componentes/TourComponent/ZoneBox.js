@@ -16,17 +16,12 @@ function ZoneBox() {
       let localData = await FetchLocalData({ local: location });
 
       if (!localData || localData.length === 0) {
-          // If no data is found for the selected location, default to "부산"
-          localData = await FetchLocalData({ local: "부산" });
+          // If no data is found for the selected location, default to "서울"
+          localData = await FetchLocalData({ local: "서울" });
         }
-      // let localData;
-      // try{
-      //   localData = await FetchLocalData({local:location});
-      // }catch(error){
-      //   console.error("Error fetching data: ", error);
-      //   localData = await FetchLocalData({local:"부산"}); // default to "부산"
       // }
       setData(localData);
+
       console.log("Data fetch success!");
     }
 
@@ -54,17 +49,15 @@ function ZoneBox() {
                   }}
                 >
                 <ZoneContent
-                  index={index}
-                  data={data[index]?.elements[0]?.elements[0]?.text}
+                  area={data[index]?.elements[6]?.elements[0]?.text} 
                   zoneTitle={data[index]?.elements[1]?.elements[0]?.text} 
-                  imageURL0={data[index]?.elements[7]?.elements[0]?.text} 
-                  imageURL1={data[index]?.elements[7]?.elements[1]?.text} 
+                  imageURL0={data[index]?.elements[7]?.elements[0]?.text}  
                 />
                 </Link>
               </div>
             ))
           ) : (
-            <div>no data</div>
+            <div>Loading...</div>
           )}
         </div>
     </div>

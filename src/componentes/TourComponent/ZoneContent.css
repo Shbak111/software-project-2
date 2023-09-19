@@ -1,9 +1,11 @@
 .zone-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    padding: 30px;
+  background-color: #07003B;
+  color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 30px;
   }
 
 .zone-content {
@@ -12,22 +14,11 @@
     align-items: center; 
     cursor: pointer;
   }
-.img-middle{
-  width: 320px;
-  height: 480px;
-  border: 2px solid rgba(0, 0, 0, 0);
-}
 .img-left{
   width: 320px;
   height: 480px;
-  border: 2px solid rgba(0, 0, 0, 0);
-  border-top-left-radius: 30%;
-  border-bottom-left-radius: 30%;
 }
 .img-right{
   width: 320px;
   height: 480px;
-  border: 2px solid rgba(0, 0, 0, 0);
-  border-top-right-radius: 30%;
-  border-bottom-right-radius: 30%;
 }
