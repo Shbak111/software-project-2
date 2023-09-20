@@ -33,7 +33,7 @@ function  DetailMap({ gpsX, gpsY }) {
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
           center: new kakao.maps.LatLng(gpsY, gpsX), // 지도의 중심좌표
-          level: 5, // 지도의 확대 레벨
+          level: 4, // 지도의 확대 레벨
         };
 
       var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -44,11 +44,11 @@ function  DetailMap({ gpsX, gpsY }) {
       // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
       const positions = csvData.slice(1).map((row) => ({
-        content: `<div className="customoverlay">`+
-                  `<a href="http://${row[columnIndices.HMPG_URL]}" target="_blank">`+
-                  `<span className="title">${row[columnIndices.FCLTY_NM]}</span>`+
-                  `</a>`+
-                 `</div>`,
+        content: `<div class="customoverlay">` +
+                `${row[columnIndices.HMPG_URL] === '0' ? 
+                  `<a onclick="alert('현재 존재하는 웹사이트가 없습니다.')" style="cursor: not-allowed;"><span class="michelin-title">${row[columnIndices.FCLTY_NM]}</span></a>` :
+                  `<a href="http://${row[columnIndices.HMPG_URL]}" target="_blank"><span class="michelin-title">${row[columnIndices.FCLTY_NM]}</span></a>`}` +
+                `</div>`,
         latlng: new window.kakao.maps.LatLng(
           parseFloat(row[columnIndices.FCLTY_LA]),
           parseFloat(row[columnIndices.FCLTY_LO])
