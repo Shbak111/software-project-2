@@ -6,6 +6,7 @@ const boardSchema = new mongoose.Schema(
     title: { type: String, required: true },
     content: { type: String, required: true },
     writer: { type: String, required: true },
+    timestamp:{type:Date,default:Date.now}
   },
   {
     collection: "Boards",

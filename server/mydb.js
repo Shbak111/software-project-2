@@ -11,13 +11,14 @@ function ConnectDB() {
 }
 
 /** DB에 커뮤니티 글 작성하는 함수 */
-async function writeOnDB(title, writer, content) {
+async function writeOnDB(title, writer, content,timestamp) {
   var count = await counter();
   const board = new Board({
     _id: count,
     title: title,
     content: content,
     writer: writer,
+    timestamp : timestamp,
   });
   board.save();
 }

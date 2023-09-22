@@ -14,7 +14,8 @@
     margin-bottom: 10px;
 }
 .postitem{
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     font-size: 18px;
+    border-bottom: 1px solid lightgray;
 }
