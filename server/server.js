@@ -25,6 +25,7 @@ app.listen(5000, function () {
 
 mydb.DBconnection();
 
+/** 여기가 커뮤니티 글 받는 서버 로직 */
 app.post("/community/create", function (req, res) {
   var title = req.body.title;
   var writer = req.body.writer;
@@ -39,6 +40,7 @@ app.post("/community/create", function (req, res) {
   console.log(req.body);
 });
 
+/** 커뮤니티 글 삭제하는 로직인데 id를 받아줘야함 (id가 _id 말하는것) */
 app.post("/community/delete", function (req, res) {
   var id = req.body.id;
   mydb
