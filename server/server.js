@@ -5,12 +5,13 @@ const path = require("path");
 const PORT = 5000;
 const converter = require("xml-js");
 const mydb = require("./mydb");
+const Board = require("./models/postModel");
 const bodyparser = require("body-parser");
+const request = require("request");
 
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(cors());
 app.use(bodyparser.json());
-var request = require("request");
 
 let fromDataStorage = null;
 let localDataStorage = null;
@@ -59,13 +60,11 @@ app.post("/community/update", function (req, res) {
     })
     .catch((err) => console.log(err));
 });
-app.get("/community/read", function (req, res) {
-  mydb
-    .DBread()
-    .then(() => {
-      console.log("db read success!");
-    })
-    .catch((err) => console.log(err));
+
+app.get("/community/read", async function (req, res) {
+  const boards = await Board.find().exec();
+  console.log(boards);
+  res.json(boards);
 });
 
 //mydb.DBread();
