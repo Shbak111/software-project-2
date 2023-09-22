@@ -5,6 +5,12 @@ const path = require("path");
 const PORT = 5000;
 const converter = require("xml-js");
 const mydb = require("./mydb");
+const bodyparser = require("body-parser");
+
+app.use(express.static(path.join(__dirname, "../build")));
+app.use(cors());
+app.use(bodyparser.json());
+var request = require("request");
 
 let fromDataStorage = null;
 let localDataStorage = null;
@@ -18,16 +24,50 @@ app.listen(5000, function () {
 ///db//////////////////////////////////////////////////////////////////
 
 mydb.DBconnection();
-// mydb
-//   .DBwrite()
-//   .then(() => console.log("db write success!"))
-//   .catch((err) => console.log(err));
 
+app.post("/community/create", function (req, res) {
+  var title = req.body.title;
+  var writer = req.body.writer;
+  var content = req.body.content;
+  mydb
+    .DBwrite(title, writer, content)
+    .then(() => {
+      console.log("db write success!");
+      mydb.DBcount();
+    })
+    .catch((err) => console.log(err));
+  console.log(req.body);
+});
+
+app.post("/community/delete", function (req, res) {
+  var id = req.body.id;
+  mydb
+    .DBdelete(id)
+    .then(() => {
+      console.log("db delete success!");
+    })
+    .catch((err) => console.log(err));
+});
+
+app.post("/community/update", function (req, res) {
+  mydb
+    .DBupdate()
+    .then(() => {
+      console.log("db update success!");
+    })
+    .catch((err) => console.log(err));
+});
+app.get("/community/read", function (req, res) {
+  mydb
+    .DBread()
+    .then(() => {
+      console.log("db read success!");
+    })
+    .catch((err) => console.log(err));
+});
+
+//mydb.DBread();
 ////db/////////////////////////////////////////////////////////////////////
-app.use(express.static(path.join(__dirname, "../build")));
-app.use(cors());
-
-var request = require("request");
 
 /** 날짜 기반 데이터 콜 할때 쓰는 queryparams */
 var dateQueryParams =

@@ -3,6 +3,7 @@ import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
+import { datapersist } from "../reducers/dataPersist";
 import { useSelector, useDispatch } from "react-redux";
 
 const { kakao } = window;
@@ -12,52 +13,15 @@ function Map() {
   const [data, setData] = useState(null);
   const [datas, setDatas] = useState(null);
   const [mylocation, setLocation] = useState(null);
+  const dispatch = useDispatch();
 
   const word = useSelector((state) => state.search.value);
-
+  const storedata = useSelector((state) => state.storedata.value);
   var geocoder = new kakao.maps.services.Geocoder();
 
   const onBtnClick = () => {
     setBtnState(!btnState);
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      const localities = [
-        "부산",
-        "서울",
-        "대전",
-        "대구",
-        "인천",
-        "광주",
-        "대전",
-        "울산",
-        "세종",
-        "경기",
-        "강원",
-        "충북",
-        "충남",
-        "전북",
-        "전남",
-        "경북",
-        "경남",
-      ];
-
-      const dataPromises = localities.map((locality) =>
-        FetchLocalData({ local: locality })
-      );
-
-      try {
-        const datas = await Promise.all(dataPromises);
-        console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
-        setDatas(datas);
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    }
-    fetchData();
-  }, []);
-
   useEffect(() => {
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
     if (navigator.geolocation) {
@@ -100,6 +64,50 @@ function Map() {
     }
     console.log("내 도시", mylocation);
   }, [mylocation]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const localities = [
+        "부산",
+        "서울",
+        "대전",
+        "대구",
+        "인천",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "경기",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+      ];
+
+      const dataPromises = localities.map((locality) =>
+        FetchLocalData({ local: locality })
+      );
+
+      if (storedata === null) {
+        try {
+          const datas = await Promise.all(dataPromises);
+          console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
+          setDatas(datas);
+          dispatch(datapersist(datas));
+          console.log("데이터 패치함");
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      } else if (storedata) {
+        setDatas(storedata);
+        console.log("redux persist로 부터 불러옴");
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (data !== null && datas !== null) {

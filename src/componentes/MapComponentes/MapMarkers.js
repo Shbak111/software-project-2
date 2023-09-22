@@ -21,7 +21,10 @@ async function MapMarkers(map, datas) {
           item.elements[8].elements[0] &&
           item.elements[9] &&
           item.elements[9].elements &&
-          item.elements[9].elements[0]
+          item.elements[9].elements[0] &&
+          item.elements[7] &&
+          item.elements[7].elements &&
+          item.elements[7].elements[0]
         ) {
           var LatLng = new kakao.maps.LatLng(
             item.elements[9].elements[0].text,
@@ -30,6 +33,7 @@ async function MapMarkers(map, datas) {
           MarkerData.push({
             title: item.elements[1].elements[0].text,
             latlng: LatLng,
+            thumbnail: item.elements[7].elements[0].text,
           });
           //console.log(MarkerData[index]);
           count++;
@@ -63,18 +67,56 @@ async function MapMarkers(map, datas) {
       title: MarkerData[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
       image: markerImage, // 마커 이미지
     });
+
+    var content =
+      `<div class="wrap">` +
+      '    <div class="info">' +
+      '        <div class="title">' +
+      `            ${MarkerData[i].title}` +
+      `            <div class="close" onclick="${closeOverlay}" title="닫기"></div>` +
+      "        </div>" +
+      '        <div class="body">' +
+      '            <div class="img">' +
+      //`                <img src="${MarkerData[i].thumbnail}" onerror="https://via.placeholder.com/73x70" width="73" height="70">` +
+      "           </div>" +
+      '            <div class="desc">' +
+      '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">자세히 보러가기</a></div>' +
+      "            </div>" +
+      "        </div>" +
+      "    </div>" +
+      "</div>";
+
+    // 마커 위에 커스텀오버레이를 표시합니다
+    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+    try {
+      var overlay = new kakao.maps.CustomOverlay({
+        content: content,
+        map: map,
+        position: MarkerData[i].latlng,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+    kakao.maps.event.addListener(marker, "click", makeClickOverlay(map));
+
+    overlay.setVisible(false);
     marker.setMap(map);
     infowindow.open(map, marker);
-    // LatLngBounds 객체에 좌표를 추가합니다
-    //bounds.extend(MarkerData[i].latlng);
   }
-  //setBounds();
+
+  // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+  function closeOverlay() {
+    overlay.setMap(null);
+  }
+
+  // 이벤트 리스너로는 클로저를 만들어 등록합니다
+  // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+  function makeClickOverlay(map) {
+    return function () {
+      overlay.setMap(map);
+      overlay.setVisible(true);
+    };
+  }
 }
-
-// function setBounds() {
-//   // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-//   // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-//   map.setBounds(bounds);
-// }
-
 export default MapMarkers;
