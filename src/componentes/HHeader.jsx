@@ -3,7 +3,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../css/HHeader.css";
 import logo from "../assets/logo.png";
 import map from "../assets/map.png";
-import tour from "../assets/tour.png";
+import michelin from "../assets/michelin.png";
 import test from "../assets/test.png";
 import login from "../assets/login.png";
 import SearchBar from "./TourComponent/SearchBar";
@@ -211,9 +211,9 @@ export default function Header() {
           </Link>
           <Link to="/Restaurant_recommendation">
             <img
-              src={tour}
+              src={michelin}
               className="header-icon"
-              alt="Tour"
+              alt="Michelin"
               onClick={onOtherClick}
             />
           </Link><Link to="/Login">
