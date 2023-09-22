@@ -7,8 +7,8 @@ function CommunityPost() {
   const [content, setContent] = useState("");
 
   const ClickPost = async () => {
-    console.log(title);
-    console.log(content);
+    //console.log(title);
+    //console.log(content);
     await axios({
       url: "/community/create",
       method: "POST",
@@ -23,12 +23,12 @@ function CommunityPost() {
 
   const onTitleChange = (event) => {
     setTitle(event.target.value);
-    console.log(title);
+    //console.log(title);
   };
 
   const onContentChange = (event) => {
     setContent(event.target.value);
-    console.log(content);
+    //console.log(content);
   };
 
   const ClickCancel = () => {
