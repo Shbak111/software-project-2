@@ -3,6 +3,7 @@ import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
+import MapClickMarker from "../componentes/MapComponentes/MapClickMarker";
 import { datapersist } from "../reducers/dataPersist";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,6 +18,8 @@ function Map() {
 
   const word = useSelector((state) => state.search.value);
   const storedata = useSelector((state) => state.storedata.value);
+  const mstate = useSelector((state) => state.mdetail.value);
+
   var geocoder = new kakao.maps.services.Geocoder();
 
   const onBtnClick = () => {
@@ -119,6 +122,7 @@ function Map() {
     <div className={styles.container}>
       <button onClick={onBtnClick}>{btnState ? "숨기기" : "보이기"}</button>
       {btnState ? data !== null ? <ScrollDetail data={data} /> : null : null}
+      {btnState && mstate ? <MapClickMarker /> : null}
 
       <div style={{ flex: 1 }}>
         {datas !== null ? <MapContainer keyword={word} datas={datas} /> : null}
