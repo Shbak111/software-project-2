@@ -31,8 +31,9 @@ app.post("/community/create", function (req, res) {
   var title = req.body.title;
   var writer = req.body.writer;
   var content = req.body.content;
+  var timestamp=new Date();
   mydb
-    .DBwrite(title, writer, content)
+    .DBwrite(title, writer, content,timestamp)
     .then(() => {
       console.log("db write success!");
       mydb.DBcount();
@@ -66,6 +67,28 @@ app.get("/community/read", async function (req, res) {
   console.log(boards);
   res.json(boards);
 });
+
+app.get("/community/postByIndex/:index", async function (req, res) {
+  const { index } = req.params; // 클라이언트에서 전달된 인덱스
+  try {
+    // 데이터베이스에서 해당 인덱스의 게시글 데이터 조회
+    const post = await Board.findOne({ _id: index }).exec();
+    
+    if (post) {
+      // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
+      res.json(post);
+    } else {
+      // 해당 인덱스의 게시글을 찾을 수 없는 경우 에러 응답
+      res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
+    }
+  } catch (error) {
+    // 조회 중 에러가 발생한 경우 에러 응답
+    console.error("게시글 조회 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
+
 
 //mydb.DBread();
 ////db/////////////////////////////////////////////////////////////////////

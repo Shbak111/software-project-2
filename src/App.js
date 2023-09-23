@@ -11,6 +11,7 @@ import SearchedData from "./routes/SearchedData";
 import Community from "./routes/Community";
 import CommunityPost from "./componentes/CommunityComponent/CommunityPost";
 import Login from "./routes/Login";
+import PostDetail from "./componentes/CommunityComponent/PostDetail";
 function App() {
   return (
     <div className="root-wrap">
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/Login">
             <Login />
+          </Route>
+          <Route path="/PostDetail/:index">
+            <PostDetail />
           </Route>
         </Switch>
       </Router>
