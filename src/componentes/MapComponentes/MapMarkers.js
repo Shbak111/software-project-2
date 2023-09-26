@@ -1,8 +1,6 @@
-import FetchLocalData from "../FetchLocalData";
-
 const { kakao } = window;
 
-async function MapMarkers(map, datas) {
+async function MapMarkers(map, datas, onClick) {
   // 마커 이미지의 이미지 주소입니다
   var imageSrc =
     "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -21,7 +19,10 @@ async function MapMarkers(map, datas) {
           item.elements[8].elements[0] &&
           item.elements[9] &&
           item.elements[9].elements &&
-          item.elements[9].elements[0]
+          item.elements[9].elements[0] &&
+          item.elements[7] &&
+          item.elements[7].elements &&
+          item.elements[7].elements[0]
         ) {
           var LatLng = new kakao.maps.LatLng(
             item.elements[9].elements[0].text,
@@ -30,6 +31,7 @@ async function MapMarkers(map, datas) {
           MarkerData.push({
             title: item.elements[1].elements[0].text,
             latlng: LatLng,
+            thumbnail: item.elements[7].elements[0].text,
           });
           //console.log(MarkerData[index]);
           count++;
@@ -41,9 +43,7 @@ async function MapMarkers(map, datas) {
 
   fetchMarkerData(datas);
 
-  var bounds = new kakao.maps.LatLngBounds();
-
-  for (var i = 0; i < MarkerData.length; i++) {
+  for (let i = 0; i < MarkerData.length; i++) {
     // 마커 이미지의 이미지 크기 입니다
     var imageSize = new kakao.maps.Size(24, 35);
 
@@ -63,18 +63,16 @@ async function MapMarkers(map, datas) {
       title: MarkerData[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
       image: markerImage, // 마커 이미지
     });
+
+    //클릭 이벤트 달기
+    kakao.maps.event.addListener(marker, "click", function () {
+      let data = MarkerData[i];
+      //console.log(data);
+      onClick(data);
+    });
+
     marker.setMap(map);
     infowindow.open(map, marker);
-    // LatLngBounds 객체에 좌표를 추가합니다
-    //bounds.extend(MarkerData[i].latlng);
   }
-  //setBounds();
 }
-
-// function setBounds() {
-//   // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-//   // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-//   map.setBounds(bounds);
-// }
-
 export default MapMarkers;

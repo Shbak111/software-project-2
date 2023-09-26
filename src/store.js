@@ -5,7 +5,9 @@ import sendKeywordReducer from "./reducers/sendKeyword";
 import sendLocationReducer from "./reducers/sendLocation";
 import searchWordReducer from "./reducers/searchWord";
 import btnTmpReducer from "./reducers/buttonState";
-
+import dataPersistReducer from "./reducers/dataPersist";
+import markerDataReducer from "./reducers/markerData";
+import markerdetailStateReducer from "./reducers/markerdetailState";
 // Redux Persist 구성
 const persistConfig = {
   key: "root", // 저장 키를 지정합니다.
@@ -15,12 +17,19 @@ const persistbtnConfig = {
   key: "btnkey",
   storage,
 };
+const persistDataConfig = {
+  key: "datas",
+  storage,
+};
 
 const rootReducer = combineReducers({
   send: sendKeywordReducer,
   location: persistReducer(persistConfig, sendLocationReducer),
   search: searchWordReducer,
   btn: persistReducer(persistbtnConfig, btnTmpReducer),
+  storedata: persistReducer(persistDataConfig, dataPersistReducer),
+  markerstore: markerDataReducer,
+  mdetail: markerdetailStateReducer,
 });
 
 // Redux Store 생성

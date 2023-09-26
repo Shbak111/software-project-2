@@ -5,6 +5,13 @@ const path = require("path");
 const PORT = 5000;
 const converter = require("xml-js");
 const mydb = require("./mydb");
+const Board = require("./models/postModel");
+const bodyparser = require("body-parser");
+const request = require("request");
+
+app.use(express.static(path.join(__dirname, "../build")));
+app.use(cors());
+app.use(bodyparser.json());
 
 let fromDataStorage = null;
 let localDataStorage = null;
@@ -18,16 +25,73 @@ app.listen(5000, function () {
 ///db//////////////////////////////////////////////////////////////////
 
 mydb.DBconnection();
-// mydb
-//   .DBwrite()
-//   .then(() => console.log("db write success!"))
-//   .catch((err) => console.log(err));
 
+/** 여기가 커뮤니티 글 받는 서버 로직 */
+app.post("/community/create", function (req, res) {
+  var title = req.body.title;
+  var writer = req.body.writer;
+  var content = req.body.content;
+  var timestamp=new Date();
+  mydb
+    .DBwrite(title, writer, content,timestamp)
+    .then(() => {
+      console.log("db write success!");
+      mydb.DBcount();
+    })
+    .catch((err) => console.log(err));
+  console.log(req.body);
+});
+
+/** 커뮤니티 글 삭제하는 로직인데 id를 받아줘야함 (id가 _id 말하는것) */
+app.post("/community/delete", function (req, res) {
+  var id = req.body.id;
+  mydb
+    .DBdelete(id)
+    .then(() => {
+      console.log("db delete success!");
+    })
+    .catch((err) => console.log(err));
+});
+
+app.post("/community/update", function (req, res) {
+  mydb
+    .DBupdate()
+    .then(() => {
+      console.log("db update success!");
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/community/read", async function (req, res) {
+  const boards = await Board.find().exec();
+  console.log(boards);
+  res.json(boards);
+});
+
+app.get("/community/postByIndex/:index", async function (req, res) {
+  const { index } = req.params; // 클라이언트에서 전달된 인덱스
+  try {
+    // 데이터베이스에서 해당 인덱스의 게시글 데이터 조회
+    const post = await Board.findOne({ _id: index }).exec();
+    
+    if (post) {
+      // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
+      res.json(post);
+    } else {
+      // 해당 인덱스의 게시글을 찾을 수 없는 경우 에러 응답
+      res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
+    }
+  } catch (error) {
+    // 조회 중 에러가 발생한 경우 에러 응답
+    console.error("게시글 조회 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
+
+
+//mydb.DBread();
 ////db/////////////////////////////////////////////////////////////////////
-app.use(express.static(path.join(__dirname, "../build")));
-app.use(cors());
-
-var request = require("request");
 
 /** 날짜 기반 데이터 콜 할때 쓰는 queryparams */
 var dateQueryParams =
