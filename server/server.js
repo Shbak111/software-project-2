@@ -6,6 +6,7 @@ const PORT = 5000;
 const converter = require("xml-js");
 const mydb = require("./mydb");
 const Board = require("./models/postModel");
+const User = require("./models/userModel");
 const bodyparser = require("body-parser");
 const request = require("request");
 
@@ -88,6 +89,24 @@ app.get("/community/postByIndex/:index", async function (req, res) {
   }
 });
 
+/** 사용자 회원가입 */
+app.post("/register",async(req,resp)=>{
+  try{
+    const user = new User(req.body);
+    let result = await user.save();
+    result = result.toObject();
+    if(result){
+      delete result.password;
+      resp.send(req.body);
+      console.log(result);
+    }else{
+      console.log("User already register");
+    }
+  }
+  catch(e){
+    resp.send("Something went wrong",e);
+  }
+})
 
 
 //mydb.DBread();
