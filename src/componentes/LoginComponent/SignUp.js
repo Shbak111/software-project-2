@@ -7,6 +7,7 @@ class SignUp extends Component {
                 <form className="form" action="#">
                     <h1 className="form-title">회원 가입</h1>
                     
+                    <input type="text" placeholder="닉네임" />
                     <input type="text" placeholder="이름" />
                     <input type="email" placeholder="이메일" />
                     <input type="password" placeholder="비밀번호" />
