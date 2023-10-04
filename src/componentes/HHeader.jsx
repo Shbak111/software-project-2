@@ -11,6 +11,7 @@ import MapSearch from "./MapComponentes/MapSearch";
 import { btntmp } from "../reducers/buttonState";
 import { sendword } from "../reducers/sendKeyword";
 import { useDispatch, useSelector } from "react-redux";
+import { searchword } from "../reducers/searchWord";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -19,8 +20,7 @@ export default function Header() {
   const handleButtonClick = (location) => {
     console.log(location);
     dispatch(sendword(location));
-    // dispatch(sendKeyword(location)); -> 문제임.
-    // console.log(data);
+    dispatch(searchword(location));
   };
 
   const onMapClick = () => {
@@ -216,7 +216,8 @@ export default function Header() {
               alt="Michelin"
               onClick={onOtherClick}
             />
-          </Link><Link to="/Login">
+          </Link>
+          <Link to="/Login">
             <img
               src={login}
               className="header-icon"
