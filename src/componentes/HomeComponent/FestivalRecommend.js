@@ -60,7 +60,19 @@ function FestivalRecommend() {
         <div className="grid-container">
         {thumbnails.map((image, index) => (
           <div key={index} className="grid-item">
-            <Link to={`/detail/${index}`} style={{textDecoration:"none"}}>
+            <Link to={{
+                    pathname: `/detail/${data[index]?.elements[0]?.elements[0]?.text}`,
+                    state: {
+                      title: data[index]?.elements[1]?.elements[0]?.text,
+                      place : data[index]?.elements[4]?.elements[0]?.text,
+                      realmName: data[index]?.elements[5]?.elements[0]?.text,
+                      area : data[index]?.elements[6]?.elements[0]?.text,
+                      image: data[index]?.elements[7]?.elements[0]?.text,
+                      gpsX : data[index]?.elements[8]?.elements[0]?.text,
+                      gpsY : data[index]?.elements[9]?.elements[0]?.text,
+                    },
+                  }}
+              style={{textDecoration:"none"}}>
               <div className='image_container'>
                 <img src={image} alt={`Image ${index}`} />
               </div>
