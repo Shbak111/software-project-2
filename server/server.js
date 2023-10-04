@@ -107,6 +107,26 @@ app.post("/register",async(req,resp)=>{
     resp.send("Something went wrong",e);
   }
 })
+/** 사용자 로그인 */
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+      // 사용자 이메일 찾기
+      const user = await User.findOne({ email });
+
+      if (!user || user.password !== password) {
+          // Authentication failed
+          res.status(401).json({ authenticated: false });
+      } else {
+          // Authentication successful
+          res.json({ authenticated: true });
+      }
+  } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 //mydb.DBread();
