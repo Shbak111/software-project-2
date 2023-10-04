@@ -112,7 +112,7 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-      // Find the user with the provided email
+      // 사용자 이메일 찾기
       const user = await User.findOne({ email });
 
       if (!user || user.password !== password) {
@@ -123,7 +123,6 @@ app.post('/login', async (req, res) => {
           res.json({ authenticated: true });
       }
   } catch (error) {
-      // Handle any potential errors here
       console.error('Error during login:', error);
       res.status(500).json({ error: 'Internal server error' });
   }
