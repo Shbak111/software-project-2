@@ -22,7 +22,10 @@ async function MapMarkers(map, datas, onClick) {
           item.elements[9].elements[0] &&
           item.elements[7] &&
           item.elements[7].elements &&
-          item.elements[7].elements[0]
+          item.elements[7].elements[0] &&
+          item.elements[4] &&
+          item.elements[4].elements &&
+          item.elements[4].elements[0]
         ) {
           var LatLng = new kakao.maps.LatLng(
             item.elements[9].elements[0].text,
@@ -32,6 +35,7 @@ async function MapMarkers(map, datas, onClick) {
             title: item.elements[1].elements[0].text,
             latlng: LatLng,
             thumbnail: item.elements[7].elements[0].text,
+            place: item.elements[4].elements[0].text,
           });
           //console.log(MarkerData[index]);
           count++;
