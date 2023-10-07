@@ -40,18 +40,7 @@ app.post("/community/create", function (req, res) {
       mydb.DBcount();
     })
     .catch((err) => console.log(err));
-  console.log(req.body);
-});
-
-/** 커뮤니티 글 삭제하는 로직인데 id를 받아줘야함 (id가 _id 말하는것) */
-app.post("/community/delete", function (req, res) {
-  var id = req.body.id;
-  mydb
-    .DBdelete(id)
-    .then(() => {
-      console.log("db delete success!");
-    })
-    .catch((err) => console.log(err));
+  //console.log(req.body);
 });
 
 app.post("/community/update", function (req, res) {
@@ -65,7 +54,7 @@ app.post("/community/update", function (req, res) {
 
 app.get("/community/read", async function (req, res) {
   const boards = await Board.find().exec();
-  console.log(boards);
+  //console.log(boards);
   res.json(boards);
 });
 
@@ -89,6 +78,7 @@ app.get("/community/postByIndex/:index", async function (req, res) {
   }
 });
 
+/** index, 코멘트 내용, 작성자 받아서 코멘트 추가하는 로직 */
 app.post("/community/postComment", async function (req, res) {
   let { index } = req.body; // 클라이언트에서 전달된 인덱스
   let { comment } = req.body;
@@ -96,6 +86,21 @@ app.post("/community/postComment", async function (req, res) {
 
   try {
     mydb.DBcomment(index, writer, comment);
+  } catch (error) {
+    // 댓글 작성 중 에러가 발생한 경우 에러 응답
+    console.error("댓글 작성 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
+/** 글 삭제하는 로직 */
+app.post("/community/removeBoard", async function (req, res) {
+  let { index } = req.body; // 클라이언트에서 전달된 인덱스
+
+  try {
+    await mydb.DBboardDelete(index).then(() => {
+      console.log("delete success");
+    });
   } catch (error) {
     // 댓글 작성 중 에러가 발생한 경우 에러 응답
     console.error("댓글 작성 중 오류 발생:", error);

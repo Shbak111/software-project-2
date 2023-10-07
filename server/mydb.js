@@ -25,8 +25,9 @@ async function writeOnDB(title, writer, content, timestamp) {
 }
 
 /** 커뮤니티에 글 삭제하는 함수 */
-async function deleteOnDB(id) {
-  await Board.deleteOne({ _id: id });
+async function deleteOnDB(index) {
+  // 인덱스 즉, 게시글의 _id를 기준으로 찾아와서 삭제함
+  await Board.deleteOne({ _id: index });
 }
 
 /** 커뮤니티에 글 수정하는 함수 */
@@ -71,7 +72,7 @@ async function testonDB() {}
 module.exports.DBconnection = ConnectDB;
 module.exports.DBwrite = writeOnDB;
 module.exports.DBcount = countOnDB;
-module.exports.DBdelete = deleteOnDB;
+module.exports.DBboardDelete = deleteOnDB;
 module.exports.DBupdate = updateOnDB;
 module.exports.DBread = readOnDB;
 module.exports.DBtest = testonDB;

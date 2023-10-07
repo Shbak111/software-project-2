@@ -19,8 +19,8 @@ function PostDetail() {
   }, [index]);
 
   /** 여기 코멘트 추가하는 버튼 부분 */
-  const commentBtnClick = () => {
-    axios({
+  const commentBtnClick = async () => {
+    await axios({
       url: "/community/postComment",
       method: "POST",
       data: {
@@ -31,6 +31,19 @@ function PostDetail() {
     });
   };
 
+  /** 삭제하는 버튼 부분 */
+  const removeBtnClick = async () => {
+    await axios({
+      url: "/community/removeBoard",
+      method: "POST",
+      data: {
+        index: index,
+      },
+    }).then(() => {
+      window.history.back();
+    });
+  };
+
   return (
     <div>
       <p>게시글 상세 화면</p>
@@ -38,6 +51,7 @@ function PostDetail() {
       <p>내용: {post.content}</p>
       <p>작성자: {post.writer}</p>
       <button onClick={commentBtnClick}>댓글추가</button>
+      <button onClick={removeBtnClick}>삭제하기</button>
     </div>
   );
 }
