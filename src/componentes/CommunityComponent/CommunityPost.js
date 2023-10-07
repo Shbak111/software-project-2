@@ -33,6 +33,7 @@ function CommunityPost() {
         console.error("등록 오류:", error);
       }
       console.log("등록완료");
+      history.push(`/Community`);
     }
   };
 
