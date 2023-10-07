@@ -50,7 +50,7 @@ function PostDetail() {
         },
       }).then(() => {
         console.log("delete success");
-        history.push(`/Community`);
+        history.replace(`/Community`);
       });
     } catch (error) {
       // 에러 처리
