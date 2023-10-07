@@ -77,6 +77,24 @@ app.get("/community/postByIndex/:index", async function (req, res) {
     res.status(500).json({ error: "서버 오류" });
   }
 });
+app.put("/community/updatePost/:index", async (req, res) => {
+  const {index}=req.params; 
+  const updatedData=req.body; 
+  try {
+    const post=await Board.findOne({_id:index}).exec();
+    if(post){
+      post.title = updatedData.title;
+      post.content = updatedData.content;
+      await post.save();
+      res.json({ message: "게시글이 업데이트되었습니다." });
+    } else {
+      res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
+    }
+  } catch(error){
+    console.error("게시글 업데이트 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
 
 /** index, 코멘트 내용, 작성자 받아서 코멘트 추가하는 로직 */
 app.post("/community/postComment", async function (req, res) {
