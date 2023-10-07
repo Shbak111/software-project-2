@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory} from "react-router-dom";
 
 function PostDetail() {
+  const history=useHistory();
   const { index } = useParams();
   const [post, setPost] = useState({});
   useEffect(() => {
