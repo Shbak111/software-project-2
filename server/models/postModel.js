@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
 
+const commentSchema = new mongoose.Schema({
+  writer: { type: String, required: true },
+  comment: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
 const boardSchema = new mongoose.Schema(
   {
     _id: { type: Number },
     title: { type: String, required: true },
     content: { type: String, required: true },
     writer: { type: String, required: true },
-    timestamp:{type:Date,default:Date.now}
+    timestamp: { type: Date, default: Date.now },
+    comments: [commentSchema],
   },
   {
     collection: "Boards",

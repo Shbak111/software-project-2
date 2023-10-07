@@ -11,14 +11,15 @@ function ConnectDB() {
 }
 
 /** DB에 커뮤니티 글 작성하는 함수 */
-async function writeOnDB(title, writer, content,timestamp) {
+async function writeOnDB(title, writer, content, timestamp) {
   var count = await counter();
   const board = new Board({
     _id: count,
     title: title,
     content: content,
     writer: writer,
-    timestamp : timestamp,
+    timestamp: timestamp,
+    comments: [],
   });
   board.save();
 }
@@ -52,6 +53,18 @@ async function counter() {
 
   return count;
 }
+/** 댓글 추가하는 로직. 해당 게시글의 index를 알고 그 게시글에 접근해서 comment 추가 */
+async function commentWrite(index, writer, comment) {
+  // 기존 댓글 배열 가져오기
+  const existingComment = await Board.findOne({ _id: index });
+
+  // 새 댓글 추가
+  const newComment = { writer: writer, comment: comment };
+  existingComment.comments.push(newComment);
+
+  // 업데이트된 댓글 배열을 사용하여 문서 업데이트
+  await existingComment.save();
+}
 
 async function testonDB() {}
 
@@ -62,3 +75,4 @@ module.exports.DBdelete = deleteOnDB;
 module.exports.DBupdate = updateOnDB;
 module.exports.DBread = readOnDB;
 module.exports.DBtest = testonDB;
+module.exports.DBcomment = commentWrite;

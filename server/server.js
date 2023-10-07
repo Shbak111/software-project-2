@@ -32,9 +32,9 @@ app.post("/community/create", function (req, res) {
   var title = req.body.title;
   var writer = req.body.writer;
   var content = req.body.content;
-  var timestamp=new Date();
+  var timestamp = new Date();
   mydb
-    .DBwrite(title, writer, content,timestamp)
+    .DBwrite(title, writer, content, timestamp)
     .then(() => {
       console.log("db write success!");
       mydb.DBcount();
@@ -74,7 +74,7 @@ app.get("/community/postByIndex/:index", async function (req, res) {
   try {
     // 데이터베이스에서 해당 인덱스의 게시글 데이터 조회
     const post = await Board.findOne({ _id: index }).exec();
-    
+
     if (post) {
       // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
       res.json(post);
@@ -89,45 +89,57 @@ app.get("/community/postByIndex/:index", async function (req, res) {
   }
 });
 
-/** 사용자 회원가입 */
-app.post("/register",async(req,resp)=>{
-  try{
-    const user = new User(req.body);
-    let result = await user.save();
-    result = result.toObject();
-    if(result){
-      delete result.password;
-      resp.send(req.body);
-      console.log(result);
-    }else{
-      console.log("User already register");
-    }
-  }
-  catch(e){
-    resp.send("Something went wrong",e);
-  }
-})
-/** 사용자 로그인 */
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+app.post("/community/postComment", async function (req, res) {
+  let { index } = req.body; // 클라이언트에서 전달된 인덱스
+  let { comment } = req.body;
+  let { writer } = req.body;
 
   try {
-      // 사용자 이메일 찾기
-      const user = await User.findOne({ email });
-
-      if (!user || user.password !== password) {
-          // Authentication failed
-          res.status(401).json({ authenticated: false });
-      } else {
-          // Authentication successful
-          res.json({ authenticated: true });
-      }
+    mydb.DBcomment(index, writer, comment);
   } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    // 댓글 작성 중 에러가 발생한 경우 에러 응답
+    console.error("댓글 작성 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
   }
 });
 
+/** 사용자 회원가입 */
+app.post("/register", async (req, resp) => {
+  try {
+    const user = new User(req.body);
+    let result = await user.save();
+    result = result.toObject();
+    if (result) {
+      delete result.password;
+      resp.send(req.body);
+      console.log(result);
+    } else {
+      console.log("User already register");
+    }
+  } catch (e) {
+    resp.send("Something went wrong", e);
+  }
+});
+/** 사용자 로그인 */
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // 사용자 이메일 찾기
+    const user = await User.findOne({ email });
+
+    if (!user || user.password !== password) {
+      // Authentication failed
+      res.status(401).json({ authenticated: false });
+    } else {
+      // Authentication successful
+      res.json({ authenticated: true });
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 //mydb.DBread();
 ////db/////////////////////////////////////////////////////////////////////
