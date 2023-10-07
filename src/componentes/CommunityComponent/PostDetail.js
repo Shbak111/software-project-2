@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams,useHistory} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 function PostDetail() {
-  const history=useHistory();
+  const history = useHistory();
   const { index } = useParams();
   const [post, setPost] = useState({});
   useEffect(() => {
@@ -23,8 +23,8 @@ function PostDetail() {
   };
 
   /** 여기 코멘트 추가하는 버튼 부분 */
-  const commentBtnClick = async () => {
-    await axios({
+  const commentBtnClick = () => {
+    axios({
       url: "/community/postComment",
       method: "POST",
       data: {
@@ -37,15 +37,20 @@ function PostDetail() {
 
   /** 삭제하는 버튼 부분 */
   const removeBtnClick = async () => {
-    await axios({
-      url: "/community/removeBoard",
-      method: "POST",
-      data: {
-        index: index,
-      },
-    }).then(() => {
-      window.history.back();
-    });
+    try {
+      await axios({
+        url: "/community/removeBoard",
+        method: "POST",
+        data: {
+          index: index,
+        },
+      }).then(() => {
+        console.log("delete success");
+      });
+    } catch (error) {
+      // 에러 처리
+      console.error("글 삭제 중 오류 발생:", error);
+    }
   };
 
   return (

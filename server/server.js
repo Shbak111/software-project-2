@@ -28,12 +28,12 @@ app.listen(5000, function () {
 mydb.DBconnection();
 
 /** 여기가 커뮤니티 글 받는 서버 로직 */
-app.post("/community/create", function (req, res) {
+app.post("/community/create", async function (req, res) {
   var title = req.body.title;
   var writer = req.body.writer;
   var content = req.body.content;
   var timestamp = new Date();
-  mydb
+  await mydb
     .DBwrite(title, writer, content, timestamp)
     .then(() => {
       console.log("db write success!");
@@ -41,6 +41,7 @@ app.post("/community/create", function (req, res) {
     })
     .catch((err) => console.log(err));
   //console.log(req.body);
+  return res.redirect("/Community");
 });
 
 app.post("/community/update", function (req, res) {
@@ -78,11 +79,11 @@ app.get("/community/postByIndex/:index", async function (req, res) {
   }
 });
 app.put("/community/updatePost/:index", async (req, res) => {
-  const {index}=req.params; 
-  const updatedData=req.body; 
+  const { index } = req.params;
+  const updatedData = req.body;
   try {
-    const post=await Board.findOne({_id:index}).exec();
-    if(post){
+    const post = await Board.findOne({ _id: index }).exec();
+    if (post) {
       post.title = updatedData.title;
       post.content = updatedData.content;
       await post.save();
@@ -90,7 +91,7 @@ app.put("/community/updatePost/:index", async (req, res) => {
     } else {
       res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
     }
-  } catch(error){
+  } catch (error) {
     console.error("게시글 업데이트 중 오류 발생:", error);
     res.status(500).json({ error: "서버 오류" });
   }
@@ -119,6 +120,7 @@ app.post("/community/removeBoard", async function (req, res) {
     await mydb.DBboardDelete(index).then(() => {
       console.log("delete success");
     });
+    return res.redirect("/Community");
   } catch (error) {
     // 댓글 작성 중 에러가 발생한 경우 에러 응답
     console.error("댓글 작성 중 오류 발생:", error);
