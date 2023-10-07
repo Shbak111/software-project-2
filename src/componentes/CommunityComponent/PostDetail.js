@@ -17,7 +17,7 @@ function PostDetail() {
 
     fetchPostData();
   }, [index]);
-  const postedit=()=>{
+  const postedit = () => {
     history.push(`/CommunityPostUpdate/${index}`);
   };
 
