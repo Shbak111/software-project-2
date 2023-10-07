@@ -6,6 +6,7 @@ function PostDetail() {
   const history=useHistory();
   const { index } = useParams();
   const [post, setPost] = useState({});
+  const [comment,setComment]=useState("");
   useEffect(() => {
     async function fetchPostData() {
       try {
@@ -30,10 +31,13 @@ function PostDetail() {
       data: {
         index: index,
         writer: "nickname",
-        comment: "contents",
+        comment:comment,
       },
     });
   };
+  const onCommentChange=(event)=>{
+    setComment(event.target.value);
+  }
 
   /** 삭제하는 버튼 부분 */
   const removeBtnClick = async () => {
@@ -56,6 +60,20 @@ function PostDetail() {
       <p>작성자: {post.writer}</p>
       <button onClick={postedit}>수정</button>
       <button onClick={commentBtnClick}>댓글추가</button>
+      {post.comments && post.comments.length > 0 ? (
+        <ul>
+          {post.comments.map((comment, index) => (
+            <li key={index}>
+              {/* 여기에서 각 댓글 객체의 내용을 출력하세요 */}
+              작성자: {comment.writer}<br />
+              내용: {comment.comment}<br />
+              시간: {comment.timestamp}<br />
+            </li>
+          ))}
+        </ul>
+        ) : (
+        <p>작성된 댓글이 없습니다.</p>
+      )}
       <button onClick={removeBtnClick}>삭제하기</button>
     </div>
   );
