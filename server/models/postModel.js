@@ -13,6 +13,7 @@ const boardSchema = new mongoose.Schema(
     content: { type: String, required: true },
     writer: { type: String, required: true },
     timestamp: { type: Date, default: Date.now },
+    views: { type: Number, default: 0 },
     comments: [commentSchema],
   },
   {
