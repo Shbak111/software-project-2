@@ -12,6 +12,7 @@ import Community from "./routes/Community";
 import CommunityPost from "./componentes/CommunityComponent/CommunityPost";
 import Login from "./routes/Login";
 import PostDetail from "./componentes/CommunityComponent/PostDetail";
+import CommunityPostUpdate from "./componentes/CommunityComponent/CommunityPostUpdate";
 function App() {
   return (
     <div className="root-wrap">
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route path="/PostDetail/:index">
             <PostDetail />
+          </Route>
+          <Route path="/CommunityPostUpdate/:index">
+            <CommunityPostUpdate />
           </Route>
         </Switch>
       </Router>
