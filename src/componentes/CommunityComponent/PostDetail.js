@@ -59,6 +59,13 @@ function PostDetail() {
       <p>내용: {post.content}</p>
       <p>작성자: {post.writer}</p>
       <button onClick={postedit}>수정</button>
+      <input
+        id="comment"
+        className="post_comments"
+        placeholder="댓글을 입력하세요"
+        onChange={onCommentChange}
+      >
+      </input>
       <button onClick={commentBtnClick}>댓글추가</button>
       {post.comments && post.comments.length > 0 ? (
         <ul>
