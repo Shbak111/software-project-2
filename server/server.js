@@ -67,7 +67,7 @@ app.get("/community/postByIndex/:index", async function (req, res) {
 
     if (post) {
       post.views += 1;
-      post.save()
+      post.save();
       // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
       res.json(post);
     } else {
@@ -107,6 +107,7 @@ app.post("/community/postComment", async function (req, res) {
 
   try {
     mydb.DBcomment(index, writer, comment);
+    return res.send({ message: "add comment success!" });
   } catch (error) {
     // 댓글 작성 중 에러가 발생한 경우 에러 응답
     console.error("댓글 작성 중 오류 발생:", error);
