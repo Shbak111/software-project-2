@@ -5,3 +5,27 @@
     align-items: center; 
     padding: 30px;
 }
+.post_comments{
+    width:30%,
+
+}
+.pst_title{
+    
+    font-size: 35px;
+    font-weight: bold;
+}
+.pst_content{
+    font-size: 20px;
+}
+.pst_writer{
+    font-weight: bold;
+}
+.pst_timestamp{
+    color: lightgray;
+}
+.cmt_writer{
+    font-weight: bold;
+}
+.cmt_timestamp{
+    color:lightgray;
+}
