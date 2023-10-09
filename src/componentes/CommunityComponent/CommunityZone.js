@@ -28,6 +28,7 @@ function CommunityZone() {
       const titleArray = response.data.map((item) => ({
         _id: item._id,
         title: item.title,
+        views: item.views,
       }));
       console.log(response.data.map((item) => item._id));
       setTitles(titleArray);
@@ -80,7 +81,7 @@ function CommunityZone() {
                   nickname
                 </p>
                 <p className="post_views" style={{ marginLeft: "7%" }}>
-                  0
+                  {title.views}
                 </p>
                 <hr className="post_line" />
               </Link>

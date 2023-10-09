@@ -19,6 +19,7 @@ async function writeOnDB(title, writer, content, timestamp) {
     content: content,
     writer: writer,
     timestamp: timestamp,
+    views: 0,
     comments: [],
   });
   board.save();

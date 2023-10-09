@@ -66,6 +66,8 @@ app.get("/community/postByIndex/:index", async function (req, res) {
     const post = await Board.findOne({ _id: index }).exec();
 
     if (post) {
+      post.views += 1;
+      post.save()
       // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
       res.json(post);
     } else {
