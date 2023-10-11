@@ -8,6 +8,7 @@ function CommunityZone() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
@@ -53,6 +54,18 @@ function CommunityZone() {
     }
     return pageButtons;
   };
+  const PostSearchButton = () => {
+    if(searchInput.trim()==""){
+      setTitles(titles);
+    }
+    else{
+      const filteredTitles = titles.filter((title) =>
+      title.title.includes(searchInput)
+      );
+      setTitles(filteredTitles);
+    }
+    
+  };
 
   return (
     <div className="PostFrame">
@@ -69,7 +82,7 @@ function CommunityZone() {
             <div className="postitem" key={index}>
               <Link
                 to={`/PostDetail/${title._id}`}
-                style={{ display: "flex", alignItems: "center" }}
+                style={{ display: "flex", alignItems: "center",textDecoration: "none"}}
               >
                 <p className="post_index" style={{ marginLeft: "1%" }}>
                   {startIndex + index + 1}
@@ -83,7 +96,7 @@ function CommunityZone() {
                 <p className="post_views" style={{ marginLeft: "7%" }}>
                   {title.views}
                 </p>
-                <hr className="post_line" />
+                
               </Link>
             </div>
           ))
@@ -95,8 +108,8 @@ function CommunityZone() {
       <hr className="line"></hr>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div className="postsearch">
-          <input style={{ width: "50%", marginLeft: "1%" }}></input>
-          <button>검색</button>
+          <input onChange={(e) => setSearchInput(e.target.value)} style={{ width: "50%", marginLeft: "1%" }} ></input>
+          <button onClick={PostSearchButton}>검색</button>
         </div>
         {/* 페이지네이션 */}
         <div
