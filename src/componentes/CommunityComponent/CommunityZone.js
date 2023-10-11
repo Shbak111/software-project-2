@@ -9,6 +9,7 @@ function CommunityZone() {
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const [originalTitles, setOriginalTitles] = useState([]);
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
@@ -33,6 +34,7 @@ function CommunityZone() {
       }));
       console.log(response.data.map((item) => item._id));
       setTitles(titleArray);
+      setOriginalTitles(titleArray);
       const totalPages = Math.ceil(titleArray.length / pageSize);
       setTotalPages(totalPages);
     }
@@ -54,17 +56,16 @@ function CommunityZone() {
     }
     return pageButtons;
   };
+
   const PostSearchButton = () => {
-    if(searchInput.trim()==""){
-      setTitles(titles);
-    }
-    else{
+    if (searchInput.trim() === "") {
+      setTitles(originalTitles);
+    } else {
       const filteredTitles = titles.filter((title) =>
-      title.title.includes(searchInput)
+        title.title.includes(searchInput)
       );
       setTitles(filteredTitles);
     }
-    
   };
 
   return (
