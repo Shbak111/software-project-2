@@ -40,6 +40,23 @@ function PostDetail() {
       window.location.reload();
     });
   };
+
+  const deleteComment = (comment_index) => {
+    axios
+      .post('/api/deleteComment', {
+        index: index, // 게시물 인덱스
+        comment_index: comment_index, // 삭제할 댓글 인덱스
+      })
+      .then(() => {
+        window.location.reload();
+        
+      })
+      .catch((error) => {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        // 오류 처리, 예를 들어 오류 메시지를 표시합니다.
+      });
+  };
+  
   
   const onCommentChange = (event) => {
     setComment(event.target.value);
@@ -110,6 +127,7 @@ function PostDetail() {
                 <p className="cmt_timestamp">{formatTimestamp(post.timestamp)}</p>
               </div>
               <p className="cmt_comment">{comment.comment}</p>
+              <button onClick={() => deleteComment(comment.comment_index)}>삭제</button>
               <hr  />
             </div>
           ))}

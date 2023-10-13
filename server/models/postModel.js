@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const commentSchema = new mongoose.Schema({
   writer: { type: String, required: true },
   comment: { type: String, required: true },
+  comment_index: { type: Number },
   timestamp: { type: Date, default: Date.now },
 });
 

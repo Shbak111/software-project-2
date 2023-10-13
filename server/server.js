@@ -104,9 +104,9 @@ app.post("/community/postComment", async function (req, res) {
   let { index } = req.body; // 클라이언트에서 전달된 인덱스
   let { comment } = req.body;
   let { writer } = req.body;
-
+  let { comment_index}=req.body;
   try {
-    mydb.DBcomment(index, writer, comment);
+    mydb.DBcomment(index, writer, comment,comment_index);
     return res.send({ message: "add comment success!" });
   } catch (error) {
     // 댓글 작성 중 에러가 발생한 경우 에러 응답
@@ -114,6 +114,33 @@ app.post("/community/postComment", async function (req, res) {
     res.status(500).json({ error: "서버 오류" });
   }
 });
+
+app.post('/api/deleteComment', async (req, res) => {
+  const { index, comment_index } = req.body; // 클라이언트에서 게시물 인덱스와 댓글 인덱스를 보내는 것을 가정합니다.
+
+  try {
+    // 인덱스를 기반으로 게시물을 찾습니다.
+    const post = await Board.findOne({ _id: index }).exec();
+
+    if (post) {
+      // 댓글 배열에서 댓글을 찾아서 제거합니다.
+      const comment = post.comments.find((c) => c.comment_index === comment_index);
+      if (comment) {
+        post.comments.pull(comment);
+        await post.save();
+        res.status(200).json({ message: '댓글이 성공적으로 삭제되었습니다' });
+      } else {
+        res.status(404).json({ error: '댓글을 찾을 수 없습니다' });
+      }
+    } else {
+      res.status(404).json({ error: '게시물을 찾을 수 없습니다' });
+    }
+  } catch (error) {
+    console.error('댓글 삭제 중 오류 발생:', error);
+    res.status(500).json({ error: '서버 오류' });
+  }
+});
+
 
 /** 글 삭제하는 로직 */
 app.post("/community/removeBoard", async function (req, res) {

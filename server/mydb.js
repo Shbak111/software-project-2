@@ -55,15 +55,16 @@ async function counter() {
 
   return count;
 }
+let comment_count = 0;
 /** 댓글 추가하는 로직. 해당 게시글의 index를 알고 그 게시글에 접근해서 comment 추가 */
 async function commentWrite(index, writer, comment) {
   // 기존 댓글 배열 가져오기
   const existingComment = await Board.findOne({ _id: index });
 
   // 새 댓글 추가
-  const newComment = { writer: writer, comment: comment };
+  const newComment = { writer: writer, comment: comment, comment_index: comment_count};
   existingComment.comments.push(newComment);
-
+  comment_count++;
   // 업데이트된 댓글 배열을 사용하여 문서 업데이트
   await existingComment.save();
 }
