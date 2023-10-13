@@ -73,6 +73,9 @@ async function MapMarkers(map, datas, onClick) {
       let data = MarkerData[i];
       //console.log(data);
       onClick(data);
+      let level = map.getLevel() - 2;
+      map.setLevel(level, { anchor: this.getPosition() });
+      map.panTo(this.getPosition());
     });
 
     marker.setMap(map);
