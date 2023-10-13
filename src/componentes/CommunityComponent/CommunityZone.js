@@ -31,6 +31,7 @@ function CommunityZone() {
         _id: item._id,
         title: item.title,
         views: item.views,
+        writer: item.writer,
       }));
       console.log(response.data.map((item) => item._id));
       setTitles(titleArray);
@@ -92,7 +93,7 @@ function CommunityZone() {
                   {title.title}
                 </p>
                 <p className="post_nickname" style={{ marginLeft: "17%" }}>
-                  nickname
+                  {title.writer}
                 </p>
                 <p className="post_views" style={{ marginLeft: "7%" }}>
                   {title.views}
