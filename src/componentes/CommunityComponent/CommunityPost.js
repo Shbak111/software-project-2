@@ -2,11 +2,13 @@ import axios from "axios";
 import "./CommunityPost.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { getNickname } from "../LoginComponent/user";
 
 function CommunityPost() {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const nickname = getNickname();
 
   const ClickPost = async () => {
     //console.log(title);
@@ -24,7 +26,7 @@ function CommunityPost() {
           url: "/community/create",
           method: "POST",
           data: {
-            writer: "nickname",
+            writer: nickname,
             title: title,
             content: content,
           },

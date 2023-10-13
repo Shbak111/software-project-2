@@ -161,7 +161,7 @@ app.post("/login", async (req, res) => {
       res.status(401).json({ authenticated: false });
     } else {
       // Authentication successful
-      res.json({ authenticated: true });
+      res.json({ authenticated: true, nickname : user.nickname });
     }
   } catch (error) {
     console.error("Error during login:", error);

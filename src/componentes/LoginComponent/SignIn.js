@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import axios from 'axios';
-
+import { setNickname } from './user';
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -9,6 +9,9 @@ class SignIn extends Component {
             password: '',
         };
     }
+    getNickname = (data) => {
+        return data;
+    };
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,15 +23,15 @@ class SignIn extends Component {
     handleOnSubmit = async (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-
         try {
             const response = await axios.post('/login', {
                 email,
                 password,
             });
-
             if (response.data.authenticated) {
-                alert('환영합니다');
+                const nickname = response.data.nickname;
+                setNickname(nickname);
+                alert(nickname+"님! 환영합니다!");
                 this.setState({
                     email: '',
                     password: '',
@@ -74,5 +77,4 @@ class SignIn extends Component {
         );
     }
 }
-
 export default SignIn;
