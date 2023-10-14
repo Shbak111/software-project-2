@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { mdetailtmp } from "../../reducers/markerdetailState";
+import { Link } from "react-router-dom";
 
 function MapClickMarker() {
   const [data, setData] = useState(null);
@@ -55,9 +56,23 @@ function MapClickMarker() {
             <p style={{ marginTop: 10 }}>
               <text style={{ fontSize: "20px" }}>{data.place}</text>
             </p>
-            <p style={{ marginTop: 10 }}>
-              <text style={{ fontSize: "20px" }}>자세히 보러가기(링크)</text>
-            </p>
+            <Link
+              to={{
+                pathname: `/detail/${data}`,
+                state: {
+                  title: data.title,
+                  image: data.thumbnail,
+                  place: data.place,
+                  realmName: data.realmName,
+                  gpsX: data.latlng.La,
+                  gpsY: data.latlng.Ma,
+                },
+              }}
+            >
+              <p style={{ marginTop: 10 }}>
+                <text style={{ fontSize: "20px" }}>자세히 보러가기(링크)</text>
+              </p>
+            </Link>
           </div>
           <div>
             <img

@@ -40,8 +40,8 @@ function ZoneBox() {
 
     var callback = function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
-        console.log(result);
         console.log("#######################");
+        console.log(result);
       }
     };
     items.map((item, index) => {
@@ -54,7 +54,9 @@ function ZoneBox() {
         ),
         size: 3,
         page: 1,
+        //sort: kakao.maps.services.SortBy.DISTANCE,
       });
+      console.log(data[index]?.elements[1]?.elements[0]?.text);
     });
   }, [tmp]);
 
