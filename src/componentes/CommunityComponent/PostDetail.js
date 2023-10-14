@@ -7,7 +7,8 @@ function PostDetail() {
   const { index } = useParams();
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
-  
+  const [editComment, setEditComment] = useState("");
+
   useEffect(() => {
     async function fetchPostData() {
       try {
@@ -18,7 +19,6 @@ function PostDetail() {
         console.error("게시글 데이터를 불러오는 중 오류 발생:", error);
       }
     }
-
     fetchPostData();
   }, [index]);
   const postedit = () => {
@@ -36,11 +36,14 @@ function PostDetail() {
         comment: comment,
       },
     }).then(() => {
-      // 댓글을 성공적으로 추가한 후 페이지를 다시 로드합니다.
       window.location.reload();
     });
   };
-
+  const onEditCommentChange = (event) => {
+    setEditComment(event.target.value);
+  };
+  
+  //댓글삭제//
   const deleteComment = (comment_index) => {
     axios
       .post('/api/deleteComment', {
@@ -56,7 +59,35 @@ function PostDetail() {
         // 오류 처리, 예를 들어 오류 메시지를 표시합니다.
       });
   };
+  //댓글삭제//
   
+  //댓글 수정//
+  const editCommentSubmit = (comment_index) => {
+    axios
+      .post('/api/editComment', {
+        index: index,
+        comment_index: comment_index,
+        editedComment: editComment,
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        setEditComment(''); 
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('댓글 수정 중 오류 발생:', error);
+      });
+  };
+  const EditComment = (commentIndex) => {
+    const updatedComments = post.comments.map((comment, index) => {
+      if (index === commentIndex) {
+        return { ...comment, isEditing: !comment.isEditing };
+      }
+      return comment;
+    });
+    setPost({ ...post, comments: updatedComments });
+  };
+  //댓글수정//
   
   const onCommentChange = (event) => {
     setComment(event.target.value);
@@ -76,7 +107,6 @@ function PostDetail() {
         history.replace(`/Community`);
       });
     } catch (error) {
-      // 에러 처리
       console.error("글 삭제 중 오류 발생:", error);
     }
   };
@@ -126,7 +156,19 @@ function PostDetail() {
                 <p className="cmt_writer">{comment.writer}</p>
                 <p className="cmt_timestamp">{formatTimestamp(post.timestamp)}</p>
               </div>
-              <p className="cmt_comment">{comment.comment}</p>
+              {comment.isEditing ? (
+                <div>
+                  <textarea
+                    className="edit_comment_input"
+                    value={editComment}
+                    onChange={onEditCommentChange}
+                  />
+                  <button onClick={() => editCommentSubmit(comment.comment_index)}>수정 완료</button>
+                </div>
+              ) : (
+                <p className="cmt_comment">{comment.comment}</p>
+              )}
+              <button onClick={() => EditComment(index)}>수정</button>
               <button onClick={() => deleteComment(comment.comment_index)}>삭제</button>
               <hr  />
             </div>

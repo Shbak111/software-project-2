@@ -141,6 +141,32 @@ app.post('/api/deleteComment', async (req, res) => {
   }
 });
 
+// 서버에서 댓글 수정을 처리하는 엔드포인트 추가
+app.post('/api/editComment', async (req, res) => {
+  const { index, comment_index, editedComment } = req.body; // 클라이언트에서 게시물 인덱스, 댓글 인덱스 및 수정된 댓글 내용을 받음
+
+  try {
+    // 게시물을 찾고 댓글을 수정합니다.
+    const post = await Board.findOne({ _id: index }).exec();
+    if (post) {
+      const comment = post.comments.find((c) => c.comment_index === comment_index);
+      if (comment) {
+        comment.comment = editedComment;
+        await post.save();
+        res.status(200).json({ message: '댓글이 성공적으로 수정되었습니다' });
+      } else {
+        res.status(404).json({ error: '댓글을 찾을 수 없습니다' });
+      }
+    } else {
+      res.status(404).json({ error: '게시물을 찾을 수 없습니다' });
+    }
+  } catch (error) {
+    console.error('댓글 수정 중 오류 발생:', error);
+    res.status(500).json({ error: '서버 오류' });
+  }
+});
+
+
 
 /** 글 삭제하는 로직 */
 app.post("/community/removeBoard", async function (req, res) {
