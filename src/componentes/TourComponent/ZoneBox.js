@@ -3,7 +3,7 @@ import ZoneContent from "./ZoneContent";
 import FetchLocalData from "../FetchLocalData";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { useSelector } from "react-redux";
-
+import  MichelinSeoul  from "./MichelinSeoul";
 function ZoneBox() {
   const [items, setItems] = useState([]);
   const [data, setData] = useState("");
@@ -60,6 +60,7 @@ function ZoneBox() {
 
   return (
     <div>
+      {location === "서울" ? <MichelinSeoul /> : <div/>}
       <div>
         {items.length !== 0 ? (
           items.map((item, index) => (

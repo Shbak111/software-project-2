@@ -1,0 +1,22 @@
+.zone-container{
+    background-color: #05031E;
+}
+.img-seoul{
+    width: 100%;
+}
+.img-list{
+    width: 100%;
+}
+.background-blur{
+    width: 100%;
+    /* filter: blur(5px); */
+    display: flex;
+    flex-direction: row;
+}
+.poster{
+    height: 240px;
+}
+.text-list{
+    padding: 20px;
+    justify-items: flex-end;
+}
