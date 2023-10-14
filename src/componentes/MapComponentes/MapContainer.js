@@ -16,7 +16,7 @@ function MapContainer({ keyword, datas }) {
     console.log(data);
     dispatch(markerdata(data)); // 클릭 이벤트에서 데이터를 Redux로 전달
     dispatch2(mdetailtmp(true));
-    console.log("마커 데이터 저장 완료");
+    //console.log("마커 데이터 저장 완료");
   }
 
   useEffect(() => {
@@ -27,8 +27,8 @@ function MapContainer({ keyword, datas }) {
       };
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-    console.log("MapContainer keyword", keyword);
-    console.log("MapContainer data", datas);
+    //console.log("MapContainer keyword", keyword);
+    //console.log("MapContainer data", datas);
 
     if (keyword !== "") {
       PlaceSearch(map, keyword);
