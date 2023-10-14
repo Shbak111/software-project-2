@@ -36,6 +36,7 @@ async function MapMarkers(map, datas, onClick) {
             latlng: LatLng,
             thumbnail: item.elements[7].elements[0].text,
             place: item.elements[4].elements[0].text,
+            realmName: item.elements[5].elements[0].text,
           });
           //console.log(MarkerData[index]);
           count++;
