@@ -11,7 +11,7 @@ function MichelinSeoul() {
             <img className="img-seoul" src={seoul_m} alt="Loading.."></img>
             <img className="img-list" src={seoul_list} alt="Loading.."></img>
             <div className="background-blur" url={mosu}>
-                <img className="poster" src={mosu_logo} alt="Loading.."/>
+                <img className="michelin-poster" src={mosu_logo} alt="Loading.."/>
                 <div className='text-list'>
                     <h2>모수</h2>
                     <h2>용산구 이태원로 55가길 45, Seoul, 대한민국</h2>
