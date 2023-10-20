@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import "./CommunityZone.css";
 import axios from "axios";
+import { getNickname } from "../LoginComponent/user";
 function CommunityZone() {
   const history = useHistory();
   const [titles, setTitles] = useState([]);
@@ -10,13 +11,20 @@ function CommunityZone() {
   const [totalPages, setTotalPages] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [originalTitles, setOriginalTitles] = useState([]);
+  const nickname = getNickname();
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentItems = titles.slice(startIndex, endIndex);
 
   const handlePostClick = () => {
-    history.push("/CommunityPost");
+    if(nickname==""){
+      alert("로그인 후 이용가능합니다.");
+    }
+    else{
+      history.push("/CommunityPost");
+    }
+    
   };
 
   useEffect(() => {
@@ -74,7 +82,7 @@ function CommunityZone() {
       <div style={{ display: "flex", fontWeight: "bold" }}>
         <p style={{ marginLeft: "1%" }}>No.</p>
         <p style={{ marginLeft: "10%" }}>제목</p>
-        <p style={{ marginLeft: "65%" }}>닉네임</p>
+        <p style={{ marginLeft: "63%" }}>닉네임</p>
         <p style={{ marginLeft: "8%" }}>조회수</p>
       </div>
       <hr className="line"></hr>
@@ -92,10 +100,10 @@ function CommunityZone() {
                 <p className="post_title" style={{ marginLeft: "12%" }}>
                   {title.title}
                 </p>
-                <p className="post_nickname" style={{ marginLeft: "17%" }}>
+                <p className="post_nickname" style={{ marginLeft: "15%", width:"30px" }}>
                   {title.writer}
                 </p>
-                <p className="post_views" style={{ marginLeft: "7%" }}>
+                <p className="post_views" style={{ marginLeft: "10%" }}>
                   {title.views}
                 </p>
                 
@@ -103,7 +111,7 @@ function CommunityZone() {
             </div>
           ))
         ) : (
-          <p>No items available</p>
+          <p>작성된 게시글이 없습니다</p>
         )}
       </div>
 

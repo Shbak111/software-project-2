@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import "./PostDetail.css";
+import { getNickname } from "../LoginComponent/user";
+
 function PostDetail() {
   const history = useHistory();
   const { index } = useParams();
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
   const [editComment, setEditComment] = useState("");
+  const nickname = getNickname();
+
 
   useEffect(() => {
     async function fetchPostData() {
@@ -21,8 +25,15 @@ function PostDetail() {
     }
     fetchPostData();
   }, [index]);
+  
   const postedit = () => {
-    history.push(`/CommunityPostUpdate/${index}`);
+    if(post.writer==nickname){
+      history.push(`/CommunityPostUpdate/${index}`);
+    }
+    else{
+      alert("작성자만 수정 가능합니다.")
+    }
+    
   };
 
   /** 여기 코멘트 추가하는 버튼 부분 */
@@ -96,16 +107,28 @@ function PostDetail() {
   /** 삭제하는 버튼 부분 */
   const removeBtnClick = async () => {
     try {
-      await axios({
-        url: "/community/removeBoard",
-        method: "POST",
-        data: {
-          index: index,
-        },
-      }).then(() => {
-        console.log("delete success");
-        history.replace(`/Community`);
-      });
+      if(nickname==post.writer){
+        const isConfirmed = window.confirm("게시물을 삭제하시겠습니까?");
+        if(isConfirmed){
+          await axios({
+            url: "/community/removeBoard",
+            method: "POST",
+            data: {
+              index: index,
+            },
+          }).then(() => {
+            console.log("delete success");
+            history.replace(`/Community`);
+          });
+        }
+        else{
+          return;
+        }
+      }
+      else{
+        alert("작성자만 삭제가능합니다.")
+      }
+      
     } catch (error) {
       console.error("글 삭제 중 오류 발생:", error);
     }
@@ -124,20 +147,20 @@ function PostDetail() {
 
   return (
     <div className="postdetail_container">
-      <div style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
+      <div className="postdetail_header" style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
         <p className="pst_title">제목: {post.title}</p>
         <p className="pst_timestamp">{formatTimestamp(post.timestamp)}</p>  
       </div>
-      <hr style={{width:"50%"}}/>
+      <hr className="postdetail_hr"/>
       <p className="pst_writer">작성자: {post.writer}</p>
       <p className="pst_content">내용: {post.content}</p>
       <p className="pst_views">조회수: {post.views}</p>
-      <div style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
+      <div className="postdetail_buttons">
         <button onClick={postedit}>게시글 수정</button>
         <button onClick={removeBtnClick}>게시글 삭제</button>
       </div>
       
-      <hr style={{width:"50%"}}/>
+      <hr style={{width:"100%"}}/>
       <div style={{display:'flex',justifyContent:"space-between"}}>
         <textarea
           id="comment"
@@ -145,16 +168,16 @@ function PostDetail() {
           placeholder="댓글을 입력하세요"
           onChange={onCommentChange}
         />
-        <button onClick={commentBtnClick}>댓글추가</button>
+        <button className="comment_button" onClick={commentBtnClick}>등록</button>
       </div>
       
       {post.comments && post.comments.length > 0 ? (
         <div>
           {post.comments.map((comment, index) => (
-            <div key={index}>
-              <div style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
+            <div className="comment_container" key={index}>
+              <div className="comment_header">
                 <p className="cmt_writer">{comment.writer}</p>
-                <p className="cmt_timestamp">{formatTimestamp(post.timestamp)}</p>
+                <p className="cmt_timestamp">{formatTimestamp(comment.timestamp)}</p>
               </div>
               {comment.isEditing ? (
                 <div>
@@ -163,14 +186,18 @@ function PostDetail() {
                     value={editComment}
                     onChange={onEditCommentChange}
                   />
-                  <button onClick={() => editCommentSubmit(comment.comment_index)}>수정 완료</button>
+                  <button onClick={() => editCommentSubmit(comment.comment_index)}>등록</button>
+                  
                 </div>
               ) : (
-                <p className="cmt_comment">{comment.comment}</p>
+                <div>
+                  <p className="cmt_comment">{comment.comment}</p>
+                  <button className="edit_comment_button" onClick={() => EditComment(index)}>수정</button>
+                  <button className="delete_comment_button" onClick={() => deleteComment(comment.comment_index)}>삭제</button>
+                </div>    
               )}
-              <button onClick={() => EditComment(index)}>수정</button>
-              <button onClick={() => deleteComment(comment.comment_index)}>삭제</button>
-              <hr  />
+              
+              
             </div>
           ))}
         </div>
