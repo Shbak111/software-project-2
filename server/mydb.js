@@ -2,6 +2,7 @@ const db = require("mongodb");
 const mongoose = require("mongoose");
 const Board = require("./models/postModel");
 const BId = require("./models/postIdModel");
+const Comment = require("./models/commentModel");
 const uri =
   "mongodb+srv://khbak111:oolLK4Yj8rK1JFNh@cluster0.td4kmi4.mongodb.net/mydb?retryWrites=true&w=majority";
 
@@ -23,6 +24,15 @@ async function writeOnDB(title, writer, content, timestamp) {
     comments: [],
   });
   board.save();
+}
+
+/** 공연,전시 리뷰 저장을 위한 댓글 작성 함수 */
+async function EachcommentWriteDB(index) {
+  const comment = new Comment({
+    _id: index,
+    comments: [],
+  });
+  comment.save();
 }
 
 /** 커뮤니티에 글 삭제하는 함수 */
@@ -57,16 +67,28 @@ async function counter() {
 }
 let comment_count = 0;
 /** 댓글 추가하는 로직. 해당 게시글의 index를 알고 그 게시글에 접근해서 comment 추가 */
-async function commentWrite(index, writer, comment) {
-  // 기존 댓글 배열 가져오기
-  const existingComment = await Board.findOne({ _id: index });
+async function commentWrite(index, writer, comment, model) {
+  // 필터를 설정하여 해당 데이터를 찾습니다.
+  const filter = { _id: index };
 
-  // 새 댓글 추가
-  const newComment = { writer: writer, comment: comment, comment_index: comment_count};
-  existingComment.comments.push(newComment);
+  // 업데이트할 데이터를 설정합니다.
+  const update = {
+    $push: {
+      comments: {
+        writer: writer,
+        comment: comment,
+        comment_index: comment_count,
+      },
+    },
+  };
+
+  // 옵션을 설정하여 데이터가 없을 경우 새로 생성하도록 합니다.
+  const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+  // findOneAndUpdate를 사용하여 데이터를 업데이트 또는 생성합니다.
+  const result = await model.findOneAndUpdate(filter, update, options);
+
   comment_count++;
-  // 업데이트된 댓글 배열을 사용하여 문서 업데이트
-  await existingComment.save();
 }
 
 async function testonDB() {}
@@ -79,3 +101,4 @@ module.exports.DBupdate = updateOnDB;
 module.exports.DBread = readOnDB;
 module.exports.DBtest = testonDB;
 module.exports.DBcomment = commentWrite;
+module.exports.DBeachComment = EachcommentWriteDB;

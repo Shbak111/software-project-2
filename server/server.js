@@ -6,6 +6,7 @@ const PORT = 5000;
 const converter = require("xml-js");
 const mydb = require("./mydb");
 const Board = require("./models/postModel");
+const Comment = require("./models/commentModel");
 const User = require("./models/userModel");
 const bodyparser = require("body-parser");
 const request = require("request");
@@ -80,6 +81,28 @@ app.get("/community/postByIndex/:index", async function (req, res) {
     res.status(500).json({ error: "서버 오류" });
   }
 });
+
+/** 커뮤니티 말고 전시,공연 리뷰 댓글 읽어오기 */
+app.get("/tour/readcomments/:index", async function (req, res) {
+  const { index } = req.params; // 클라이언트에서 전달된 인덱스
+  try {
+    // 데이터베이스에서 해당 인덱스의 게시글 데이터 조회
+    const post = await Comment.findOne({ _id: index }).exec();
+
+    if (post) {
+      // 게시글 데이터가 존재하는 경우 클라이언트에 응답으로 반환
+      res.json(post);
+    } else {
+      // 해당 인덱스의 게시글을 찾을 수 없는 경우 에러 응답
+      res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
+    }
+  } catch (error) {
+    // 조회 중 에러가 발생한 경우 에러 응답
+    console.error("게시글 조회 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
 app.put("/community/updatePost/:index", async (req, res) => {
   const { index } = req.params;
   const updatedData = req.body;
@@ -104,9 +127,22 @@ app.post("/community/postComment", async function (req, res) {
   let { index } = req.body; // 클라이언트에서 전달된 인덱스
   let { comment } = req.body;
   let { writer } = req.body;
-  let { comment_index}=req.body;
+  let { model } = req.body;
+  //let { comment_index } = req.body;
+  console.log(model);
   try {
-    mydb.DBcomment(index, writer, comment,comment_index);
+    // 일반 커뮤니티에서 댓글 달 경우 Board로 연결
+    if (model === "Board") mydb.DBcomment(index, writer, comment, Board);
+    // 커뮤니티가 아니고 전시, 공연 쪽에서 리뷰 댓글 달 경우 Comment로 연결
+    else if (model === "Comment") {
+      if (Comment.findOne({ _id: index })) {
+        mydb.DBcomment(index, writer, comment, Comment);
+      } else {
+        mydb.DBeachComment(index).then(() => {
+          mydb.DBcomment(index, writer, comment, Comment);
+        });
+      }
+    }
     return res.send({ message: "add comment success!" });
   } catch (error) {
     // 댓글 작성 중 에러가 발생한 경우 에러 응답
@@ -115,58 +151,69 @@ app.post("/community/postComment", async function (req, res) {
   }
 });
 
-app.post('/api/deleteComment', async (req, res) => {
-  const { index, comment_index } = req.body; // 클라이언트에서 게시물 인덱스와 댓글 인덱스를 보내는 것을 가정합니다.
+app.post("/api/deleteComment", async (req, res) => {
+  const { index, comment_index, model } = req.body; // 클라이언트에서 게시물 인덱스와 댓글 인덱스를 보내는 것을 가정합니다.
 
   try {
     // 인덱스를 기반으로 게시물을 찾습니다.
-    const post = await Board.findOne({ _id: index }).exec();
-
+    let post;
+    if (model === "Board") {
+      post = await Board.findOne({ _id: index }).exec();
+    } else if (model === "Comment") {
+      post = await Comment.findOne({ _id: index }).exec();
+    }
     if (post) {
       // 댓글 배열에서 댓글을 찾아서 제거합니다.
-      const comment = post.comments.find((c) => c.comment_index === comment_index);
+      const comment = post.comments.find(
+        (c) => c.comment_index === comment_index
+      );
       if (comment) {
         post.comments.pull(comment);
         await post.save();
-        res.status(200).json({ message: '댓글이 성공적으로 삭제되었습니다' });
+        res.status(200).json({ message: "댓글이 성공적으로 삭제되었습니다" });
       } else {
-        res.status(404).json({ error: '댓글을 찾을 수 없습니다' });
+        res.status(404).json({ error: "댓글을 찾을 수 없습니다" });
       }
     } else {
-      res.status(404).json({ error: '게시물을 찾을 수 없습니다' });
+      res.status(404).json({ error: "게시물을 찾을 수 없습니다" });
     }
   } catch (error) {
-    console.error('댓글 삭제 중 오류 발생:', error);
-    res.status(500).json({ error: '서버 오류' });
+    console.error("댓글 삭제 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
   }
 });
 
 // 서버에서 댓글 수정을 처리하는 엔드포인트 추가
-app.post('/api/editComment', async (req, res) => {
-  const { index, comment_index, editedComment } = req.body; // 클라이언트에서 게시물 인덱스, 댓글 인덱스 및 수정된 댓글 내용을 받음
+app.post("/api/editComment", async (req, res) => {
+  const { index, comment_index, editedComment, model } = req.body; // 클라이언트에서 게시물 인덱스, 댓글 인덱스 및 수정된 댓글 내용을 받음
 
   try {
     // 게시물을 찾고 댓글을 수정합니다.
-    const post = await Board.findOne({ _id: index }).exec();
+    let post;
+    if (model === "Board") {
+      post = await Board.findOne({ _id: index }).exec();
+    } else if (model === "Comment") {
+      post = await Comment.findOne({ _id: index }).exec();
+    }
     if (post) {
-      const comment = post.comments.find((c) => c.comment_index === comment_index);
+      const comment = post.comments.find(
+        (c) => c.comment_index === comment_index
+      );
       if (comment) {
         comment.comment = editedComment;
         await post.save();
-        res.status(200).json({ message: '댓글이 성공적으로 수정되었습니다' });
+        res.status(200).json({ message: "댓글이 성공적으로 수정되었습니다" });
       } else {
-        res.status(404).json({ error: '댓글을 찾을 수 없습니다' });
+        res.status(404).json({ error: "댓글을 찾을 수 없습니다" });
       }
     } else {
-      res.status(404).json({ error: '게시물을 찾을 수 없습니다' });
+      res.status(404).json({ error: "게시물을 찾을 수 없습니다" });
     }
   } catch (error) {
-    console.error('댓글 수정 중 오류 발생:', error);
-    res.status(500).json({ error: '서버 오류' });
+    console.error("댓글 수정 중 오류 발생:", error);
+    res.status(500).json({ error: "서버 오류" });
   }
 });
-
-
 
 /** 글 삭제하는 로직 */
 app.post("/community/removeBoard", async function (req, res) {
@@ -214,7 +261,7 @@ app.post("/login", async (req, res) => {
       res.status(401).json({ authenticated: false });
     } else {
       // Authentication successful
-      res.json({ authenticated: true, nickname : user.nickname });
+      res.json({ authenticated: true, nickname: user.nickname });
     }
   } catch (error) {
     console.error("Error during login:", error);

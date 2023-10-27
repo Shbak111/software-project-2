@@ -3,7 +3,7 @@ import ZoneContent from "./ZoneContent";
 import FetchLocalData from "../FetchLocalData";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { useSelector } from "react-redux";
-import  MichelinSeoul  from "./MichelinSeoul";
+import MichelinSeoul from "./MichelinSeoul";
 function ZoneBox() {
   const [items, setItems] = useState([]);
   const [data, setData] = useState("");
@@ -62,7 +62,7 @@ function ZoneBox() {
 
   return (
     <div>
-      {location === "서울" ? <MichelinSeoul /> : <div/>}
+      {location === "서울" ? <MichelinSeoul /> : <div />}
       <div>
         {items.length !== 0 ? (
           items.map((item, index) => (
@@ -71,6 +71,7 @@ function ZoneBox() {
                 to={{
                   pathname: `/detail/${data[index]?.elements[0]?.elements[0]?.text}`,
                   state: {
+                    seq: data[index]?.elements[0]?.elements[0]?.text,
                     title: data[index]?.elements[1]?.elements[0]?.text,
                     place: data[index]?.elements[4]?.elements[0]?.text,
                     realmName: data[index]?.elements[5]?.elements[0]?.text,

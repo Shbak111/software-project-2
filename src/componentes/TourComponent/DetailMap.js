@@ -100,7 +100,11 @@ function DetailMap({ gpsX, gpsY }) {
   return (
     <div
       id="map"
-      style={{ height: window.innerHeight, width: window.innerWidth / 2 }}
+      style={{
+        height: window.innerHeight,
+        width: window.innerWidth / 2,
+        position: "relative",
+      }}
     ></div>
   );
 }

@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
-import "./PostDetail.css";
+import "../CommunityComponent/PostDetail.css";
 import { getNickname } from "../LoginComponent/user";
 
-function PostDetail() {
+/** 각 디테일 전시, 공연에 댓글 기능하는 컴포넌트 */
+function DetailComment({ seq }) {
   const history = useHistory();
-  const { index } = useParams();
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
   const [editComment, setEditComment] = useState("");
+  const [reload, setReload] = useState(true);
   const nickname = getNickname();
 
   useEffect(() => {
     async function fetchPostData() {
       try {
-        const response = await axios.get(`/community/postByIndex/${index}`);
+        const response = await axios.get(`/tour/readcomments/${seq}`);
         setPost(response.data);
       } catch (error) {
         console.error("게시글 데이터를 불러오는 중 오류 발생:", error);
       }
     }
     fetchPostData();
-  }, [index]);
-
-  const postedit = () => {
-    if (post.writer == nickname) {
-      history.push(`/CommunityPostUpdate/${index}`);
-    } else {
-      alert("작성자만 수정 가능합니다.");
-    }
-  };
+  }, [seq, reload]);
 
   /** 여기 코멘트 추가하는 버튼 부분 */
   const commentBtnClick = () => {
@@ -38,10 +31,10 @@ function PostDetail() {
       url: "/community/postComment",
       method: "POST",
       data: {
-        index: index,
+        index: seq,
         writer: "nickname",
         comment: comment,
-        model: "Board",
+        model: "Comment",
       },
     }).then(() => {
       window.location.reload();
@@ -55,9 +48,9 @@ function PostDetail() {
   const deleteComment = (comment_index) => {
     axios
       .post("/api/deleteComment", {
-        index: index, // 게시물 인덱스
+        index: seq, // 게시물 인덱스
         comment_index: comment_index, // 삭제할 댓글 인덱스
-        model: "Board",
+        model: "Comment",
       })
       .then(() => {
         window.location.reload();
@@ -73,15 +66,16 @@ function PostDetail() {
   const editCommentSubmit = (comment_index) => {
     axios
       .post("/api/editComment", {
-        index: index,
+        index: seq,
         comment_index: comment_index,
         editedComment: editComment,
-        model: "Board",
+        model: "Comment",
       })
       .then((response) => {
         console.log(response.data.message);
         setEditComment("");
-        window.location.reload();
+        //window.location.reload();
+        setReload(!reload);
       })
       .catch((error) => {
         console.error("댓글 수정 중 오류 발생:", error);
@@ -102,33 +96,6 @@ function PostDetail() {
     setComment(event.target.value);
   };
 
-  /** 삭제하는 버튼 부분 */
-  const removeBtnClick = async () => {
-    try {
-      if (nickname == post.writer) {
-        const isConfirmed = window.confirm("게시물을 삭제하시겠습니까?");
-        if (isConfirmed) {
-          await axios({
-            url: "/community/removeBoard",
-            method: "POST",
-            data: {
-              index: index,
-            },
-          }).then(() => {
-            console.log("delete success");
-            history.replace(`/Community`);
-          });
-        } else {
-          return;
-        }
-      } else {
-        alert("작성자만 삭제가능합니다.");
-      }
-    } catch (error) {
-      console.error("글 삭제 중 오류 발생:", error);
-    }
-  };
-
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -141,27 +108,6 @@ function PostDetail() {
 
   return (
     <div className="postdetail_container">
-      <div
-        className="postdetail_header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <p className="pst_title">제목: {post.title}</p>
-        <p className="pst_timestamp">{formatTimestamp(post.timestamp)}</p>
-      </div>
-      <hr className="postdetail_hr" />
-      <p className="pst_writer">작성자: {post.writer}</p>
-      <p className="pst_content">내용: {post.content}</p>
-      <p className="pst_views">조회수: {post.views}</p>
-      <div className="postdetail_buttons">
-        <button onClick={postedit}>게시글 수정</button>
-        <button onClick={removeBtnClick}>게시글 삭제</button>
-      </div>
-
-      <hr style={{ width: "100%" }} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <textarea
           id="comment"
@@ -224,4 +170,4 @@ function PostDetail() {
   );
 }
 
-export default PostDetail;
+export default DetailComment;

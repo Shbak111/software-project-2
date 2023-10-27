@@ -17,7 +17,7 @@ function FindRestaurant(map) {
   function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
       for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
+        //console.log(data[i]);
         displayMarker(data[i]);
       }
     }
@@ -27,7 +27,7 @@ function FindRestaurant(map) {
   function displayMarker(place) {
     // 마커를 생성하고 지도에 표시합니다
     var imageSrc = r_icon, //마커 이미지의 주소
-      imageSize = new kakao.maps.Size(25, 34.5),// 마커이미지의 크기입니다
+      imageSize = new kakao.maps.Size(25, 34.5), // 마커이미지의 크기입니다
       imageOption = { offset: new kakao.maps.Point(13.5, 34.5) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
     var markerImage = new kakao.maps.MarkerImage(
@@ -39,7 +39,7 @@ function FindRestaurant(map) {
     var marker = new kakao.maps.Marker({
       map: map,
       position: new kakao.maps.LatLng(place.y, place.x),
-      image : markerImage, //마커이미지 연결
+      image: markerImage, //마커이미지 연결
     });
 
     // 마커에 클릭이벤트를 등록합니다

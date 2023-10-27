@@ -1,15 +1,15 @@
-.detail-container{
+.detail-container {
   width: 100%;
   height: fit-content;
   margin-top: 0.3%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #07003B;
+  background-color: #07003b;
 }
-.poster{
+.poster {
   width: 100%;
-  height: 160%;
+  height: 130%;
 }
 .detail-info {
   color: aliceblue;
@@ -18,12 +18,12 @@
   width: 50%;
 }
 @import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
-.title{
+.title {
   margin-top: 20px;
   margin-bottom: 20px;
   font-size: 50px;
   font-weight: bold;
-  font-family: 'Jeju Hallasan', cursive;
+  font-family: "Jeju Hallasan", cursive;
 }
 
 .area {
@@ -31,16 +31,16 @@
   font-weight: bold;
   font-size: 20px;
   margin-top: 20px;
-  font-family: 'Jeju Hallasan', cursive;
+  font-family: "Jeju Hallasan", cursive;
 }
 
 .place {
   color: white;
-  font-size:16px;
+  font-size: 16px;
   margin-top: 20px;
 }
 
-.realmName{
+.realmName {
   color: white;
   font-size: 20px;
   margin-top: 20px;

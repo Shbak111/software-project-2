@@ -12,12 +12,13 @@ function MapDetail({ data, index }) {
   const [realmName, setRealmName] = useState("");
   const [gpsx, setGpsX] = useState("");
   const [gpsy, setGpsY] = useState("");
-  //const [seq, setSeq] = useState("");
+  const [seq, setSeq] = useState("");
 
   useEffect(() => {
     //데이터 받아온거 적용.
     //썸네일, 타이틀 현재 받아옴.
     setNow(data);
+    setSeq(data.elements[0].elements[0].text);
     setTitle(data.elements[1].elements[0].text);
     setThumbnail(data.elements[7].elements[0].text);
     setRealmName(data.elements[5].elements[0].text);
@@ -38,8 +39,9 @@ function MapDetail({ data, index }) {
     <div style={{ display: "flex", flexDirection: "column", padding: 30 }}>
       <Link
         to={{
-          pathname: `/detail/${data}`,
+          pathname: `/detail/${data?.elements[0]?.elements[0]?.text}`,
           state: {
+            seq: seq,
             title: title,
             image: thumbnail,
             place: place,
