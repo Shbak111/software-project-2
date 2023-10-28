@@ -268,6 +268,18 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+/*사용자 글불러오기*/
+app.post("/user/posts", async (req, res) => {
+  const nickname  = req.body.nickname;
+  try {
+  const boards = await Board.find({ writer : nickname }).exec();
+  res.json(boards);
+  console.log(boards);
+} catch (error) {
+  console.error("Error during login:", error);
+}
+});
+
 
 //mydb.DBread();
 ////db/////////////////////////////////////////////////////////////////////
