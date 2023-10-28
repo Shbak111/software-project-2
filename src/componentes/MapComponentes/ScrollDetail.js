@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MapDetail from "./MapDetail";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-function ScrollDetail({ data }) {
+function ScrollDetail({ data, map }) {
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);
   const [detailData, setData] = useState(null);
@@ -58,7 +58,7 @@ function ScrollDetail({ data }) {
             items.map((item, index) => {
               return (
                 <div key={index}>
-                  <MapDetail index={index} data={item} />
+                  <MapDetail index={index} data={item} map={map} />
                 </div>
               );
             })

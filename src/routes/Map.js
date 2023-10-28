@@ -4,6 +4,11 @@ import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import styles from "../css/Map.module.css";
 import FetchLocalData from "../componentes/FetchLocalData";
 import MapClickMarker from "../componentes/MapComponentes/MapClickMarker";
+import GetGeolocation from "../componentes/MapComponentes/GetGeolocation";
+import PlaceSearch from "../componentes/MapComponentes/PlaceSearch";
+import MapMarkers from "../componentes/MapComponentes/MapMarkers";
+import { markerdata } from "../reducers/markerData";
+import { mdetailtmp } from "../reducers/markerdetailState";
 import { datapersist } from "../reducers/dataPersist";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,7 +19,9 @@ function Map() {
   const [data, setData] = useState(null);
   const [datas, setDatas] = useState(null);
   const [mylocation, setLocation] = useState(null);
+  const [map, setMap] = useState(null);
   const dispatch = useDispatch();
+  const dispatch2 = useDispatch();
 
   const word = useSelector((state) => state.search.value);
   const storedata = useSelector((state) => state.storedata.value);
@@ -118,14 +125,58 @@ function Map() {
     }
   }, [data, datas]);
 
+  function handleMarkerClick(data) {
+    console.log(data);
+    dispatch(markerdata(data)); // 클릭 이벤트에서 데이터를 Redux로 전달
+    dispatch2(mdetailtmp(true));
+    //console.log("마커 데이터 저장 완료");
+  }
+
+  /** map 요소를 Map.js 하위 컴포넌트들에서 모두 이용가능하도록 리팩토링.2023-10-28 */
+  useEffect(() => {
+    const mapContainer = document.getElementById("myMap"), // 지도를 표시할 div
+      mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 7, // 지도의 확대 레벨
+      };
+    const mapinstance = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    //console.log("MapContainer keyword", word);
+    //console.log("MapContainer data", datas);
+    if (word !== "") {
+      PlaceSearch(mapinstance, word);
+      console.log("PlaceSearch 실행");
+    }
+
+    GetGeolocation(mapinstance);
+    console.log("getg 실행됨");
+
+    if (datas !== null) MapMarkers(mapinstance, datas, handleMarkerClick);
+    console.log("MapMarker 실행됨");
+    setMap(mapinstance);
+  }, [datas, word]);
+
   return (
     <div className={styles.container}>
       <button onClick={onBtnClick}>{btnState ? "숨기기" : "보이기"}</button>
-      {btnState ? data !== null ? <ScrollDetail data={data} /> : null : null}
+      {btnState ? (
+        data !== null ? (
+          <ScrollDetail data={data} map={map} />
+        ) : null
+      ) : null}
       {btnState && mstate ? <MapClickMarker /> : null}
 
-      <div style={{ flex: 1 }}>
+      {/* <div style={{ flex: 1 }}>
         {datas !== null ? <MapContainer keyword={word} datas={datas} /> : null}
+      </div> */}
+      <div style={{ flex: 1 }}>
+        <div
+          id="myMap"
+          style={{
+            position: "relative",
+            height: window.innerHeight,
+            width: window.innerWidth,
+          }}
+        ></div>
       </div>
     </div>
   );

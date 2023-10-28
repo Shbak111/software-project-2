@@ -3,8 +3,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import FetchDetailData from "../FetchDetailData";
 import styles from "./MapDetail.module.css";
+import { useDispatch } from "react-redux";
+import { mdetailtmp } from "../../reducers/markerdetailState";
+import { markerdata } from "../../reducers/markerData";
 
-function MapDetail({ data, index }) {
+const { kakao } = window;
+
+function MapDetail({ data, index, map }) {
   const [now, setNow] = useState(null);
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState("");
@@ -13,6 +18,8 @@ function MapDetail({ data, index }) {
   const [gpsx, setGpsX] = useState("");
   const [gpsy, setGpsY] = useState("");
   const [seq, setSeq] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     //데이터 받아온거 적용.
@@ -35,11 +42,28 @@ function MapDetail({ data, index }) {
     //console.log(fetchedData);
   }
 
+  const onClick = () => {
+    let LatLng = new kakao.maps.LatLng(gpsy, gpsx);
+    let data = {
+      title: title,
+      latlng: LatLng,
+      thumbnail: thumbnail,
+      place: place,
+      realmName: realmName,
+    };
+    dispatch(markerdata(data));
+    dispatch(mdetailtmp(true));
+
+    let level = map.getLevel() - 2;
+    map.setLevel(level, { anchor: LatLng });
+    map.panTo(LatLng);
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", padding: 30 }}>
       <Link
         to={{
-          pathname: `/detail/${data?.elements[0]?.elements[0]?.text}`,
+          //pathname: `/detail/${data?.elements[0]?.elements[0]?.text}`,
           state: {
             seq: seq,
             title: title,
@@ -56,6 +80,7 @@ function MapDetail({ data, index }) {
             src={thumbnail}
             alt="placeholder"
             style={{ width: 200, height: 200 }}
+            onClick={onClick}
           ></img>
         ) : (
           <img
@@ -63,9 +88,7 @@ function MapDetail({ data, index }) {
             alt="placeholder"
           ></img>
         )}
-      </Link>
 
-      <Link to="/detail">
         {now !== null ? (
           <h1 className={styles.truncate}>{title}</h1>
         ) : (
