@@ -60,6 +60,7 @@ function MapClickMarker() {
               to={{
                 pathname: `/detail/${data}`,
                 state: {
+                  seq: data.seq,
                   title: data.title,
                   image: data.thumbnail,
                   place: data.place,

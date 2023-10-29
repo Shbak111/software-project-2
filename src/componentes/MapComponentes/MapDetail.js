@@ -45,6 +45,7 @@ function MapDetail({ data, index, map }) {
   const onClick = () => {
     let LatLng = new kakao.maps.LatLng(gpsy, gpsx);
     let data = {
+      seq: seq,
       title: title,
       latlng: LatLng,
       thumbnail: thumbnail,

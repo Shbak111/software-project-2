@@ -32,6 +32,7 @@ async function MapMarkers(map, datas, onClick) {
             item.elements[8].elements[0].text
           );
           MarkerData.push({
+            seq: item.elements[0].elements[0].text,
             title: item.elements[1].elements[0].text,
             latlng: LatLng,
             thumbnail: item.elements[7].elements[0].text,
