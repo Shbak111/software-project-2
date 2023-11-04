@@ -14,52 +14,6 @@
   width: 1500px;
   height: 800px;
 }
-/* 이 스타일들을 기존의 CSS에 추가해주세요 */
-/* .side-box {
-  width: 270px;
-  height: auto;
-  margin-left: 40px;
-  margin-right: 100px;
-  margin-top: 100px;
-  position: sticky;
-  top: 100px;
-  background-color: #07003B;
-  border-radius: 10px; 
-  padding: 20px; 
-  
-} */
-
-/* .side-box p {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 10px; 
-} */
-
-/* 선택 드롭다운 */
-/* .side-box .select-container {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  display: flex;
-  
-} */
-
-/* 검색 버튼*/
-/* .side-box button {
-  background-color: #29214E;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.side-box button:hover {
-  background-color: #1A1032;
-} */
-
 
 .top-left {
   width: 17%; /* Adjust the width as needed */

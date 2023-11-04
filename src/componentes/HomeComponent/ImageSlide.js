@@ -28,8 +28,6 @@ function ImageSlide() {
     }
     fetchData();
   }, []);
-  
-
   const settings = {
     dots: true,
     dotsClass: "slick-dots",
@@ -54,7 +52,7 @@ function ImageSlide() {
               </div>
             ))}
           </Slider>
-        </div>
+    </div>
   )
 }
 export default ImageSlide;
