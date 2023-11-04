@@ -1,25 +1,27 @@
 /* SearchedData.css */
 
-.container {
+.Searched_container {
   display: flex;
   flex-direction: column;
   justify-content: center; 
   align-items: center; 
+  justify-content: center;
   padding: 30px;
-  }
+}
+
+
   
-  .grid-item {
-    display: flex;
-    padding: 30px;
-    align-items: center; 
-    cursor: pointer;
-  }
+.grid-item {
+  display: flex;
+  padding: 30px;
+  align-items: center; 
+  cursor: pointer;
+}
   
-  .image-container {
-    width: 200px; /* 이미지 컨테이너의 고정된 너비 설정 */
-    height: 200px; /* 이미지 컨테이너의 고정된 높이 설정 */
-    
-  }
+.image-container {
+  width: 200px; /* 이미지 컨테이너의 고정된 너비 설정 */
+  height: 200px; /* 이미지 컨테이너의 고정된 높이 설정 */  
+}
   
   
 .pagination button {

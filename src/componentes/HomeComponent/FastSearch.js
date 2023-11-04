@@ -5,17 +5,18 @@ import "./FastSearch.css";
 import { useHistory } from 'react-router-dom';
 
 
-
-
 const FastSearch = () => {
     
     const history = useHistory();
 
     const [selectedArea, setselectedArea] = useState(null); 
     const [selectedField, setselectedField] = useState(null);
-    const [selectedDate, setselectedDate] = useState(null);
+    
     const areaOptions = ["서울", "부산", "대구", "인천", "광주", "대전", "울산","세종","경기","강원","충북","충남","전남","경북","경남","제주"];
     const fieldOptions = ["연극", "음악", "무용","미술","기타"];
+
+    const [startDate, setStartDate] = useState(null); 
+    const [endDate, setEndDate] = useState(null);
 
     const handleAreaSelect = (area) => {
         if (selectedArea === area) {
@@ -39,15 +40,17 @@ const FastSearch = () => {
           return;
         }
         try {
-          const selectedDateStr = selectedDate ? selectedDate.toISOString().slice(0, 10).replace(/-/g, "") : "";
+          const startDateStr = startDate ? startDate.toISOString().slice(0, 10).replace(/-/g, "") : "";
+          const endDateStr = endDate ? endDate.toISOString().slice(0, 10).replace(/-/g, "") : "";
           history.push({
             pathname: '/SearchedData',
             state: {
               selectedArea,
               selectedField,
-              selectedDate: selectedDateStr,
+              startDate: startDateStr, 
+              endDate: endDateStr,    
             },
-          });
+      });
         } catch (error) {
           console.error("데이터를 가져오는 중 오류 발생:", error);
         }
@@ -80,11 +83,22 @@ const FastSearch = () => {
             ))}
           </div>
           <div className="select-container">
-            <p>날짜 : </p>
+            <p>날짜</p>
+            <br />
+            <p>To</p>
             <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setselectedDate(date)}
-              placeholderText="날짜를 선택하세요"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              placeholderText="시작 날짜를 선택하세요"
+              dateFormat="yyyy-MM-dd"
+            />
+          </div>
+          <div className="select-container">
+            <p>From</p>
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              placeholderText="종료 날짜를 선택하세요"
               dateFormat="yyyy-MM-dd"
             />
           </div>
