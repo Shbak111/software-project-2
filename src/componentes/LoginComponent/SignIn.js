@@ -2,22 +2,6 @@ import React, { useState, useReducer } from 'react';
 import axios from 'axios';
 import { setNickname } from './user';
 import { useHistory } from 'react-router-dom';
-import { login } from './auth';
-
-const initialState = {
-    authenticated: false,
-    token: null
-}
-function reducer(state, action) {
-    switch (action.type) {
-      case 'SET_TOKEN':
-        return { ...state, token: action.token, authenticated: action.result };
-      case 'DELETE_TOKEN':
-        return { ...state, token: null, authenticated: false };
-      default:
-        return state;
-    }
-  }
 
 function SignIn() {
     const history = useHistory();
@@ -25,9 +9,6 @@ function SignIn() {
         email: '',
         password: '',
     });
-
-    const [restate, dispatch] = useReducer(reducer, initialState);
-    const { authenticated } = restate;
 
 
     const handleInputChange = (e) => {
@@ -47,12 +28,6 @@ function SignIn() {
                 password,
             });
             if (response.data.authenticated) {
-                let token = login();
-                dispatch({
-                    type: 'SET_TOKEN',
-                    token: token,
-                    result: true,
-                  });
                 const nickname = response.data.nickname;
                 setNickname(nickname);
                 alert(nickname + "님! 환영합니다!");
@@ -64,19 +39,9 @@ function SignIn() {
                     password: '',
                 });
             } else {
-                dispatch({
-                    type: 'SET_TOKEN',
-                    token: null,
-                    result: false,
-                  });
                 alert('로그인 실패');
             }
         } catch (error) {
-            dispatch({
-                type: 'SET_TOKEN',
-                token: null,
-                result: false,
-              });
             console.error('Error during login:', error);
             alert('로그인 실패');
         }

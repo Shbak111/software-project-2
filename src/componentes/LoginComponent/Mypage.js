@@ -8,7 +8,8 @@ import comment_views from "../../assets/comment_views.png";
 import post_views from "../../assets/post_views.png";
 function Mypage() {
   const nickname = getNickname();
-
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState({});
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -31,6 +32,18 @@ function Mypage() {
 
     fetchData();
   }, [nickname]);
+
+  const logout = () => {
+    axios({
+      url: "/logout",
+      method: "POST",
+      withCredentials: true,
+    }).then((result) => {
+      if (result.status === 200) {
+        window.open("/", "_self");
+      }
+    });
+  };
 
   return (
     <div>
