@@ -11,10 +11,7 @@ const User = require("./models/userModel");
 const bodyparser = require("body-parser");
 const request = require("request");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 
-
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(cors());
 app.use(bodyparser.json());
@@ -255,6 +252,7 @@ app.post("/register", async (req, resp) => {
 /** 사용자 로그인 */
 const accesssecret = "asoldfjpwoiehrph123094u1324234k2jb3r2#$2kjbfwsopdfuh";
 const refreshsecret = "klasjofihwpeihrp9187039458y2jb43lsbdguhp23hrp9qb;g";
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -268,39 +266,53 @@ app.post("/login", async (req, res) => {
     } else {
       // Authentication successful
       // access Token 발급
-      const accessToken = jwt.sign({
-        nickname: user.nickname,
-        email: user.email,
-      }, accesssecret, {
-        expiresIn: '1m',
-        issuer: 'About Tech',
-      });
+      // const accessToken = jwt.sign({
+      //   nickname: user.nickname,
+      // }, accesssecret, {
+      //   expiresIn: '1m',
+      //   issuer: 'About Tech',
+      // });
 
-      // refresh Token 발급
-      const refreshToken = jwt.sign({
-        nickname: user.nickname,
-        email: user.email,
-      }, refreshsecret, {
-        expiresIn: '24h',
-        issuer: 'About Tech',
+      // // refresh Token 발급
+      // const refreshToken = jwt.sign({
+      //   nickname: user.nickname,
+      //   email: user.email,
+      // }, refreshsecret, {
+      //   expiresIn: '24h',
+      //   issuer: 'About Tech',
+      // });
+      const accessToken = jwt.sign({ nickname: user.nickname }, accesssecret, {
+        expiresIn: "1h",
+        issuer: "FirstEasy",
       });
-
-      // Set cookies
-      res.cookie("accessToken", accessToken, {
-        secure: false,
-        httpOnly: true,
-      });
-
-      res.cookie("refreshToken", refreshToken, {
-        secure: false,
-        httpOnly: true,
-      });
-      return res.json({ authenticated: true, nickname: user.nickname });
+      
+      return res.json({ authenticated: true, accessToken });
     }
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
+});
+
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ error: "Token not provided" });
+  }
+
+  jwt.verify(token, accesssecret, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Token is invalid" });
+    }
+
+    req.user = decoded; 
+    next();
+  });
+}
+app.get("/login/success", verifyToken, (req, res) => {
+  const userNickname = req.user.nickname;
+  res.json({ nickname: userNickname });
 });
 
 /*사용자 글불러오기*/
@@ -314,70 +326,8 @@ app.post("/user/posts", async (req, res) => {
   console.error("Error during login:", error);
 }
 });
-
-app.get("/accesstoken",async (req, res) => {
-  try {
-    const token = req.cookies.accessToken;
-    const data = jwt.verify(token, accesssecret);
-
-    const userData = User.filter(item=>{
-      return item.email === data.email;
-    })[0];
-
-    const {password, ...others} = userData;
-
-    res.status(200).json(others);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-app.get("/refreshtoken",async (req, res) => {
-  // 용도 : access token을 갱신.
-  try {
-    const token = req.cookies.refreshToken;
-    const data = jwt.verify(token, refreshsecret)
-    const userData = User.filter(item=>{
-      return item.email === data.email;
-    })[0]
-
-    // access Token 새로 발급
-    const accessToken = jwt.sign({
-      nickname : userData.nickname,
-      email : userData.email,
-    }, accesssecret, {
-      expiresIn : '1m',
-      issuer : 'About Tech',
-    });
-
-    res.cookie("accessToken", accessToken, {
-      secure : false,
-      httpOnly : true,
-    })
-    
-    res.status(200).json("Access Token Recreated");
-
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-app.get("/login/success",async (req, res) => {
-  try {
-    const token = req.cookies.accessToken;
-    const data = jwt.verify(token, accesssecret);
-
-    const userData = User.filter(item=>{
-      return item.email === data.email;
-    })[0];
-
-    res.status(200).json(userData);
-
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
 app.post("/logout",async (req, res) => {
   try {
-    res.cookie('accessToken', '');
     res.status(200).json("Logout Success");
   } catch (error) {
     res.status(500).json(error);

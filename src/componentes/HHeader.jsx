@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../css/HHeader.css";
 import logo from "../assets/logo.png";
@@ -12,6 +12,7 @@ import { btntmp } from "../reducers/buttonState";
 import { sendword } from "../reducers/sendKeyword";
 import { useDispatch, useSelector } from "react-redux";
 import { searchword } from "../reducers/searchWord";
+import { getNickname } from "./LoginComponent/user";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ export default function Header() {
   const onOtherClick = () => {
     dispatch(btntmp(true));
   };
+
+  const user = getNickname();
 
   return (
     <div className="header-container">
@@ -217,14 +220,25 @@ export default function Header() {
               onClick={onOtherClick}
             />
           </Link>
-          <Link to="/Login">
-            <img
-              src={login}
-              className="header-icon"
-              alt="Login"
-              onClick={onOtherClick}
-            />
-          </Link>
+          {user ? ( 
+            <Link to="/Mypage">
+              <img
+                src={login}
+                className="header-icon"
+                alt="Login"
+                onClick={onOtherClick}
+              />
+            </Link>
+          ) : (
+            <Link to="/Login">
+              <img
+                src={login}
+                className="header-icon"
+                alt="Login"
+                onClick={onOtherClick}
+              />
+            </Link>
+          )}
         </div>
         {tmp ? <SearchBar /> : <MapSearch />}
       </div>

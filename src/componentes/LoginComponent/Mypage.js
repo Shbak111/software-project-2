@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { getNickname } from "../LoginComponent/user";
-import { logout } from "./auth";
 import "./Mypage.css";
 import comment_views from "../../assets/comment_views.png";
 import post_views from "../../assets/post_views.png";
 function Mypage() {
   const nickname = getNickname();
-  const [isLogin, setIsLogin] = useState(false);
-  const [user, setUser] = useState({});
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -40,7 +37,8 @@ function Mypage() {
       withCredentials: true,
     }).then((result) => {
       if (result.status === 200) {
-        window.open("/", "_self");
+        localStorage.removeItem("token");
+        window.open("/Login", "_self");
       }
     });
   };
