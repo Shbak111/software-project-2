@@ -1,4 +1,5 @@
 .truncate {
+  color: aliceblue;
   white-space: nowrap; /* 줄 바꿈 방지 */
   overflow: hidden; /* 내용이 넘칠 경우 숨김 */
   text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */

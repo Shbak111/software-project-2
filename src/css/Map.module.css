@@ -1,5 +1,6 @@
 .container {
   flex: 1;
+  background-color: #07003b;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;

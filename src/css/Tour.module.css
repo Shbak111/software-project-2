@@ -1,5 +1,8 @@
-.tour-container{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.tour-container {
+  background-color: #07003b;
+  display: flex;
+  color: aliceblue;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
