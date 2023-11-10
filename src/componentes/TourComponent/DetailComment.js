@@ -11,6 +11,7 @@ function DetailComment({ seq }) {
   const [comment, setComment] = useState("");
   const [editComment, setEditComment] = useState("");
   const [reload, setReload] = useState(true);
+  const [rating, setRating] = useState(0); 
   const nickname = getNickname();
 
   useEffect(() => {
@@ -32,16 +33,21 @@ function DetailComment({ seq }) {
       method: "POST",
       data: {
         index: seq,
-        writer: "nickname",
+        writer: "nick",
         comment: comment,
         model: "Comment",
+        rating:rating,
       },
     }).then(() => {
       window.location.reload();
+      console.log(rating)
     });
   };
   const onEditCommentChange = (event) => {
     setEditComment(event.target.value);
+  };
+  const onRatingChange = (event) => {
+    setRating(event.target.value);
   };
 
   //댓글삭제//
@@ -115,6 +121,13 @@ function DetailComment({ seq }) {
           placeholder="댓글을 입력하세요"
           onChange={onCommentChange}
         />
+        <input
+          type="number"
+          min="1"
+          max="5"
+          value={rating}
+          onChange={onRatingChange}
+        />
         <button className="comment_button" onClick={commentBtnClick}>
           등록
         </button>
@@ -129,6 +142,7 @@ function DetailComment({ seq }) {
                 <p className="cmt_timestamp">
                   {formatTimestamp(comment.timestamp)}
                 </p>
+                <p>별점:{comment.rating}</p>
               </div>
               {comment.isEditing ? (
                 <div>

@@ -129,6 +129,7 @@ app.post("/community/postComment", async function (req, res) {
   let { comment } = req.body;
   let { writer } = req.body;
   let { model } = req.body;
+  let { rating }= req.body;
   //let { comment_index } = req.body;
   console.log(model);
   try {
@@ -136,12 +137,15 @@ app.post("/community/postComment", async function (req, res) {
     if (model === "Board") mydb.DBcomment(index, writer, comment, Board);
     // 커뮤니티가 아니고 전시, 공연 쪽에서 리뷰 댓글 달 경우 Comment로 연결
     else if (model === "Comment") {
+      
       if (Comment.findOne({ _id: index })) {
-        mydb.DBcomment(index, writer, comment, Comment);
+        mydb.DBcomment(index, writer, comment, Comment,rating);
+        console.log(rating)
       } else {
         mydb.DBeachComment(index).then(() => {
-          mydb.DBcomment(index, writer, comment, Comment);
+          mydb.DBcomment(index, writer, comment, Comment,rating);
         });
+        
       }
     }
     return res.send({ message: "add comment success!" });

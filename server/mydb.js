@@ -31,6 +31,7 @@ async function EachcommentWriteDB(index) {
   const comment = new Comment({
     _id: index,
     comments: [],
+    rating:rating,
   });
   comment.save();
 }
