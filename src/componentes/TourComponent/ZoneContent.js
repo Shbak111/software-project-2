@@ -3,6 +3,11 @@ import { Link } from "react-router-dom/cjs/react-router-dom";
 import "../TourComponent/ZoneContent.css";
 import r_icon from "../../assets/r_icon.png";
 
+//test
+import western from "../../assets/1x/western.png";
+import burger from "../../assets/1x/burger.png";
+import chinese from "../../assets/1x/chinese.png";
+
 function ZoneContent({ area, zoneTitle, imageURL0, datas, map }) {
   const [restaurants, setRes] = useState([]);
   const [data, setData] = useState(null);
@@ -97,32 +102,41 @@ function ZoneContent({ area, zoneTitle, imageURL0, datas, map }) {
           <h3 className="truncate">{contentText}</h3>
         </div>
 
-        <div>
+        <div className="restaurant_poster_container">
           <a href={restaurants[0]?.place_url}>
-            <img
-              src="https://via.placeholder.com/320x480"
+            <img className="restaurant_poster"
+              src={western}
               alt="placeholder"
-            ></img>
+            />
+            <div className="text-overlay">
+              {restaurants[0]?.place_name}
+            </div>
           </a>
           <p></p>
           <text>{restaurants[0]?.place_name}</text>
         </div>
-        <div>
+        <div className="restaurant_poster_container">
           <a href={restaurants[1]?.place_url}>
-            <img
-              src="https://via.placeholder.com/320x480"
+          <img className="restaurant_poster"
+              src={burger}
               alt="placeholder"
-            ></img>
+            />
+            <div className="text-overlay1">
+              {restaurants[1]?.place_name}
+            </div>
           </a>
           <p></p>
           <text>{restaurants[1]?.place_name}</text>
         </div>
-        <div>
+        <div className="restaurant_poster_container">
           <a href={restaurants[2]?.place_url}>
-            <img
-              src="https://via.placeholder.com/320x480"
+            <img className="restaurant_poster"
+              src={chinese}
               alt="placeholder"
             ></img>
+            <div className="text-overlay2">
+                {restaurants[2]?.place_name}
+            </div>
           </a>
           <p></p>
           <text>{restaurants[2]?.place_name}</text>
