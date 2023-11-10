@@ -24,14 +24,20 @@ function Detail() {
         <text className="place">,{place}</text>
         <h1 className="title">{title}</h1>
         <p className="realmName">{realmName}</p>
-        <img className="poster" src={image} alt="Loading..." />
+        
       </div>
-      <div className="detail-info">
-        {/* <DetailMap gpsX={gpsX} gpsY={gpsY} /> */}
-        <DetailMap gpsX={gpsX} gpsY={gpsY} />
-        <div style={{ marginTop: 30, flex: 1 }}>
-          <DetailComment seq={seq} />
+      <div className="pm-info">
+        <div className="poster-info">
+          <img className="poster" src={image} alt="Loading..." />
+          {/* <DetailMap gpsX={gpsX} gpsY={gpsY} /> */}
         </div>
+        <div className="map-info">
+          <DetailMap gpsX={gpsX} gpsY={gpsY} />
+        </div>
+      </div>
+      
+      <div className="detail-review">
+          <DetailComment seq={seq} />
       </div>
     </div>
   );

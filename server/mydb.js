@@ -68,7 +68,7 @@ async function counter() {
 }
 let comment_count = 0;
 /** 댓글 추가하는 로직. 해당 게시글의 index를 알고 그 게시글에 접근해서 comment 추가 */
-async function commentWrite(index, writer, comment, model) {
+async function commentWrite(index, writer, comment, model,rating) {
   // 필터를 설정하여 해당 데이터를 찾습니다.
   const filter = { _id: index };
 
@@ -79,6 +79,7 @@ async function commentWrite(index, writer, comment, model) {
         writer: writer,
         comment: comment,
         comment_index: comment_count,
+        rating:rating
       },
     },
   };

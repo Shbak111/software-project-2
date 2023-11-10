@@ -1,22 +1,43 @@
 .detail-container {
-  width: 100%;
-  height: fit-content;
   margin-top: 0.3%;
-  display: flex;
   align-items: center;
   justify-content: center;
   background-color: #07003b;
 }
+
+.poster-info {
+  display: flex;
+  float: left;
+  width: 50%;
+  
+}
+
 .poster {
   width: 100%;
-  height: 130%;
+  overflow: hidden;
 }
+
 .detail-info {
   color: aliceblue;
-  width: fit-content;
   margin: 20px;
-  width: 50%;
+  width: 100%;
 }
+
+.map-info {
+  display: flex;
+  width: 50%;
+  float: right;
+  
+}
+
+.pm-info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  height: 100vh;
+}
+
 @import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
 .title {
   margin-top: 20px;

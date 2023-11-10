@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import "../CommunityComponent/PostDetail.css";
 import { getNickname } from "../LoginComponent/user";
-
+import { FaStar } from 'react-icons/fa';
 /** 각 디테일 전시, 공연에 댓글 기능하는 컴포넌트 */
 function DetailComment({ seq }) {
   const history = useHistory();
@@ -33,7 +33,7 @@ function DetailComment({ seq }) {
       method: "POST",
       data: {
         index: seq,
-        writer: "nick",
+        writer: "nickname",
         comment: comment,
         model: "Comment",
         rating:rating,
@@ -46,8 +46,8 @@ function DetailComment({ seq }) {
   const onEditCommentChange = (event) => {
     setEditComment(event.target.value);
   };
-  const onRatingChange = (event) => {
-    setRating(event.target.value);
+  const onRatingChange = (value) => {
+    setRating(value);
   };
 
   //댓글삭제//
@@ -112,6 +112,8 @@ function DetailComment({ seq }) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
+  
+
   return (
     <div className="postdetail_container">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -121,13 +123,15 @@ function DetailComment({ seq }) {
           placeholder="댓글을 입력하세요"
           onChange={onCommentChange}
         />
-        <input
-          type="number"
-          min="1"
-          max="5"
-          value={rating}
-          onChange={onRatingChange}
+        {[1, 2, 3, 4, 5].map((value) => (
+        <FaStar
+          key={value}
+          onClick={() => onRatingChange(value)}
+          color={value <= rating ? '#ffc107' : '#e4e5e9'}
+          size={25}
+          style={{ margin: '5px', cursor: 'pointer' }}
         />
+      ))}
         <button className="comment_button" onClick={commentBtnClick}>
           등록
         </button>
@@ -138,11 +142,19 @@ function DetailComment({ seq }) {
           {post.comments.map((comment, index) => (
             <div className="comment_container" key={index}>
               <div className="comment_header">
-                <p className="cmt_writer">{comment.writer}</p>
+                <p className="cmt_writer" style={{width:"30px"}}>{comment.writer}</p>
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <FaStar
+                    key={value}
+                    color={value <= comment.rating ? '#ffc107' : '#e4e5e9'}
+                    size={20}
+                    style={{ margin: '1px',width:"40px"}}
+                  />
+                ))}
                 <p className="cmt_timestamp">
                   {formatTimestamp(comment.timestamp)}
                 </p>
-                <p>별점:{comment.rating}</p>
+                
               </div>
               {comment.isEditing ? (
                 <div>
