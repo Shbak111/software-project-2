@@ -47,7 +47,8 @@ const SearchedData = (props) => {
           const fetchedData = [...dataA, ...dataB, ...dataC, ...dataD, ...dataL];
           // 고른 지역 필터링
           let filteredData=fetchedData
-          if(startDate&&endDate==null){ //날짜를 정하지않았을떄
+          if(!startDate&&!endDate){ //날짜를 정하지않았을떄
+            console.log("날짜미정")
             filteredData = fetchedData.filter(item => {
               const areaElement = item.elements[6];
               if (areaElement && areaElement.elements && areaElement.elements[0] && areaElement.elements[0].text) {
@@ -93,7 +94,7 @@ const SearchedData = (props) => {
         else if (selectedField != null) { // 분야도 선택하였을 경우
           const fetchedGenreData = await FetchGenreData({ code: fieldcode });
           let filteredData=fetchedGenreData
-          if(startDate&&endDate==null){
+          if(!startDate&&!endDate){
             console.log("Area,Field만 선택하였다.")
             filteredData = fetchedGenreData.filter(item => {
               const areaElement = item.elements[6];
@@ -211,7 +212,20 @@ const SearchedData = (props) => {
       
       {currentPageData.map((item, index) => (
         <div key={index} className="grid-item">
-          <Link to={`/detail/${index}`} style={{ textDecoration: "none" }}>
+          <Link to={{
+                  pathname: `/detail/${data[index]?.elements[0]?.elements[0]?.text}`,
+                  state: {
+                    seq: data[index]?.elements[0]?.elements[0]?.text,
+                    title: data[index]?.elements[1]?.elements[0]?.text,
+                    place: data[index]?.elements[4]?.elements[0]?.text,
+                    realmName: data[index]?.elements[5]?.elements[0]?.text,
+                    area: data[index]?.elements[6]?.elements[0]?.text,
+                    image: data[index]?.elements[7]?.elements[0]?.text,
+                    gpsX: data[index]?.elements[8]?.elements[0]?.text,
+                    gpsY: data[index]?.elements[9]?.elements[0]?.text,
+                  },
+                }}
+                style={{ textDecoration: "none" }}>
             <div className='image_container'>
               <img src={thumbnails[startIndex + index]} alt={`Image ${startIndex + index}`} />
             </div>
