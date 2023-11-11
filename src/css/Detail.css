@@ -1,5 +1,5 @@
 .detail-container {
-  margin-top: 0.3%;
+  /* margin-top: 0.3%; */
   align-items: center;
   justify-content: center;
   background-color: #07003b;
@@ -9,7 +9,6 @@
   display: flex;
   float: left;
   width: 50%;
-  
 }
 
 .poster {
@@ -27,7 +26,6 @@
   display: flex;
   width: 50%;
   float: right;
-  
 }
 
 .pm-info {

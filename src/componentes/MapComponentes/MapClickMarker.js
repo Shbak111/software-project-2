@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { mdetailtmp } from "../../reducers/markerdetailState";
 import { Link } from "react-router-dom";
 
-function MapClickMarker() {
+const { kakao } = window;
+
+function MapClickMarker({ map }) {
   const [data, setData] = useState(null);
   const mdata = useSelector((state) => state.markerstore.value);
   const mstate = useSelector((state) => state.mdetail.value);
@@ -23,6 +25,7 @@ function MapClickMarker() {
   useEffect(() => {
     if (mdetail && mstate === true) {
       mdetail.style.display = "block";
+      map.panTo(mdata.latlng);
     }
     console.log("mstate 변경 감지됨", mstate);
   }, [mstate]);
@@ -36,6 +39,7 @@ function MapClickMarker() {
         flexDirection: "column",
         justifyContent: "flex-start",
         width: "430px",
+        color: "aliceblue",
       }}
     >
       <div style={{ float: "inline-end" }}>
@@ -71,7 +75,9 @@ function MapClickMarker() {
               }}
             >
               <p style={{ marginTop: 10 }}>
-                <text style={{ fontSize: "20px" }}>자세히 보러가기(링크)</text>
+                <text style={{ fontSize: "20px", color: "aliceblue" }}>
+                  자세히 보러가기(링크)
+                </text>
               </p>
             </Link>
           </div>
@@ -81,7 +87,7 @@ function MapClickMarker() {
               alt="image"
               style={{
                 height: "500px",
-                width: "350px",
+                width: "380px",
                 padding: "20px",
                 marginTop: "100px",
               }}

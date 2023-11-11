@@ -11,6 +11,7 @@ import { markerdata } from "../reducers/markerData";
 import { mdetailtmp } from "../reducers/markerdetailState";
 import { datapersist } from "../reducers/dataPersist";
 import { useSelector, useDispatch } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 
 const { kakao } = window;
 
@@ -163,16 +164,14 @@ function Map() {
           <ScrollDetail data={data} map={map} />
         ) : null
       ) : null}
-      {btnState && mstate ? <MapClickMarker /> : null}
+      {btnState && mstate ? <MapClickMarker map={map} /> : null}
 
-      {/* <div style={{ flex: 1 }}>
-        {datas !== null ? <MapContainer keyword={word} datas={datas} /> : null}
-      </div> */}
       <div style={{ flex: 1 }}>
         <div
           id="myMap"
           style={{
             position: "relative",
+            overflow: "hidden",
             height: window.innerHeight,
             width: window.innerWidth,
           }}
