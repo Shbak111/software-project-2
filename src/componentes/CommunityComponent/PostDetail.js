@@ -39,7 +39,7 @@ function PostDetail() {
       method: "POST",
       data: {
         index: index,
-        writer: "nickname",
+        writer: nickname,
         comment: comment,
         model: "Board",
       },
