@@ -1,0 +1,50 @@
+.restaurant_poster_container {
+    position: relative;
+  }
+
+.restaurant_poster{
+    width: 320px;
+    height: 480px;
+    object-fit: cover;
+  }   
+@import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+.korean_restaurant {
+    position: absolute;
+    top: 40%;
+    font-size: 30px;
+    padding: 10px;
+    color: #fff;
+    font-family: "Jeju Hallasan", cursive;
+  } 
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+.japanese_restaurant {
+    position: absolute;
+    bottom: 10%;
+    left: 14%;
+    font-size: 30px;
+    padding: 10px;
+    color: #000;
+    font-family: 'Black Han Sans', sans-serif;
+}
+
+.western_restaurant {
+    position: absolute;
+    top: 12%; 
+    left: 3%;
+    font-size: 30px ;
+    color: #F8B211;
+    font-family: 'Black Han Sans', sans-serif;
+    /* padding: 20px; Padding for text box */
+}
+
+.default_restaurant {
+    position: absolute;
+    top: 20%; 
+    right: 10%; 
+    font-size: 30px;
+    color: #fff;
+    font-family: 'Black Han Sans', sans-serif;
+  }
+  
+
+  

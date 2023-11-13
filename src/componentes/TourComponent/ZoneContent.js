@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import "../TourComponent/ZoneContent.css";
 import r_icon from "../../assets/r_icon.png";
-
-//test
-import western from "../../assets/1x/western.png";
-import burger from "../../assets/1x/burger.png";
-import chinese from "../../assets/1x/chinese.png";
+import Poster from "./Poster";
 
 function ZoneContent({ area, zoneTitle, imageURL0, datas, map }) {
   const [restaurants, setRes] = useState([]);
@@ -102,45 +98,19 @@ function ZoneContent({ area, zoneTitle, imageURL0, datas, map }) {
           <h3 className="truncate">{contentText}</h3>
         </div>
 
-        <div className="restaurant_poster_container">
-          <a href={restaurants[0]?.place_url}>
-            <img className="restaurant_poster"
-              src={western}
-              alt="placeholder"
-            />
-            <div className="text-overlay">
-              {restaurants[0]?.place_name}
-            </div>
-          </a>
-          <p></p>
-          <text>{restaurants[0]?.place_name}</text>
-        </div>
-        <div className="restaurant_poster_container">
-          <a href={restaurants[1]?.place_url}>
-          <img className="restaurant_poster"
-              src={burger}
-              alt="placeholder"
-            />
-            <div className="text-overlay1">
-              {restaurants[1]?.place_name}
-            </div>
-          </a>
-          <p></p>
-          <text>{restaurants[1]?.place_name}</text>
-        </div>
-        <div className="restaurant_poster_container">
-          <a href={restaurants[2]?.place_url}>
-            <img className="restaurant_poster"
-              src={chinese}
-              alt="placeholder"
-            ></img>
-            <div className="text-overlay2">
-                {restaurants[2]?.place_name}
-            </div>
-          </a>
-          <p></p>
-          <text>{restaurants[2]?.place_name}</text>
-        </div>
+        <Poster 
+          category_name={restaurants[0]?.category_name}
+          place_name={restaurants[0]?.place_name}
+          place_url={restaurants[0]?.place_url}/>
+        <Poster 
+          category_name={restaurants[1]?.category_name}
+          place_name={restaurants[1]?.place_name}
+          place_url={restaurants[1]?.place_url}/>
+        <Poster 
+          category_name={restaurants[2]?.category_name}
+          place_name={restaurants[2]?.place_name}
+          place_url={restaurants[2]?.place_url}/>
+        
       </div>
     </div>
   );
