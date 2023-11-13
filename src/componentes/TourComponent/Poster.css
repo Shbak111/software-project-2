@@ -10,10 +10,17 @@
 @import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
 .korean_restaurant {
     position: absolute;
-    top: 40%;
+    top: 49%;
     font-size: 30px;
-    padding: 10px;
     color: #fff;
+    font-family: "Jeju Hallasan", cursive;
+  }
+.noodle_restaurant {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    font-size: 40px;
+    color: #6A2F00;
     font-family: "Jeju Hallasan", cursive;
   } 
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
@@ -26,17 +33,32 @@
     color: #000;
     font-family: 'Black Han Sans', sans-serif;
 }
-
-.western_restaurant {
+.steak_restaurant {
     position: absolute;
     top: 12%; 
     left: 3%;
     font-size: 30px ;
     color: #F8B211;
     font-family: 'Black Han Sans', sans-serif;
-    /* padding: 20px; Padding for text box */
 }
-
+.burger_restaurant{
+    position: absolute;
+    top: 20%;
+    left: 21%;
+    font-size: 20px;
+    color: #fff;
+    font-family: "Jeju Hallasan", cursive;
+}
+.western_restaurant{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    padding: 10px;  
+    color: #fff;
+    font-family: 'Black Han Sans', sans-serif;
+}
 .default_restaurant {
     position: absolute;
     top: 20%; 

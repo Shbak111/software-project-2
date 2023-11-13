@@ -94,8 +94,8 @@ function ZoneContent({ area, zoneTitle, imageURL0, datas, map }) {
           >
             <img className="img-left" src={imageURL0} alt="Loading.."></img>
           </Link>
-          <p></p>
-          <h3 className="truncate">{contentText}</h3>
+          {/* <p></p>
+          <h3 className="truncate">{contentText}</h3> */}
         </div>
 
         <Poster 
