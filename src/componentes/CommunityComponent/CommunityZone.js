@@ -80,10 +80,10 @@ function CommunityZone() {
   return (
     <div className="PostFrame">
       <div style={{ display: "flex", fontWeight: "bold" }}>
-        <p style={{ marginLeft: "1%" }}>No.</p>
-        <p style={{ marginLeft: "10%" }}>제목</p>
-        <p style={{ marginLeft: "63%" }}>닉네임</p>
-        <p style={{ marginLeft: "8%" }}>조회수</p>
+        <p style={{ fontSize:"22px", marginLeft: "1%" }}>No.</p>
+        <p style={{ fontSize:"22px", marginLeft: "10%" }}>제목</p>
+        <p style={{ fontSize:"22px", marginLeft: "63%" }}>닉네임</p>
+        <p style={{ fontSize:"22px", marginLeft: "8%" }}>조회수</p>
       </div>
       <hr className="line"></hr>
       <div className="post">
@@ -94,16 +94,16 @@ function CommunityZone() {
                 to={`/PostDetail/${title._id}`}
                 style={{ display: "flex", alignItems: "center",textDecoration: "none"}}
               >
-                <p className="post_index" style={{ marginLeft: "1%" }}>
+                <p className="post_index" style={{ fontSize:"18px",marginLeft: "1%" }}>
                   {startIndex + index + 1}
                 </p>
-                <p className="post_title" style={{ marginLeft: "12%" }}>
+                <p className="post_title" style={{ fontSize:"18px",marginLeft: "12%" }}>
                   {title.title}
                 </p>
-                <p className="post_nickname" style={{ marginLeft: "15%", width:"30px" }}>
+                <p className="post_nickname" style={{ fontSize:"18px",marginLeft: "15%", width:"30px" }}>
                   {title.writer}
                 </p>
-                <p className="post_views" style={{ marginLeft: "10%" }}>
+                <p className="post_views" style={{ fontSize:"18px",marginLeft: "10%" }}>
                   {title.views}
                 </p>
                 

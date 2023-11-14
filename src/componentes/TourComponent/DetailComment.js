@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import "../CommunityComponent/PostDetail.css";
 import { getNickname } from "../LoginComponent/user";
 import { FaStar } from 'react-icons/fa';
+import "./DetailComment.css"
 /** 각 디테일 전시, 공연에 댓글 기능하는 컴포넌트 */
 function DetailComment({ seq }) {
   const history = useHistory();
@@ -28,20 +29,27 @@ function DetailComment({ seq }) {
 
   /** 여기 코멘트 추가하는 버튼 부분 */
   const commentBtnClick = () => {
-    axios({
-      url: "/community/postComment",
-      method: "POST",
-      data: {
-        index: seq,
-        writer: "nickname",
-        comment: comment,
-        model: "Comment",
-        rating:rating,
-      },
-    }).then(() => {
-      window.location.reload();
-      console.log(rating)
-    });
+    if(nickname==""){
+      alert("로그인 후 리뷰작성이 가능합니다.")
+    }
+    else{
+      axios({
+        url: "/community/postComment",
+        method: "POST",
+        data: {
+          index: seq,
+          writer: nickname,
+          comment: comment,
+          model: "Comment",
+          rating:rating,
+        },
+      }).then(() => {
+        window.location.reload();
+        console.log(rating)
+      });
+
+    }
+    
   };
   const onEditCommentChange = (event) => {
     setEditComment(event.target.value);
@@ -145,10 +153,11 @@ function DetailComment({ seq }) {
                 <p className="cmt_writer" style={{width:"30px"}}>{comment.writer}</p>
                 {[1, 2, 3, 4, 5].map((value) => (
                   <FaStar
+                    className="cmt_rating"
                     key={value}
                     color={value <= comment.rating ? '#ffc107' : '#e4e5e9'}
                     size={20}
-                    style={{ margin: '1px',width:"40px"}}
+                    style={{width:"20px"}}
                   />
                 ))}
                 <p className="cmt_timestamp">

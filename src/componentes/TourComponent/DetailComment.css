@@ -1,0 +1,17 @@
+.comment_header {
+    display: flex;
+    align-items: center;
+}
+  
+.comment_header .fa-star {
+    width: 20px; 
+}
+.cmt_timestamp{
+    margin-left: 40%;
+}
+.cmt_comment{
+    margin-bottom: 5px;
+}
+.cmt_writer{
+    margin-right: 5%;
+}
