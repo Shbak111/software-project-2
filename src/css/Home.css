@@ -16,7 +16,7 @@
 }
 
 .top-left {
-  width: 17%; /* Adjust the width as needed */
+  width: 22%; /* Adjust the width as needed */
   padding: 20px;
   float:left;
   box-sizing: border-box;
@@ -27,7 +27,7 @@
 .top-right {
   display: flex;
   align-items: flex-start;
-  width: 78%; 
+  width: 75%; 
   padding: 20px;
   float:right;
   /* box-sizing: border-box; */
@@ -44,7 +44,7 @@
   height: 100vh;
 }
 .bottom-right{
-  width: 83%; 
+  width: 75%; 
   padding: 20px;
   box-sizing: border-box;
   /* background-color:green; */
