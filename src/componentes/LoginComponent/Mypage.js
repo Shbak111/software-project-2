@@ -44,10 +44,26 @@ function Mypage() {
   };
 
   return (
-    <div>
-      <p className="mypage_title">{nickname}님의 마이페이지</p>
-      <button onClick={logout}>LOGOUT</button>
-      <p>커뮤니티 이용 기록</p>
+      <div className="mypage_container">
+      <p className="mypage_title">MY PAGE</p>
+      <div>
+        <div className="content_mypage">
+          <div className="content__container">
+            <p className="content__container__text">
+              Hello
+            </p>
+            
+            <ul className="content__container__list">
+              <li className="content__container__list__item">korea !</li>
+              <li className="content__container__list__item">{nickname}!</li>
+              <li className="content__container__list__item">users !</li>
+              <li className="content__container__list__item">everybody !</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p className="mypage_community">커뮤니티 이용 기록</p>
+      <div className="space_mypage">  </div>
       <div className="user_mypage_row">
         {data.map((item, index) => (
         <div key={index} className="user_community_posts">
@@ -67,8 +83,9 @@ function Mypage() {
         </div>
         ))}
     </div>
-      
-    </div>
+    <div className="btn_mypage"><button className="logout_mypage" onClick={logout}>LOGOUT</button></div>
+    
+  </div>    
   );
 }
 
