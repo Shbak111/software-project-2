@@ -62,7 +62,7 @@ function Mypage() {
           </div>
         </div>
       </div>
-      <p className="mypage_community">커뮤니티 이용 기록</p>
+      <p className="mypage_community"> 커뮤니티 이용 기록</p>
       <div className="space_mypage">  </div>
       <div className="user_mypage_row">
         {data.map((item, index) => (
@@ -83,7 +83,11 @@ function Mypage() {
         </div>
         ))}
     </div>
-    <div className="btn_mypage"><button className="logout_mypage" onClick={logout}>LOGOUT</button></div>
+    <div className="btn_mypage">
+      <button className="logout_mypage" onClick={logout}>
+        <span>
+        LOGOUT
+      </span></button></div>
     
   </div>    
   );
