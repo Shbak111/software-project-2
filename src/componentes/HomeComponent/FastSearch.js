@@ -83,7 +83,7 @@ const FastSearch = () => {
             ))}
           </div>
           <div className="select-container">
-            <p>날짜</p>
+            <p style={{width:"40px"}}>날짜</p>
             <br />
             <p>To</p>
             <DatePicker

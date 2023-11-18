@@ -92,15 +92,15 @@ function CommunityZone() {
             <div className="postitem" key={index}>
               <Link
                 to={`/PostDetail/${title._id}`}
-                style={{ display: "flex", alignItems: "center",textDecoration: "none"}}
+                style={{ display: "flex", alignItems: "center",textDecoration: "none" ,color: "inherit"}}
               >
-                <p className="post_index" style={{ fontSize:"18px",marginLeft: "1%" }}>
+                <p className="post_index" style={{ width:"25px", fontSize:"18px",marginLeft: "1%" }}>
                   {startIndex + index + 1}
                 </p>
-                <p className="post_title" style={{ fontSize:"18px",marginLeft: "12%" }}>
+                <p className="post_title" style={{ width:"650px", fontSize:"18px",marginLeft: "12%" }}>
                   {title.title}
                 </p>
-                <p className="post_nickname" style={{ fontSize:"18px",marginLeft: "15%", width:"30px" }}>
+                <p className="post_nickname" style={{ fontSize:"18px",marginLeft: "13%", width:"60px" }}>
                   {title.writer}
                 </p>
                 <p className="post_views" style={{ fontSize:"18px",marginLeft: "10%" }}>

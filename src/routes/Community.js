@@ -16,7 +16,7 @@ function Community() {
   }, []);
   return (
     <div className="Community_container">
-      <p>여긴 커뮤니티</p>
+      <p style={{fontSize:"44px",fontWeight:"bold"}}>여긴 커뮤니티!</p>
       <CommunityZone />
     </div>
   );
