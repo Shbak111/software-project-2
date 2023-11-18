@@ -149,14 +149,14 @@ function PostDetail() {
           alignItems: "center",
         }}
       >
-        <p className="pst_title">제목: {post.title}</p>
+        <p className="pst_title"> {post.title}</p>
         <p className="pst_timestamp">{formatTimestamp(post.timestamp)}</p>
       </div>
       <hr className="postdetail_hr" />
       <p className="pst_writer">작성자: {post.writer}</p>
-      <p className="pst_content">내용: {post.content}</p>
+      <p className="pst_content"> {post.content}</p>
       <p className="pst_views">조회수: {post.views}</p>
-      <div className="postdetail_buttons">
+      <div className="postdetail_buttons" style={{display:"flex",justifyContent:"flex-end"}}>
         <button onClick={postedit}>게시글 수정</button>
         <button onClick={removeBtnClick}>게시글 삭제</button>
       </div>

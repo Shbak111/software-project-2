@@ -41,10 +41,11 @@ function CommunityZone() {
         views: item.views,
         writer: item.writer,
       }));
-      console.log(response.data.map((item) => item._id));
-      setTitles(titleArray);
-      setOriginalTitles(titleArray);
-      const totalPages = Math.ceil(titleArray.length / pageSize);
+      const reversedTitleArray = titleArray.reverse();
+      
+      setTitles(reversedTitleArray);
+      setOriginalTitles(reversedTitleArray);
+      const totalPages = Math.ceil(reversedTitleArray.length / pageSize);
       setTotalPages(totalPages);
     }
     FetchCommunity();

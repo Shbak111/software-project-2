@@ -7,19 +7,18 @@ import { useSelector } from "react-redux";
 function ShowRecommend() {
   const [data, setData] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
-  const initialLocation = "서울"; // 이 값을 원하는 기본값으로 설정하세요.
+  const initialLocation = "서울"; 
   const location = useSelector((state) => state.send.value) || initialLocation;
   const [NoData, setNoData] = useState(false);
   useEffect(() => {
     async function fetchData(code) {
       try {
-        let fetchedData = await FetchGenreData({ code: "A000" });
-        const filteredData = fetchedData.filter(
-          (item) => item.elements[6].elements[0].text === location
-        );
+        let fetchedData = await FetchGenreData({ code: "A000" }); //연극
+        const filteredData = fetchedData.filter((item) => item.elements[6].elements[0].text === location);
         if (filteredData.length === 0) {
           setNoData(true);
-        } else {
+        }
+        else {
           setNoData(false);
           const slicedData = filteredData.slice(0, 4);
           const thumbnailArray = slicedData.map((item) => {

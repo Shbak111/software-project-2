@@ -5,7 +5,7 @@
 .grid-container {
 display: grid;
 grid-template-columns: repeat(4, 1fr); /* 4개의 열 그리드 설정 */
-gap: 5px; 
+gap: 3px; 
 }
 
 .grid-item {
@@ -16,8 +16,8 @@ overflow: hidden;
 }
 
 .grid-item img {
-width: 320px;
-height: 480px;
+width: 25%;
+height: auto;
 }
 
 .grid-item:hover img {

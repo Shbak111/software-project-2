@@ -14,18 +14,18 @@ function FestivalRecommend() {
     async function fetchData(code) {
       try {
         // A000 코드와 B000 코드에서 데이터 가져오기
-        const dataA = await FetchGenreData({ code: "B000" });
-        const dataB = await FetchGenreData({ code: "C000" });
+        const dataA = await FetchGenreData({ code: "B000" }); //음악
+        const dataB = await FetchGenreData({ code: "C000" }); //미술
 
         // 두 데이터 합치기
         const fetchedData = [...dataA, ...dataB];
-
+        console.log(fetchedData)
         const filteredData = fetchedData.filter((item) => {
           const areaElement = item.elements[6];
           if (
-            areaElement &&
-            areaElement.elements &&
-            areaElement.elements[0] &&
+            areaElement&&
+            areaElement.elements&&
+            areaElement.elements[0]&&
             areaElement.elements[0].text
           ) {
             return areaElement.elements[0].text === location;
@@ -34,7 +34,8 @@ function FestivalRecommend() {
         });
         if (filteredData.length === 0) {
           setNoData(true);
-        } else {
+        }
+        else {
           setNoData(false);
           const slicedData = filteredData.slice(0, 4);
           const thumbnailArray = slicedData.map((item) => {

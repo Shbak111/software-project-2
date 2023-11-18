@@ -394,12 +394,16 @@ app.get("/api/fromdata", function (req, res) {
 app.get("/api/localdata/:local", function (req, res) {
   let local = req.params.local;
   console.log(local);
-  var url =
-    "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
-  let localQuery =
-    "&" + encodeURIComponent("sido") + "=" + encodeURIComponent(local);
-  localQuery +=
-    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100");
+  var url="http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
+  let localQuery="&"+encodeURIComponent("sido")+"="+encodeURIComponent(local);
+  
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('5');
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('6');
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('7');
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('8');
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('9');
+  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('10');
+  localQuery +="&" +encodeURIComponent("from") +"=" +encodeURIComponent("20231101");
 
   request(
     {
@@ -475,15 +479,18 @@ app.get("/api/realmCode/:code", function (req, res) {
 
   let codeQuery =
     "&" + encodeURIComponent("realmCode") + "=" + encodeURIComponent(code);
-  codeQuery +=
-    "&" +
-    encodeURIComponent("from") +
-    "=" +
-    encodeURIComponent("20230601");
-  codeQuery +=
-    "&" + encodeURIComponent("to") + "=" + encodeURIComponent("20231201"); /* */
-  codeQuery +=
-    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100"); /* */
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('1');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('2');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('3');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('4');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('5');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('6');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('7');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('8');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('9');
+  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('10');
+  codeQuery +="&" +encodeURIComponent("from") +"=" +encodeURIComponent("20231101");
+  codeQuery +="&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100"); 
   request(
     {
       url: url + codeQueryParams + codeQuery,

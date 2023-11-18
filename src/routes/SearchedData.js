@@ -27,7 +27,7 @@ const SearchedData = (props) => {
       case "기타":
         return "L000";
       default:
-        return code; // 기본값으로 코드를 그대로 반환
+        return code; 
     }
   };
   const fieldcode = mapFieldToCode(selectedField);
@@ -43,12 +43,11 @@ const SearchedData = (props) => {
           const dataD = await FetchGenreData({ code: "D000" });
           const dataL = await FetchGenreData({ code: "L000" });
 
-          // 데이터 합치기
-          const fetchedData = [...dataA, ...dataB, ...dataC, ...dataD, ...dataL];
-          // 고른 지역 필터링
-          let filteredData=fetchedData
+          
+          const fetchedData = [...dataA, ...dataB, ...dataC, ...dataD, ...dataL]; // 데이터 합치기
+          console.log("데이터보기",fetchedData)
+          let filteredData=fetchedData // 고른 지역 필터링
           if(!startDate&&!endDate){ //날짜를 정하지않았을떄
-            console.log("날짜미정")
             filteredData = fetchedData.filter(item => {
               const areaElement = item.elements[6];
               if (areaElement && areaElement.elements && areaElement.elements[0] && areaElement.elements[0].text) {
