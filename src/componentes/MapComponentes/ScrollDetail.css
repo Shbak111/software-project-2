@@ -1,0 +1,68 @@
+.map_cont_wrap {
+  position: absolute;
+  left: 0;
+  top: 130px;
+  height: 100%;
+  display: flex;
+  transition: 0.3s ease-in-out;
+  z-index: 10;
+  background-color: #07003b;
+  color: aliceblue;
+}
+
+.pc_cont {
+  /* height: 100%; */
+  display: flex;
+  flex-direction: row;
+}
+
+.map_cont_wrap.close {
+  transform: translateX(-100%);
+}
+
+.map_cont_wrap.close .btn_fold {
+  background-position: 0 -104px;
+}
+
+.map_cont_wrap .btn_fold {
+  width: 59px;
+  height: 104px;
+  position: absolute;
+  top: 50%;
+  right: -59px;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: url(https://korean.visitkorea.or.kr/resources/images/location/btn_fold.png)
+    no-repeat;
+  text-indent: -9999px;
+  border: 0;
+}
+
+.depth1 {
+  height: 931px;
+  width: 300px;
+}
+
+.depth2 {
+  height: 100%;
+  width: 500px;
+  display: none;
+  overflow-y: auto;
+}
+
+.depth2.view {
+  display: block;
+  z-index: 5;
+}
+
+.depth2 .layer_close {
+  position: absolute;
+  right: -32px;
+  top: 21px;
+  width: 32px;
+  height: 32px;
+  text-indent: -9999px;
+  background: url(https://korean.visitkorea.or.kr/resources/images/location/btn_close_depth2.png)
+    no-repeat;
+  border: 0;
+}

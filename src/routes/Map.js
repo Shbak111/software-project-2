@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
-import styles from "../css/Map.module.css";
-import FetchLocalData from "../componentes/FetchLocalData";
 import MapClickMarker from "../componentes/MapComponentes/MapClickMarker";
+import styles from "../css/Map.module.css";
+import "../componentes/MapComponentes/ScrollDetail.css";
+import FetchLocalData from "../componentes/FetchLocalData";
 import GetGeolocation from "../componentes/MapComponentes/GetGeolocation";
 import PlaceSearch from "../componentes/MapComponentes/PlaceSearch";
 import MapMarkers from "../componentes/MapComponentes/MapMarkers";
@@ -16,10 +17,10 @@ import { useQuery } from "@tanstack/react-query";
 const { kakao } = window;
 
 function Map() {
-  const [btnState, setBtnState] = useState(true);
   const [data, setData] = useState(null);
   const [datas, setDatas] = useState(null);
   const [mylocation, setLocation] = useState(null);
+  const [btnState, setBtnState] = useState(true);
   const [map, setMap] = useState(null);
   const dispatch = useDispatch();
   const dispatch2 = useDispatch();
@@ -30,9 +31,6 @@ function Map() {
 
   var geocoder = new kakao.maps.services.Geocoder();
 
-  const onBtnClick = () => {
-    setBtnState(!btnState);
-  };
   useEffect(() => {
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
     if (navigator.geolocation) {
@@ -45,10 +43,10 @@ function Map() {
 
         // 좌표 값에 해당하는 행정동, 법정동 정보를 얻는다.
         var callback = function (result, status) {
-          console.log("지역 명칭 : " + result[0].region_1depth_name);
+          //console.log("지역 명칭 : " + result[0].region_1depth_name);
           //console.log(result);
           let locname = result[0].region_1depth_name;
-          console.log("앞 두글자: ", locname.slice(0, 2));
+          //console.log("앞 두글자: ", locname.slice(0, 2));
           locname = locname.slice(0, 2);
           setLocation(locname);
         };
@@ -59,12 +57,12 @@ function Map() {
         );
       });
     }
-  }, [mylocation]);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       let fetchedLocalData = await FetchLocalData({
-        local: mylocation,
+        local: "서울",
       });
       console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedLocalData);
@@ -114,6 +112,7 @@ function Map() {
         }
       } else if (storedata) {
         setDatas(storedata);
+        console.log(storedata);
         console.log("redux persist로 부터 불러옴");
       }
     }
@@ -143,28 +142,50 @@ function Map() {
     const mapinstance = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     //console.log("MapContainer keyword", word);
     //console.log("MapContainer data", datas);
-    if (word !== "") {
-      PlaceSearch(mapinstance, word);
-      console.log("PlaceSearch 실행");
-    }
 
     GetGeolocation(mapinstance);
     console.log("getg 실행됨");
 
-    if (datas !== null) MapMarkers(mapinstance, datas, handleMarkerClick);
-    console.log("MapMarker 실행됨");
     setMap(mapinstance);
-  }, [datas, word]);
+  }, []);
+
+  useEffect(() => {
+    if (word !== "") {
+      PlaceSearch(map, word);
+      console.log("PlaceSearch 실행");
+    }
+  }, [word, map]);
+
+  useEffect(() => {
+    if (datas !== null && map !== null)
+      MapMarkers(map, datas, handleMarkerClick);
+    console.log("MapMarker 실행됨");
+  }, [datas, map]);
+
+  const onBtnClick = () => {
+    setBtnState(!btnState);
+  };
+
+  const onDetailClick = () => {
+    dispatch(mdetailtmp(false));
+  };
 
   return (
     <div className={styles.container}>
-      <button onClick={onBtnClick}>{btnState ? "숨기기" : "보이기"}</button>
-      {btnState ? (
-        data !== null ? (
-          <ScrollDetail data={data} map={map} />
-        ) : null
-      ) : null}
-      {btnState && mstate ? <MapClickMarker map={map} /> : null}
+      <div className={btnState ? "map_cont_wrap" : "map_cont_wrap close"}>
+        <div className="pc_cont">
+          {data !== null ? <ScrollDetail data={data} map={map} /> : null}
+          <div className={mstate ? "depth2 view" : "depth2"}>
+            <MapClickMarker map={map} />
+            <button className="layer_close" onClick={onDetailClick}>
+              닫기
+            </button>
+          </div>
+        </div>
+        <button className="btn_fold" onClick={onBtnClick}>
+          {btnState ? "숨기기" : "보이기"}
+        </button>
+      </div>
 
       <div style={{ flex: 1 }}>
         <div
@@ -172,7 +193,8 @@ function Map() {
           style={{
             position: "relative",
             overflow: "hidden",
-            height: window.innerHeight,
+            zIndex: 0,
+            height: "100vh",
             width: window.innerWidth,
           }}
         ></div>

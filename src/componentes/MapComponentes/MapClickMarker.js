@@ -31,21 +31,7 @@ function MapClickMarker({ map }) {
   }, [mstate]);
 
   return (
-    <div
-      id="mdetail"
-      style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        width: "430px",
-        color: "aliceblue",
-      }}
-    >
-      <div style={{ float: "inline-end" }}>
-        <button onClick={onClick}>X</button>
-      </div>
-
+    <div id="mdetail">
       {data != null ? (
         <div
           style={{

@@ -129,7 +129,7 @@ app.post("/community/postComment", async function (req, res) {
   let { comment } = req.body;
   let { writer } = req.body;
   let { model } = req.body;
-  let { rating }= req.body;
+  let { rating } = req.body;
   //let { comment_index } = req.body;
   console.log(model);
   try {
@@ -137,15 +137,13 @@ app.post("/community/postComment", async function (req, res) {
     if (model === "Board") mydb.DBcomment(index, writer, comment, Board);
     // 커뮤니티가 아니고 전시, 공연 쪽에서 리뷰 댓글 달 경우 Comment로 연결
     else if (model === "Comment") {
-      
       if (Comment.findOne({ _id: index })) {
-        mydb.DBcomment(index, writer, comment, Comment,rating);
-        console.log(rating)
+        mydb.DBcomment(index, writer, comment, Comment, rating);
+        console.log(rating);
       } else {
         mydb.DBeachComment(index).then(() => {
-          mydb.DBcomment(index, writer, comment, Comment,rating);
+          mydb.DBcomment(index, writer, comment, Comment, rating);
         });
-        
       }
     }
     return res.send({ message: "add comment success!" });
@@ -289,7 +287,7 @@ app.post("/login", async (req, res) => {
         expiresIn: "1h",
         issuer: "FirstEasy",
       });
-      
+
       return res.json({ authenticated: true, accessToken });
     }
   } catch (error) {
@@ -310,7 +308,7 @@ function verifyToken(req, res, next) {
       return res.status(401).json({ error: "Token is invalid" });
     }
 
-    req.user = decoded; 
+    req.user = decoded;
     next();
   });
 }
@@ -321,16 +319,16 @@ app.get("/login/success", verifyToken, (req, res) => {
 
 /*사용자 글불러오기*/
 app.post("/user/posts", async (req, res) => {
-  const nickname  = req.body.nickname;
+  const nickname = req.body.nickname;
   try {
-  const boards = await Board.find({ writer : nickname }).exec();
-  res.json(boards);
-  console.log(boards);
-} catch (error) {
-  console.error("Error during login:", error);
-}
+    const boards = await Board.find({ writer: nickname }).exec();
+    res.json(boards);
+    console.log(boards);
+  } catch (error) {
+    console.error("Error during login:", error);
+  }
 });
-app.post("/logout",async (req, res) => {
+app.post("/logout", async (req, res) => {
   try {
     res.status(200).json("Logout Success");
   } catch (error) {
@@ -350,7 +348,7 @@ var dateQueryParams =
 var localQueryParams =
   "?" +
   encodeURIComponent("serviceKey") +
-  "=ciUYkNV0jGj1CGMl%2BVgNPpY%2FajlvgVaU9KMrduD800M7%2FCm461cqCDSchDZ36p4La52yMteTMyvmetcDTK8fAg%3D%3D";
+  "=9E3MgvIKIlT9x0japT7wOM35zQYnEXsC75YdV1%2Bw00Sbn4XkvxBfzF5O7MZxYCeqUtlZv8Nzc7Sr0KPGsCGKKw%3D%3D";
 
 /** 전시/공연데이터 상세정보조회용 queryparams */
 var seqQueryParams =
@@ -394,16 +392,25 @@ app.get("/api/fromdata", function (req, res) {
 app.get("/api/localdata/:local", function (req, res) {
   let local = req.params.local;
   console.log(local);
-  var url="http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
-  let localQuery="&"+encodeURIComponent("sido")+"="+encodeURIComponent(local);
-  
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('5');
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('6');
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('7');
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('8');
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('9');
-  localQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('10');
-  localQuery +="&" +encodeURIComponent("from") +"=" +encodeURIComponent("20231101");
+  var url =
+    "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area";
+  let localQuery =
+    "&" + encodeURIComponent("sido") + "=" + encodeURIComponent(local);
+
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("5");
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("6");
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("7");
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("8");
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("9");
+  localQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("10");
+  localQuery +=
+    "&" + encodeURIComponent("from") + "=" + encodeURIComponent("20231101");
 
   request(
     {
@@ -479,18 +486,30 @@ app.get("/api/realmCode/:code", function (req, res) {
 
   let codeQuery =
     "&" + encodeURIComponent("realmCode") + "=" + encodeURIComponent(code);
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('1');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('2');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('3');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('4');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('5');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('6');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('7');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('8');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('9');
-  codeQuery += '&' + encodeURIComponent('cPage') + '=' + encodeURIComponent('10');
-  codeQuery +="&" +encodeURIComponent("from") +"=" +encodeURIComponent("20231101");
-  codeQuery +="&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100"); 
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("1");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("2");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("3");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("4");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("5");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("6");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("7");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("8");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("9");
+  codeQuery +=
+    "&" + encodeURIComponent("cPage") + "=" + encodeURIComponent("10");
+  codeQuery +=
+    "&" + encodeURIComponent("from") + "=" + encodeURIComponent("20231101");
+  codeQuery +=
+    "&" + encodeURIComponent("rows") + "=" + encodeURIComponent("100");
   request(
     {
       url: url + codeQueryParams + codeQuery,
