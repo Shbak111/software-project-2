@@ -1,7 +1,7 @@
 .map_cont_wrap {
   position: absolute;
   left: 0;
-  top: 130px;
+  top: 132px;
   height: 100%;
   display: flex;
   transition: 0.3s ease-in-out;
