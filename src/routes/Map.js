@@ -98,21 +98,21 @@ function Map() {
         FetchLocalData({ local: locality })
       );
 
-      if (storedata === null) {
-        try {
-          const datas = await Promise.all(dataPromises);
-          console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
-          setDatas(datas);
-          dispatch(datapersist(datas));
-          console.log("데이터 패치함");
-        } catch (error) {
-          console.error("An error occurred:", error);
-        }
-      } else if (storedata) {
-        setDatas(storedata);
-        console.log(storedata);
-        console.log("redux persist로 부터 불러옴");
+      // if (storedata === null) {
+      try {
+        const datas = await Promise.all(dataPromises);
+        console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
+        setDatas(datas);
+        dispatch(datapersist(datas));
+        console.log("데이터 패치함");
+      } catch (error) {
+        console.error("An error occurred:", error);
       }
+      // } else if (storedata) {
+      //   setDatas(storedata);
+      //   console.log(storedata);
+      //   console.log("redux persist로 부터 불러옴");
+      // }
     }
     fetchData();
   }, []);
