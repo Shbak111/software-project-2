@@ -58,24 +58,24 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(local) {
       let fetchedLocalData = await FetchLocalData({
-        local: "서울",
+        local: local,
       });
       //console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedLocalData);
     }
 
-    if (mylocation != null) {
-      fetchData();
-    }
+    if (mylocation == null) {
+      fetchData("서울");
+    } else fetchData(mylocation);
     //console.log("내 도시", mylocation);
   }, [mylocation]);
 
   useEffect(() => {
     async function fetchData() {
       const localities = [
-        // "부산",
+        "부산",
         "서울",
         "대전",
         "대구",
@@ -98,21 +98,21 @@ function Map() {
         FetchLocalData({ local: locality })
       );
 
-      // if (storedata === null) {
-      try {
-        const datas = await Promise.all(dataPromises);
-        console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
-        setDatas(datas);
-        dispatch(datapersist(datas));
-        console.log("데이터 패치함");
-      } catch (error) {
-        console.error("An error occurred:", error);
+      if (storedata === null) {
+        try {
+          const datas = await Promise.all(dataPromises);
+          console.log(datas); // datas 배열에 각 FetchLocalData의 결과가 들어 있음
+          setDatas(datas);
+          dispatch(datapersist(datas));
+          console.log("데이터 패치함");
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      } else if (storedata) {
+        setDatas(storedata);
+        console.log(storedata);
+        console.log("redux persist로 부터 불러옴");
       }
-      // } else if (storedata) {
-      //   setDatas(storedata);
-      //   console.log(storedata);
-      //   console.log("redux persist로 부터 불러옴");
-      // }
     }
     fetchData();
   }, []);
