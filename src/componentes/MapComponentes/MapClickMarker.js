@@ -10,24 +10,24 @@ function MapClickMarker({ map }) {
   const mdata = useSelector((state) => state.markerstore.value);
   const mstate = useSelector((state) => state.mdetail.value);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   var mdetail = document.getElementById("mdetail");
   useEffect(() => {
     setData(mdata);
-    console.log("마커에서 데이터 얻어옴: ", mdata);
+    //console.log("마커에서 데이터 얻어옴: ", mdata);
   }, [mdata]);
 
-  const onClick = () => {
-    mdetail.style.display = "none";
-    dispatch(mdetailtmp(false));
-  };
+  // const onClick = () => {
+  //   mdetail.style.display = "none";
+  //   dispatch(mdetailtmp(false));
+  // };
 
   useEffect(() => {
     if (mdetail && mstate === true) {
       mdetail.style.display = "block";
-      map.panTo(mdata.latlng);
+      //map.panTo(mdata.latlng);
     }
-    console.log("mstate 변경 감지됨", mstate);
+    //console.log("mstate 변경 감지됨", mstate);
   }, [mstate]);
 
   return (

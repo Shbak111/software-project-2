@@ -44,7 +44,7 @@ async function MapMarkers(map, datas, onClick) {
         }
       });
     });
-    console.log(count);
+    //console.log(count);
   }
 
   fetchMarkerData(datas);

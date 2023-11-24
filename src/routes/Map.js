@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MapContainer from "../componentes/MapComponentes/MapContainer";
 import ScrollDetail from "../componentes/MapComponentes/ScrollDetail";
 import MapClickMarker from "../componentes/MapComponentes/MapClickMarker";
 import styles from "../css/Map.module.css";
@@ -12,7 +11,6 @@ import { markerdata } from "../reducers/markerData";
 import { mdetailtmp } from "../reducers/markerdetailState";
 import { datapersist } from "../reducers/dataPersist";
 import { useSelector, useDispatch } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
 
 const { kakao } = window;
 
@@ -64,20 +62,20 @@ function Map() {
       let fetchedLocalData = await FetchLocalData({
         local: "서울",
       });
-      console.log("fetchedlocalData: ", fetchedLocalData);
+      //console.log("fetchedlocalData: ", fetchedLocalData);
       setData(fetchedLocalData);
     }
 
     if (mylocation != null) {
       fetchData();
     }
-    console.log("내 도시", mylocation);
+    //console.log("내 도시", mylocation);
   }, [mylocation]);
 
   useEffect(() => {
     async function fetchData() {
       const localities = [
-        "부산",
+        // "부산",
         "서울",
         "대전",
         "대구",

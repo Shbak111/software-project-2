@@ -9,7 +9,7 @@ function ScrollDetail({ data, map }) {
 
   useEffect(() => {
     setData(data);
-    console.log("detailData : ", detailData);
+    //console.log("detailData : ", detailData);
   }, [detailData]);
 
   function fetchData() {
