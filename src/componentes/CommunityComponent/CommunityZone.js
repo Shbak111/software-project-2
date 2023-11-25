@@ -81,10 +81,10 @@ function CommunityZone() {
   return (
     <div className="PostFrame">
       <div style={{ display: "flex", fontWeight: "bold" }}>
-        <p style={{ fontSize:"22px", marginLeft: "1%" }}>No.</p>
-        <p style={{ fontSize:"22px", marginLeft: "10%" }}>제목</p>
-        <p style={{ fontSize:"22px", marginLeft: "63%" }}>닉네임</p>
-        <p style={{ fontSize:"22px", marginLeft: "8%" }}>조회수</p>
+        <p style={{ fontSize:"22px", marginLeft: "1%",width:"25px"}}>No.</p>
+        <p style={{ fontSize:"22px", marginLeft: "10%",width:"90px" }}>제목</p>
+        <p style={{ fontSize:"22px", marginLeft: "56%",width:"120px" }}>닉네임</p>
+        <p style={{ fontSize:"22px", marginLeft: "8%",width:"120px" }}>조회수</p>
       </div>
       <hr className="line"></hr>
       <div className="post">
@@ -101,10 +101,10 @@ function CommunityZone() {
                 <p className="post_title" style={{ width:"650px", fontSize:"18px",marginLeft: "12%" }}>
                   {title.title}
                 </p>
-                <p className="post_nickname" style={{ fontSize:"18px",marginLeft: "13%", width:"60px" }}>
+                <p className="post_nickname" style={{ fontSize:"18px",marginLeft: "20%", width:"60px" }}>
                   {title.writer}
                 </p>
-                <p className="post_views" style={{ fontSize:"18px",marginLeft: "10%" }}>
+                <p className="post_views" style={{ fontSize:"18px",marginLeft: "15%" }}>
                   {title.views}
                 </p>
                 
@@ -120,7 +120,7 @@ function CommunityZone() {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div className="postsearch">
           <input onChange={(e) => setSearchInput(e.target.value)} style={{ width: "50%", marginLeft: "1%" }} ></input>
-          <button onClick={PostSearchButton}>검색</button>
+          <button className="search_btn" onClick={PostSearchButton}>검색</button>
         </div>
         {/* 페이지네이션 */}
         <div
@@ -147,7 +147,7 @@ function CommunityZone() {
         </div>
 
         <div className="poston">
-          <button onClick={handlePostClick}>글쓰기</button>
+          <button className="poston_btn" onClick={handlePostClick}>글쓰기</button>
         </div>
       </div>
     </div>

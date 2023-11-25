@@ -162,12 +162,13 @@ function PostDetail() {
       </div>
 
       <hr style={{ width: "100%" }} />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between"}}>
         <textarea
           id="comment"
           className="post_comments"
           placeholder="댓글을 입력하세요"
           onChange={onCommentChange}
+          style={{width:"87%"}}
         />
         <button className="comment_button" onClick={commentBtnClick}>
           등록

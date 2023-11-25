@@ -6,9 +6,10 @@
     
 }
 .line{
-    border-color: lightgray;
-    background-color: lightgray;
-    height: 1.5px;
+    border-color: #07003b;
+    background-color: #07003b;
+    height: 3px;
+    border-radius: 15px;
 }
 .post{
     margin-bottom: 10px;
@@ -18,4 +19,22 @@
     margin-bottom: 40px;
     font-size: 18px;
     border-bottom: 1px solid lightgray;
+}
+.search_btn {
+    background-color: #07003b;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.poston_btn{
+    background-color: #07003b;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
 }
