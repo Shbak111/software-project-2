@@ -34,26 +34,35 @@ function PostDetail() {
 
   /** 여기 코멘트 추가하는 버튼 부분 */
   const commentBtnClick = () => {
-    axios({
-      url: "/community/postComment",
-      method: "POST",
-      data: {
-        index: index,
-        writer: nickname,
-        comment: comment,
-        model: "Board",
-      },
-    }).then(() => {
-      window.location.reload();
-    });
+    if(nickname==""){
+      alert("로그인 후 이용가능합니다.")
+    }
+    else{
+      axios({
+        url: "/community/postComment",
+        method: "POST",
+        data: {
+          index: index,
+          writer: nickname,
+          comment: comment,
+          model: "Board",
+        },
+      }).then(() => {
+        window.location.reload();
+      });
+
+    }
+    
   };
+
   const onEditCommentChange = (event) => {
     setEditComment(event.target.value);
   };
 
   //댓글삭제//
   const deleteComment = (comment_index) => {
-    axios
+    if (comment.writer == nickname) {
+      axios
       .post("/api/deleteComment", {
         index: index, // 게시물 인덱스
         comment_index: comment_index, // 삭제할 댓글 인덱스
@@ -66,12 +75,18 @@ function PostDetail() {
         console.error("댓글 삭제 중 오류 발생:", error);
         // 오류 처리, 예를 들어 오류 메시지를 표시합니다.
       });
+    }
+    else{
+      alert("작성자만 삭제 가능합니다.")
+    }
+    
   };
   //댓글삭제//
 
   //댓글 수정//
   const editCommentSubmit = (comment_index) => {
-    axios
+    if (comment.writer == nickname) {
+      axios
       .post("/api/editComment", {
         index: index,
         comment_index: comment_index,
@@ -86,6 +101,11 @@ function PostDetail() {
       .catch((error) => {
         console.error("댓글 수정 중 오류 발생:", error);
       });
+    }
+    else{
+      alert("작성자만 수정가능합니다.")
+    }
+    
   };
   const EditComment = (commentIndex) => {
     const updatedComments = post.comments.map((comment, index) => {
